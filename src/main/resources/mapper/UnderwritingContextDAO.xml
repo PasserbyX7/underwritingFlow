@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shopee.demo.dao.UnderwritingContextDAO">
+  <resultMap id="BaseResultMap" type="com.shopee.demo.entity.UnderwritingContextDO">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="underwriting_id" jdbcType="VARCHAR" property="underwritingId" />
+    <result column="request_time" jdbcType="BIGINT" property="requestTime" />
+    <result column="current_strategy" jdbcType="VARCHAR" property="currentStrategy" />
+    <result column="strategy_input" jdbcType="VARCHAR" property="strategyInput"
+    typeHandler="com.shopee.demo.handler.StrategyInputTypeHandler" />
+    <result column="strategy_output" jdbcType="VARCHAR" property="strategyOutput"
+    typeHandler="com.shopee.demo.handler.StrategyOutputTypeHandler"/>
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, underwriting_id, request_time, current_strategy, strategy_input, strategy_output,
+    status, type
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from underwriting_context_tab
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from underwriting_context_tab
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.shopee.demo.entity.UnderwritingContextDO">
+    insert into underwriting_context_tab (id, underwriting_id, request_time,
+      current_strategy, strategy_input, strategy_output,
+      status, type)
+    values (#{id,jdbcType=BIGINT}, #{underwritingId,jdbcType=VARCHAR}, #{requestTime,jdbcType=BIGINT},
+      #{currentStrategy,jdbcType=VARCHAR}, #{strategyInput,jdbcType=VARCHAR,typeHandler=com.shopee.demo.handler.StrategyInputTypeHandler},
+      #{strategyOutput,jdbcType=VARCHAR,typeHandler=com.shopee.demo.handler.StrategyOutputTypeHandler},
+      #{status,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" useGeneratedKeys="true"
+  parameterType="com.shopee.demo.entity.UnderwritingContextDO">
+    insert into underwriting_context_tab
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="underwritingId != null">
+        underwriting_id,
+      </if>
+      <if test="requestTime != null">
+        request_time,
+      </if>
+      <if test="currentStrategy != null">
+        current_strategy,
+      </if>
+      <if test="strategyInput != null">
+        strategy_input,
+      </if>
+      <if test="strategyOutput != null">
+        strategy_output,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="underwritingId != null">
+        #{underwritingId,jdbcType=VARCHAR},
+      </if>
+      <if test="requestTime != null">
+        #{requestTime,jdbcType=BIGINT},
+      </if>
+      <if test="currentStrategy != null">
+        #{currentStrategy,jdbcType=VARCHAR},
+      </if>
+      <if test="strategyInput != null">
+        #{strategyInput,jdbcType=VARCHAR,typeHandler=com.shopee.demo.handler.StrategyInputTypeHandler},
+      </if>
+      <if test="strategyOutput != null">
+        #{strategyOutput,jdbcType=VARCHAR,typeHandler=com.shopee.demo.handler.StrategyOutputTypeHandler},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shopee.demo.entity.UnderwritingContextDO">
+    update underwriting_context_tab
+    <set>
+      <if test="underwritingId != null">
+        underwriting_id = #{underwritingId,jdbcType=VARCHAR},
+      </if>
+      <if test="requestTime != null">
+        request_time = #{requestTime,jdbcType=BIGINT},
+      </if>
+      <if test="currentStrategy != null">
+        current_strategy = #{currentStrategy,jdbcType=VARCHAR},
+      </if>
+      <if test="strategyInput != null">
+        strategy_input = #{strategyInput,jdbcType=VARCHAR,typeHandler=com.shopee.demo.handler.StrategyInputTypeHandler},
+      </if>
+      <if test="strategyOutput != null">
+        strategy_output = #{strategyOutput,jdbcType=VARCHAR,typeHandler=com.shopee.demo.handler.StrategyOutputTypeHandler},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shopee.demo.entity.UnderwritingContextDO">
+    update underwriting_context_tab
+    set underwriting_id = #{underwritingId,jdbcType=VARCHAR},
+      request_time = #{requestTime,jdbcType=BIGINT},
+      current_strategy = #{currentStrategy,jdbcType=VARCHAR},
+      strategy_input = #{strategyInput,jdbcType=VARCHAR,typeHandler=com.shopee.demo.handler.StrategyInputTypeHandler},
+      strategy_output = #{strategyOutput,jdbcType=VARCHAR,typeHandler=com.shopee.demo.handler.StrategyOutputTypeHandler},
+      status = #{status,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

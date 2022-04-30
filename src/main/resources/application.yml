@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://db-master-dev-ibank-00.bke.shopee.io:6606/sg_seabank_credit_risk_db?characterEncoding=UTF-8&useUnicode=true&useSSL=false
+    username: bke_dev2
+    password: Ahjo1aikoquighe_Ghai
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
