@@ -3,6 +3,7 @@ package com.shopee.demo.flow;
 import javax.annotation.PostConstruct;
 
 import com.shopee.demo.constant.StrategyEnum;
+import com.shopee.demo.constant.UnderwritingTypeEnum;
 import com.shopee.demo.domain.UnderwritingRequest;
 import com.shopee.demo.strategy.Strategy;
 
@@ -37,9 +38,8 @@ public abstract class StrategyFlow<T extends UnderwritingRequest> implements App
         applicationContext=context;
     }
 
-    public static <T extends UnderwritingRequest> StrategyFlow<T> of(T underwritingDO){
-        // return applicationContext
-        String strategyFlowName=underwritingDO.getType().toString().toLowerCase()+"StrategyFlow";
+    public static <T extends UnderwritingRequest> StrategyFlow<T> of(UnderwritingTypeEnum type){
+        String strategyFlowName=type.toString().toLowerCase()+"StrategyFlow";
         return applicationContext.getBean(strategyFlowName,StrategyFlow.class);
     }
 

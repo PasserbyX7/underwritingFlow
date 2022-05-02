@@ -34,7 +34,7 @@ public final class UnderwritingFlow<T extends UnderwritingRequest> {
         this.underwritingType = underwritingDO.getType();
         this.requestTime = underwritingDO.getRequestTime();
         this.requestExpireTime = underwritingDO.getRequestExpireTime();
-        this.flow = StrategyFlow.of(underwritingDO);
+        this.flow = StrategyFlow.of(underwritingDO.getType());
         this.strategyContext = StrategyContext.of(underwritingDO);
         this.flowStatus = UnderwritingFlowStatusEnum.CREATED;
         this.strategyContext.setCurrentStrategy(getCurrentStrategy().getStrategyName());
