@@ -1,8 +1,6 @@
 package com.shopee.demo.context;
 
-import java.util.concurrent.locks.Condition;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
+import java.util.concurrent.CountDownLatch;
 
 import com.shopee.demo.constant.UnderwritingFlowStatusEnum;
 import com.shopee.demo.constant.UnderwritingTypeEnum;
@@ -25,8 +23,7 @@ public final class UnderwritingFlow<T extends UnderwritingRequest> {
     private StrategyContext<T> strategyContext;
     private UnderwritingFlowStatusEnum flowStatus;
 
-    private final Lock lock;
-    private final Condition condition;
+    private final CountDownLatch latch = new CountDownLatch(1);
 
     public UnderwritingFlow(Long id, T underwritingDO) {
         this.id = id;
@@ -38,8 +35,6 @@ public final class UnderwritingFlow<T extends UnderwritingRequest> {
         this.strategyContext = StrategyContext.of(underwritingDO);
         this.flowStatus = UnderwritingFlowStatusEnum.CREATED;
         this.strategyContext.setCurrentStrategy(getCurrentStrategy().getStrategyName());
-        this.lock = new ReentrantLock();
-        this.condition = lock.newCondition();
     }
 
     public void execute() {

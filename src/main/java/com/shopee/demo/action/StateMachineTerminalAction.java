@@ -1,8 +1,5 @@
 package com.shopee.demo.action;
 
-import java.util.concurrent.locks.Condition;
-import java.util.concurrent.locks.Lock;
-
 import com.shopee.demo.constant.ExtendedStateEnum;
 import com.shopee.demo.constant.FlowEventEnum;
 import com.shopee.demo.constant.UnderwritingFlowStatusEnum;
@@ -18,16 +15,7 @@ public class StateMachineTerminalAction implements Action<UnderwritingFlowStatus
     @Override
     public void execute(StateContext<UnderwritingFlowStatusEnum, FlowEventEnum> context) {
         UnderwritingFlow<?> flow = context.getExtendedState().get(ExtendedStateEnum.UNDERWRITING_CONTEXT, UnderwritingFlow.class);
-        Lock lock=flow.getLock();
-        Condition condition = flow.getCondition();
-        lock.lock();
-        try {
-            condition.signalAll();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            lock.unlock();
-        }
+        flow.getLatch().countDown();
     }
 
 }

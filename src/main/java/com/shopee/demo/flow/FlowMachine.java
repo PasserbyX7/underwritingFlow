@@ -14,33 +14,25 @@ import reactor.core.publisher.Mono;
 
 import static com.shopee.demo.constant.UnderwritingFlowStatusEnum.*;
 
-import java.util.concurrent.locks.Condition;
-import java.util.concurrent.locks.Lock;
-
 @Slf4j
 @RequiredArgsConstructor(staticName = "of")
 public class FlowMachine {
     private final StateMachine<UnderwritingFlowStatusEnum, FlowEventEnum> machine;
 
     public void execute() {
-        UnderwritingFlow<?> flow=machine.getExtendedState().get(ExtendedStateEnum.UNDERWRITING_CONTEXT, UnderwritingFlow.class);
-        Lock lock = flow.getLock();
-        Condition condition = flow.getCondition();
+        UnderwritingFlow<?> flow = machine.getExtendedState().get(ExtendedStateEnum.UNDERWRITING_CONTEXT,
+                UnderwritingFlow.class);
         machine.startReactively().subscribe();
         machine.sendEvent(Mono.just(MessageBuilder.withPayload(FlowEventEnum.START)
                 .build())).subscribe();
-        lock.lock();
-        try {
-            while (machine.getState().getId() == ONGOING) {
-                condition.await();
+        while (machine.getState().getId() == ONGOING) {
+            try {
+                flow.getLatch().await();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            lock.unlock();
         }
         log.info("运行结束：[{}][{}]", machine.getId(), machine.getState().getId());
     }
-
 
 }
