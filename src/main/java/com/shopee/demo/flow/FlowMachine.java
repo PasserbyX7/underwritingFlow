@@ -22,9 +22,8 @@ public class FlowMachine {
     public void execute() {
         UnderwritingFlow<?> flow = machine.getExtendedState().get(ExtendedStateEnum.UNDERWRITING_CONTEXT,
                 UnderwritingFlow.class);
-        machine.startReactively().subscribe();
         machine.sendEvent(Mono.just(MessageBuilder.withPayload(FlowEventEnum.START)
-                .build())).subscribe();
+                .build())).blockLast();
         while (machine.getState().getId() == ONGOING) {
             try {
                 flow.getLatch().await();

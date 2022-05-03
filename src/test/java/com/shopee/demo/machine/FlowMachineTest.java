@@ -16,7 +16,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.statemachine.config.StateMachineFactory;
-import org.springframework.statemachine.persist.StateMachinePersister;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -41,9 +40,6 @@ public class FlowMachineTest {
 
     @Resource
     UnderwritingContextService underwritingContextService;
-
-    @Resource
-    StateMachinePersister<UnderwritingFlowStatusEnum, FlowEventEnum, Long> persister;
 
     @MockBean
     UnderwritingContextDAO underwritingContextDAO;

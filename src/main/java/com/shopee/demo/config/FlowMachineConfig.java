@@ -7,7 +7,6 @@ import com.shopee.demo.constant.UnderwritingFlowStatusEnum;
 import com.shopee.demo.context.UnderwritingFlow;
 import com.shopee.demo.persister.MachinePersister;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.statemachine.StateContext;
 import org.springframework.statemachine.action.Action;
@@ -17,8 +16,6 @@ import org.springframework.statemachine.config.builders.StateMachineConfiguratio
 import org.springframework.statemachine.config.builders.StateMachineStateConfigurer;
 import org.springframework.statemachine.config.builders.StateMachineTransitionConfigurer;
 import org.springframework.statemachine.guard.Guard;
-import org.springframework.statemachine.persist.DefaultStateMachinePersister;
-import org.springframework.statemachine.persist.StateMachinePersister;
 
 import java.util.EnumSet;
 
@@ -78,11 +75,6 @@ public class FlowMachineConfig extends EnumStateMachineConfigurerAdapter<Underwr
     public void configure(StateMachineConfigurationConfigurer<UnderwritingFlowStatusEnum, FlowEventEnum> config)
             throws Exception {
         config.withConfiguration().machineId("UnderwritingFlowMachine");
-    }
-
-    @Bean
-    public StateMachinePersister<UnderwritingFlowStatusEnum, FlowEventEnum, Long> persister() {
-        return new DefaultStateMachinePersister<>(machinePersister);
     }
 
     private Guard<UnderwritingFlowStatusEnum, FlowEventEnum> approvedGuard() {
