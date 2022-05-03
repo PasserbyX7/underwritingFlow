@@ -1,7 +1,8 @@
-package com.shopee.demo.strategy;
+package com.shopee.demo.domain.type.output;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS)
-public interface StrategyInput {
+public interface StrategyOutput {
+
 }

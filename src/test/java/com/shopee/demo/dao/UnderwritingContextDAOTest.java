@@ -6,9 +6,10 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import com.shopee.demo.constant.StrategyEnum;
-import com.shopee.demo.dto.SmeStrategy1InputDTO;
-import com.shopee.demo.entity.UnderwritingContextDO;
-import com.shopee.demo.strategy.StrategyInput;
+import com.shopee.demo.domain.type.input.SmeStrategy1Input;
+import com.shopee.demo.domain.type.input.StrategyInput;
+import com.shopee.demo.infrastructure.dao.UnderwritingContextDAO;
+import com.shopee.demo.infrastructure.data.UnderwritingFlowDO;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -21,9 +22,9 @@ public class UnderwritingContextDAOTest {
 
     @Test
     void testInsertSelective() {
-        UnderwritingContextDO underwritingContextDO = new UnderwritingContextDO();
+        UnderwritingFlowDO underwritingContextDO = new UnderwritingFlowDO();
         Map<StrategyEnum, StrategyInput> strategyInput = new EnumMap<>(StrategyEnum.class);
-        strategyInput.put(StrategyEnum.SME_STRATEGY_1, new SmeStrategy1InputDTO("token"));
+        strategyInput.put(StrategyEnum.SME_STRATEGY_1, new SmeStrategy1Input("token"));
         underwritingContextDO.setStrategyInput(strategyInput);
         underwritingContextDO.setCurrentStrategy(StrategyEnum.SME_STRATEGY_1);
         underwritingContextDAO.insertSelective(underwritingContextDO);
@@ -31,7 +32,7 @@ public class UnderwritingContextDAOTest {
 
     @Test
     void testSelectByPrimaryKey() {
-        UnderwritingContextDO underwritingContext = underwritingContextDAO.selectByPrimaryKey(5L);
+        UnderwritingFlowDO underwritingContext = underwritingContextDAO.selectByPrimaryKey(5L);
         System.out.println(underwritingContext);
         System.out.println(underwritingContext.getStrategyInput().get(StrategyEnum.SME_STRATEGY_1).getClass());
     }

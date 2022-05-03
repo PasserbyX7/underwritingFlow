@@ -4,11 +4,12 @@ import javax.annotation.Resource;
 
 import com.shopee.demo.constant.FlowEventEnum;
 import com.shopee.demo.constant.UnderwritingFlowStatusEnum;
-import com.shopee.demo.context.UnderwritingFlow;
-import com.shopee.demo.dao.UnderwritingContextDAO;
-import com.shopee.demo.domain.SmeUnderwritingRequest;
-import com.shopee.demo.entity.SmeUnderwritingDO;
-import com.shopee.demo.entity.UnderwritingContextDO;
+import com.shopee.demo.domain.converter.SmeUnderwritingRequestConverter;
+import com.shopee.demo.domain.entity.UnderwritingFlow;
+import com.shopee.demo.domain.type.request.SmeUnderwritingRequest;
+import com.shopee.demo.infrastructure.dao.UnderwritingContextDAO;
+import com.shopee.demo.infrastructure.data.SmeUnderwritingDO;
+import com.shopee.demo.infrastructure.data.UnderwritingFlowDO;
 import com.shopee.demo.service.UnderwritingContextService;
 import com.shopee.demo.service.UnderwritingFlowService;
 
@@ -47,13 +48,17 @@ public class FlowMachineTest {
     @Test
     void test() throws Exception {
         // given
-        Map<Long, UnderwritingContextDO> underwritingContextMap = new HashMap<>();
+        Map<Long, UnderwritingFlowDO> underwritingContextMap = new HashMap<>();
         Iterator<Long> iter = Stream.iterate(0L, e -> e + 1).iterator();
-        // UnderwritingRequest request = underwritingRequestFactory.create(UnderwritingTypeEnum.SME, "underwritingId");
-        UnderwritingFlow<?> flow = underwritingContextService.create(new SmeUnderwritingRequest(new SmeUnderwritingDO()));
+        // UnderwritingRequest request =
+        // underwritingRequestFactory.create(UnderwritingTypeEnum.SME,
+        // "underwritingId");
+
+        UnderwritingFlow<?> flow = underwritingContextService.create(SmeUnderwritingRequestConverter.INSTANCE
+                .convert(new SmeUnderwritingDO()));
         // when
         doAnswer(invocation -> {
-            UnderwritingContextDO entity = invocation.getArgument(0);
+            UnderwritingFlowDO entity = invocation.getArgument(0);
             if (entity.getId() == null) {
                 entity.setId(iter.next());
             }
@@ -61,7 +66,7 @@ public class FlowMachineTest {
             return entity;
         })
                 .when(underwritingContextDAO)
-                .saveOrUpdateById(any(UnderwritingContextDO.class));
+                .saveOrUpdateById(any(UnderwritingFlowDO.class));
         doAnswer(invocation -> underwritingContextMap.get(invocation.getArgument(0)))
                 .when(underwritingContextDAO)
                 .selectByPrimaryKey(anyLong());

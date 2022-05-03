@@ -1,7 +1,7 @@
 package com.shopee.demo.flow;
 
 import com.shopee.demo.constant.UnderwritingFlowStatusEnum;
-import com.shopee.demo.context.UnderwritingFlow;
+import com.shopee.demo.domain.entity.UnderwritingFlow;
 
 public interface FlowStatus {
 

@@ -3,7 +3,7 @@ package com.shopee.demo.action;
 import com.shopee.demo.constant.ExtendedStateEnum;
 import com.shopee.demo.constant.FlowEventEnum;
 import com.shopee.demo.constant.UnderwritingFlowStatusEnum;
-import com.shopee.demo.context.UnderwritingFlow;
+import com.shopee.demo.domain.entity.UnderwritingFlow;
 
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.statemachine.StateContext;

@@ -1,9 +1,9 @@
 package com.shopee.demo.strategy;
 
 import com.shopee.demo.constant.StrategyEnum;
-import com.shopee.demo.constant.StrategyStatusEnum;
-import com.shopee.demo.context.StrategyContext;
-import com.shopee.demo.domain.UnderwritingRequest;
+import com.shopee.demo.domain.entity.StrategyContext;
+import com.shopee.demo.domain.type.request.UnderwritingRequest;
+import com.shopee.demo.domain.type.strategy.StrategyResult;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -18,8 +18,7 @@ public abstract class Strategy<T extends UnderwritingRequest> {
     protected Strategy<T> nextStrategy;
 
     public StrategyContext<T> execute(StrategyContext<T> strategyContext) {
-        StrategyResult result = new StrategyResult();
-        result.setStatus(StrategyStatusEnum.PASS);
+        StrategyResult result = StrategyResult.pass();
         strategyContext.setStrategyResult(result);
         // result.setStatus(StrategyStatusEnum.REJECT);
         log.info("执行策略：{} 执行结果：{}", getStrategyName(), result.getStatus());

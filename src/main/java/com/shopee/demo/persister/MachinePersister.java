@@ -8,7 +8,7 @@ import javax.annotation.Resource;
 import com.shopee.demo.constant.ExtendedStateEnum;
 import com.shopee.demo.constant.FlowEventEnum;
 import com.shopee.demo.constant.UnderwritingFlowStatusEnum;
-import com.shopee.demo.context.UnderwritingFlow;
+import com.shopee.demo.domain.entity.UnderwritingFlow;
 import com.shopee.demo.service.UnderwritingContextService;
 
 import org.springframework.statemachine.ExtendedState;

@@ -2,12 +2,12 @@ package com.shopee.demo.service.impl;
 
 import javax.annotation.Resource;
 
-import com.shopee.demo.context.StrategyContext;
-import com.shopee.demo.context.UnderwritingFlow;
-import com.shopee.demo.dao.UnderwritingContextDAO;
-import com.shopee.demo.domain.UnderwritingRequest;
-import com.shopee.demo.entity.UnderwritingContextDO;
+import com.shopee.demo.domain.entity.StrategyContext;
+import com.shopee.demo.domain.entity.UnderwritingFlow;
+import com.shopee.demo.domain.type.request.UnderwritingRequest;
 import com.shopee.demo.factory.UnderwritingRequestFactory;
+import com.shopee.demo.infrastructure.dao.UnderwritingContextDAO;
+import com.shopee.demo.infrastructure.data.UnderwritingFlowDO;
 import com.shopee.demo.service.UnderwritingContextService;
 
 import org.springframework.stereotype.Service;
@@ -28,23 +28,23 @@ public class UnderwritingContextServiceImpl implements UnderwritingContextServic
     public long save(UnderwritingFlow<?> context) {
         log.info("保存授信上下文：当前策略[{}] 当前状态[{}]",
                 context.getCurrentStrategy().getStrategyName(), context.getFlowStatus());
-        UnderwritingContextDO underwritingContextDO = new UnderwritingContextDO();
+        UnderwritingFlowDO underwritingContextDO = new UnderwritingFlowDO();
         underwritingContextDAO.saveOrUpdateById(underwritingContextDO);
         underwritingContextDO.setId(context.getId());
-        underwritingContextDO.setUnderwritingId(context.getUnderwritingId());
-        underwritingContextDO.setRequestTime(context.getRequestTime());
+        // underwritingContextDO.setUnderwritingId(context.getUnderwritingId());
+        // underwritingContextDO.setRequestTime(context.getRequestTime());
         underwritingContextDO.setCurrentStrategy(context.getCurrentStrategy().getStrategyName());
         // underwritingContextDO.setStrategyInput(context.getStrategyInput());
         // underwritingContextDO.setStrategyOutput(context.getStrategyOutput());
         underwritingContextDO.setStatus(context.getFlowStatus());
-        underwritingContextDO.setType(context.getUnderwritingType());
+        underwritingContextDO.setType(context.getUnderwritingRequest().getType());
         underwritingContextDAO.saveOrUpdateById(underwritingContextDO);
         return underwritingContextDO.getId();
     }
 
     @Override
     public UnderwritingFlow<?> load(long underwritingContextId) {
-        UnderwritingContextDO underwritingContextDO = underwritingContextDAO.selectByPrimaryKey(underwritingContextId);
+        UnderwritingFlowDO underwritingContextDO = underwritingContextDAO.selectByPrimaryKey(underwritingContextId);
         UnderwritingRequest req = requestFactory.create(underwritingContextDO.getType(),
                 underwritingContextDO.getUnderwritingId());
         UnderwritingFlow<UnderwritingRequest> underwritingContext = new UnderwritingFlow<>(

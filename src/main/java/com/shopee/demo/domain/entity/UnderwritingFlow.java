@@ -1,13 +1,13 @@
-package com.shopee.demo.context;
+package com.shopee.demo.domain.entity;
 
 import java.util.concurrent.CountDownLatch;
 
 import com.shopee.demo.constant.UnderwritingFlowStatusEnum;
 import com.shopee.demo.constant.UnderwritingTypeEnum;
-import com.shopee.demo.domain.UnderwritingRequest;
+import com.shopee.demo.domain.type.request.UnderwritingRequest;
+import com.shopee.demo.domain.type.strategy.StrategyResult;
 import com.shopee.demo.flow.StrategyFlow;
 import com.shopee.demo.strategy.Strategy;
-import com.shopee.demo.strategy.StrategyResult;
 
 import lombok.Data;
 
@@ -15,24 +15,18 @@ import lombok.Data;
 public final class UnderwritingFlow<T extends UnderwritingRequest> {
 
     private final Long id;
-    private final String underwritingId;
-    private final UnderwritingTypeEnum underwritingType;
-    private final Long requestTime;
-    private final Long requestExpireTime;
+    private final T underwritingRequest;
     private final StrategyFlow<T> flow;
     private StrategyContext<T> strategyContext;
     private UnderwritingFlowStatusEnum flowStatus;
 
     private final CountDownLatch latch = new CountDownLatch(1);
 
-    public UnderwritingFlow(Long id, T underwritingDO) {
+    public UnderwritingFlow(Long id, T underwritingRequest) {
         this.id = id;
-        this.underwritingId = underwritingDO.getUnderwritingId();
-        this.underwritingType = underwritingDO.getType();
-        this.requestTime = underwritingDO.getRequestTime();
-        this.requestExpireTime = underwritingDO.getRequestExpireTime();
-        this.flow = StrategyFlow.of(underwritingDO.getType());
-        this.strategyContext = StrategyContext.of(underwritingDO);
+        this.underwritingRequest = underwritingRequest;
+        this.flow = StrategyFlow.of(underwritingRequest.getType());
+        this.strategyContext = StrategyContext.of(underwritingRequest);
         this.flowStatus = UnderwritingFlowStatusEnum.CREATED;
         this.strategyContext.setCurrentStrategy(getCurrentStrategy().getStrategyName());
     }

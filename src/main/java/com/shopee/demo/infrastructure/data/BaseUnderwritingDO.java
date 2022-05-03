@@ -1,4 +1,4 @@
-package com.shopee.demo.domain;
+package com.shopee.demo.infrastructure.data;
 
 import lombok.Data;
 

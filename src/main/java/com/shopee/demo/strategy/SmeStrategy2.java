@@ -1,7 +1,7 @@
 package com.shopee.demo.strategy;
 
 import com.shopee.demo.constant.StrategyEnum;
-import com.shopee.demo.domain.SmeUnderwritingRequest;
+import com.shopee.demo.domain.type.request.SmeUnderwritingRequest;
 
 import org.springframework.stereotype.Component;
 

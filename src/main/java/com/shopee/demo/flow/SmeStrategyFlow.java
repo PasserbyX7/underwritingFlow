@@ -2,7 +2,7 @@ package com.shopee.demo.flow;
 
 import javax.annotation.Resource;
 
-import com.shopee.demo.domain.SmeUnderwritingRequest;
+import com.shopee.demo.domain.type.request.SmeUnderwritingRequest;
 import com.shopee.demo.strategy.Strategy;
 
 import org.springframework.stereotype.Component;

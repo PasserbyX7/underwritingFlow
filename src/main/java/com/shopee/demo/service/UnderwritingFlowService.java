@@ -1,6 +1,6 @@
 package com.shopee.demo.service;
 
-import com.shopee.demo.domain.UnderwritingRequest;
+import com.shopee.demo.domain.type.request.UnderwritingRequest;
 
 public interface UnderwritingFlowService {
     /**

@@ -4,7 +4,7 @@ import javax.annotation.PostConstruct;
 
 import com.shopee.demo.constant.StrategyEnum;
 import com.shopee.demo.constant.UnderwritingTypeEnum;
-import com.shopee.demo.domain.UnderwritingRequest;
+import com.shopee.demo.domain.type.request.UnderwritingRequest;
 import com.shopee.demo.strategy.Strategy;
 
 import org.springframework.beans.BeansException;

@@ -2,8 +2,8 @@ package com.shopee.demo.service.impl;
 
 import javax.annotation.Resource;
 
-import com.shopee.demo.context.UnderwritingFlow;
-import com.shopee.demo.domain.UnderwritingRequest;
+import com.shopee.demo.domain.entity.UnderwritingFlow;
+import com.shopee.demo.domain.type.request.UnderwritingRequest;
 import com.shopee.demo.factory.FlowMachineFactory;
 import com.shopee.demo.service.DistributeLockService;
 import com.shopee.demo.service.UnderwritingContextService;
@@ -32,7 +32,7 @@ public class UnderwritingFlowServiceImpl implements UnderwritingFlowService {
     @Override
     public void executeUnderwritingTask(long underwritingContextId) {
         UnderwritingFlow<?> underwritingContext = underwritingContextService.load(underwritingContextId);
-        String underwritingId = underwritingContext.getUnderwritingId();
+        String underwritingId = underwritingContext.getUnderwritingRequest().getUnderwritingId();
         distributeLockService.executeWithDistributeLock(underwritingId, () -> {
             flowFactory.createFlow(underwritingContextId).execute();
         });

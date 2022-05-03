@@ -1,6 +1,6 @@
-package com.shopee.demo.dao;
+package com.shopee.demo.infrastructure.dao;
 
-import com.shopee.demo.entity.RetailUnderwritingDO;
+import com.shopee.demo.infrastructure.data.RetailUnderwritingDO;
 
 import org.springframework.stereotype.Repository;
 

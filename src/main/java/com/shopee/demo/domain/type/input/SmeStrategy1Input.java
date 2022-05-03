@@ -1,6 +1,4 @@
-package com.shopee.demo.dto;
-
-import com.shopee.demo.strategy.StrategyInput;
+package com.shopee.demo.domain.type.input;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,6 +7,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class SmeStrategy1InputDTO implements StrategyInput {
+public class SmeStrategy1Input implements StrategyInput {
     private String token;
 }

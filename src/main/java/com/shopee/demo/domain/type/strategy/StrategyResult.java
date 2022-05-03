@@ -1,12 +1,14 @@
-package com.shopee.demo.strategy;
+package com.shopee.demo.domain.type.strategy;
 
 import com.shopee.demo.constant.DataSourceEnum;
 import com.shopee.demo.constant.StrategyStatusEnum;
 import com.shopee.demo.constant.StrategyTerminalReasonEnum;
 
-import lombok.Data;
+import lombok.Value;
 
-@Data
+import static com.shopee.demo.constant.StrategyStatusEnum.*;
+
+@Value
 public class StrategyResult {
 
     private StrategyStatusEnum status;
@@ -18,5 +20,9 @@ public class StrategyResult {
      * 当status为terminal时有值
      */
     private StrategyTerminalReasonEnum terminalReason;
+
+    public static StrategyResult pass(){
+        return new StrategyResult(PASS, null,null);
+    }
 
 }
