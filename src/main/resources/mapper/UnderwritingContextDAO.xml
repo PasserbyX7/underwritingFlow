@@ -6,10 +6,8 @@
     <result column="underwriting_id" jdbcType="VARCHAR" property="underwritingId" />
     <result column="request_time" jdbcType="BIGINT" property="requestTime" />
     <result column="current_strategy" jdbcType="VARCHAR" property="currentStrategy" />
-    <result column="strategy_input" jdbcType="VARCHAR" property="strategyInput"
-    typeHandler="com.shopee.demo.handler.StrategyInputTypeHandler" />
-    <result column="strategy_output" jdbcType="VARCHAR" property="strategyOutput"
-    typeHandler="com.shopee.demo.handler.StrategyOutputTypeHandler"/>
+    <result column="strategy_input" jdbcType="VARCHAR" property="strategyInput"/>
+    <result column="strategy_output" jdbcType="VARCHAR" property="strategyOutput"/>
     <result column="status" jdbcType="VARCHAR" property="status" />
     <result column="type" jdbcType="VARCHAR" property="type" />
   </resultMap>
@@ -32,8 +30,8 @@
       current_strategy, strategy_input, strategy_output,
       status, type)
     values (#{id,jdbcType=BIGINT}, #{underwritingId,jdbcType=VARCHAR}, #{requestTime,jdbcType=BIGINT},
-      #{currentStrategy,jdbcType=VARCHAR}, #{strategyInput,jdbcType=VARCHAR,typeHandler=com.shopee.demo.handler.StrategyInputTypeHandler},
-      #{strategyOutput,jdbcType=VARCHAR,typeHandler=com.shopee.demo.handler.StrategyOutputTypeHandler},
+      #{currentStrategy,jdbcType=VARCHAR}, #{strategyInput,jdbcType=VARCHAR},
+      #{strategyOutput,jdbcType=VARCHAR},
       #{status,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" useGeneratedKeys="true"
@@ -79,10 +77,10 @@
         #{currentStrategy,jdbcType=VARCHAR},
       </if>
       <if test="strategyInput != null">
-        #{strategyInput,jdbcType=VARCHAR,typeHandler=com.shopee.demo.handler.StrategyInputTypeHandler},
+        #{strategyInput,jdbcType=VARCHAR},
       </if>
       <if test="strategyOutput != null">
-        #{strategyOutput,jdbcType=VARCHAR,typeHandler=com.shopee.demo.handler.StrategyOutputTypeHandler},
+        #{strategyOutput,jdbcType=VARCHAR},
       </if>
       <if test="status != null">
         #{status,jdbcType=VARCHAR},
@@ -105,10 +103,10 @@
         current_strategy = #{currentStrategy,jdbcType=VARCHAR},
       </if>
       <if test="strategyInput != null">
-        strategy_input = #{strategyInput,jdbcType=VARCHAR,typeHandler=com.shopee.demo.handler.StrategyInputTypeHandler},
+        strategy_input = #{strategyInput,jdbcType=VARCHAR},
       </if>
       <if test="strategyOutput != null">
-        strategy_output = #{strategyOutput,jdbcType=VARCHAR,typeHandler=com.shopee.demo.handler.StrategyOutputTypeHandler},
+        strategy_output = #{strategyOutput,jdbcType=VARCHAR},
       </if>
       <if test="status != null">
         status = #{status,jdbcType=VARCHAR},
@@ -124,8 +122,8 @@
     set underwriting_id = #{underwritingId,jdbcType=VARCHAR},
       request_time = #{requestTime,jdbcType=BIGINT},
       current_strategy = #{currentStrategy,jdbcType=VARCHAR},
-      strategy_input = #{strategyInput,jdbcType=VARCHAR,typeHandler=com.shopee.demo.handler.StrategyInputTypeHandler},
-      strategy_output = #{strategyOutput,jdbcType=VARCHAR,typeHandler=com.shopee.demo.handler.StrategyOutputTypeHandler},
+      strategy_input = #{strategyInput,jdbcType=VARCHAR},
+      strategy_output = #{strategyOutput,jdbcType=VARCHAR},
       status = #{status,jdbcType=VARCHAR},
       type = #{type,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}

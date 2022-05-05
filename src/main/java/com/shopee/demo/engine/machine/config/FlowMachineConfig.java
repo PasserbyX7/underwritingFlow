@@ -24,7 +24,7 @@ import java.util.EnumSet;
 import javax.annotation.Resource;
 
 @Configuration
-@EnableStateMachineFactory
+@EnableStateMachineFactory(contextEvents = false)
 public class FlowMachineConfig extends EnumStateMachineConfigurerAdapter<UnderwritingFlowStatusEnum, FlowEventEnum> {
 
     @Resource
@@ -70,7 +70,8 @@ public class FlowMachineConfig extends EnumStateMachineConfigurerAdapter<Underwr
     @Override
     public void configure(StateMachineConfigurationConfigurer<UnderwritingFlowStatusEnum, FlowEventEnum> config)
             throws Exception {
-        config.withConfiguration().machineId("UnderwritingFlowMachine");
+        config.withConfiguration()
+                .machineId("UnderwritingFlowMachine");
     }
 
     private Guard<UnderwritingFlowStatusEnum, FlowEventEnum> approvedGuard() {
