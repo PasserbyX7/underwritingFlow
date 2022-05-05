@@ -49,10 +49,6 @@ public class FlowMachineTest {
         // given
         Map<Long, UnderwritingFlowDO> underwritingContextMap = new HashMap<>();
         Iterator<Long> iter = Stream.iterate(0L, e -> e + 1).iterator();
-        // UnderwritingRequest request =
-        // underwritingRequestFactory.create(UnderwritingTypeEnum.SME,
-        // "underwritingId");
-
         UnderwritingFlow<?> flow = UnderwritingFlow.of(SmeUnderwritingRequestConverter.INSTANCE
                 .convert(new SmeUnderwritingDO()));
         // when
@@ -72,7 +68,7 @@ public class FlowMachineTest {
         // then
         long ctxId = underwritingContextService.save(flow);
         log.info("*************状态机测试开始*************");
-        underwritingFlowService.executeUnderwritingTask(ctxId);
+        underwritingFlowService.executeUnderwritingTaskAsync(ctxId);
         log.info("*************状态机测试结束*************");
     }
 

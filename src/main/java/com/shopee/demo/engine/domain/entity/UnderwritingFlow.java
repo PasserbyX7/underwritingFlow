@@ -1,7 +1,5 @@
 package com.shopee.demo.engine.domain.entity;
 
-import java.util.concurrent.CountDownLatch;
-
 import com.shopee.demo.engine.constant.StrategyEnum;
 import com.shopee.demo.engine.constant.UnderwritingFlowStatusEnum;
 import com.shopee.demo.engine.domain.service.strategy.Strategy;
@@ -26,7 +24,6 @@ public final class UnderwritingFlow<T extends UnderwritingRequest> {
     @NonFinal
     private StrategyEnum currentStrategy;
     private StrategyChain<T> strategyChain;
-    private CountDownLatch latch;
 
     public UnderwritingFlow(Long id, T underwritingRequest, StrategyContext<T> strategyContext,
             UnderwritingFlowStatusEnum flowStatus, StrategyEnum currentStrategy) {
@@ -37,7 +34,6 @@ public final class UnderwritingFlow<T extends UnderwritingRequest> {
         this.strategyChain = StrategyChainFactory.create(underwritingRequest.getUnderwritingType());
         this.currentStrategy = currentStrategy != null ? currentStrategy
                 : strategyChain.getFirstStrategy().getStrategyName();
-        this.latch = new CountDownLatch(1);
     }
 
     public static <T extends UnderwritingRequest> UnderwritingFlow<T> of(T underwritingRequest) {

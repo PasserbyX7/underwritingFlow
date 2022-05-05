@@ -34,9 +34,6 @@ public class FlowMachineConfig extends EnumStateMachineConfigurerAdapter<Underwr
     @Resource
     private Action<UnderwritingFlowStatusEnum, FlowEventEnum> setNextStrategyAction;
 
-    @Resource
-    private Action<UnderwritingFlowStatusEnum, FlowEventEnum> stateMachineTerminalAction;
-
     @Override
     public void configure(StateMachineStateConfigurer<UnderwritingFlowStatusEnum, FlowEventEnum> states)
             throws Exception {
@@ -44,7 +41,6 @@ public class FlowMachineConfig extends EnumStateMachineConfigurerAdapter<Underwr
                 .initial(CREATED)
                 .choice(CHOICE)
                 .state(ONGOING, executeStrategyAction)
-                .state(APPROVED, stateMachineTerminalAction)
                 .states(EnumSet.allOf(UnderwritingFlowStatusEnum.class));
     }
 
@@ -62,10 +58,7 @@ public class FlowMachineConfig extends EnumStateMachineConfigurerAdapter<Underwr
                 .source(CHOICE)
                 .first(REJECT, rejectGuard())
                 .then(APPROVED, approvedGuard())
-                .last(ONGOING, setNextStrategyAction)
-                .and()
-                .withExternal()
-                .source(APPROVED).target(END).event(FLOW_EXIT);
+                .last(ONGOING, setNextStrategyAction);
     }
 
     @Override

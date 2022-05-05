@@ -15,15 +15,19 @@ import com.shopee.demo.engine.machine.service.FlowStateMachineService;
 
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.context.Lifecycle;
+import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.statemachine.StateMachine;
 import org.springframework.statemachine.StateMachineContext;
 import org.springframework.statemachine.StateMachineException;
 import org.springframework.statemachine.StateMachinePersist;
 import org.springframework.statemachine.config.StateMachineFactory;
 import org.springframework.statemachine.listener.StateMachineListenerAdapter;
+import org.springframework.statemachine.state.State;
 import org.springframework.stereotype.Service;
 
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import reactor.core.publisher.Mono;
 
 @Slf4j
 @Service
@@ -47,15 +51,13 @@ public class FlowStateMachineServiceImpl implements FlowStateMachineService, Dis
             if (stateMachine == null) {
                 log.info("Getting new machine from factory with id " + underwritingFlowId);
                 stateMachine = stateMachineFactory.getStateMachine(MachineId.UNDERWRITING_FLOW_ID);
-                if (stateMachinePersist != null) {
-                    try {
-                        StateMachineContext<UnderwritingFlowStatusEnum, FlowEventEnum> stateMachineContext = stateMachinePersist
-                                .read(underwritingFlowId);
-                        stateMachine = restoreStateMachine(stateMachine, stateMachineContext);
-                    } catch (Exception e) {
-                        log.error("Error handling context", e);
-                        throw new StateMachineException("Unable to read context from store", e);
-                    }
+                try {
+                    StateMachineContext<UnderwritingFlowStatusEnum, FlowEventEnum> stateMachineContext = stateMachinePersist
+                            .read(underwritingFlowId);
+                    stateMachine = restoreStateMachine(stateMachine, stateMachineContext);
+                } catch (Exception e) {
+                    log.error("Error handling context", e);
+                    throw new StateMachineException("Unable to read context from store", e);
                 }
                 machines.put(underwritingFlowId, stateMachine);
             }
@@ -88,7 +90,12 @@ public class FlowStateMachineServiceImpl implements FlowStateMachineService, Dis
         }
     }
 
-    protected StateMachine<UnderwritingFlowStatusEnum, FlowEventEnum> handleStart(
+    @Override
+    public void execute(StateMachine<UnderwritingFlowStatusEnum, FlowEventEnum> machine) {
+        handleExecute(machine);
+    }
+
+    private StateMachine<UnderwritingFlowStatusEnum, FlowEventEnum> handleStart(
             StateMachine<UnderwritingFlowStatusEnum, FlowEventEnum> stateMachine) {
         if (!((Lifecycle) stateMachine).isRunning()) {
             StartListener listener = new StartListener(stateMachine);
@@ -102,7 +109,21 @@ public class FlowStateMachineServiceImpl implements FlowStateMachineService, Dis
         return stateMachine;
     }
 
-    protected StateMachine<UnderwritingFlowStatusEnum, FlowEventEnum> handleStop(
+    private StateMachine<UnderwritingFlowStatusEnum, FlowEventEnum> handleExecute(
+            StateMachine<UnderwritingFlowStatusEnum, FlowEventEnum> stateMachine) {
+        if (((Lifecycle) stateMachine).isRunning()) {
+            ExecuteListener listener = new ExecuteListener(stateMachine);
+            stateMachine.addStateListener(listener);
+            stateMachine.sendEvent(Mono.just(MessageBuilder.withPayload(FlowEventEnum.START).build())).blockLast();
+            try {
+                listener.latch.await();
+            } catch (InterruptedException e) {
+            }
+        }
+        return stateMachine;
+    }
+
+    private StateMachine<UnderwritingFlowStatusEnum, FlowEventEnum> handleStop(
             StateMachine<UnderwritingFlowStatusEnum, FlowEventEnum> stateMachine) {
         if (((Lifecycle) stateMachine).isRunning()) {
             StopListener listener = new StopListener(stateMachine);
@@ -116,7 +137,7 @@ public class FlowStateMachineServiceImpl implements FlowStateMachineService, Dis
         return stateMachine;
     }
 
-    protected StateMachine<UnderwritingFlowStatusEnum, FlowEventEnum> restoreStateMachine(
+    private StateMachine<UnderwritingFlowStatusEnum, FlowEventEnum> restoreStateMachine(
             StateMachine<UnderwritingFlowStatusEnum, FlowEventEnum> stateMachine,
             final StateMachineContext<UnderwritingFlowStatusEnum, FlowEventEnum> stateMachineContext) {
         if (stateMachineContext == null) {
@@ -128,14 +149,11 @@ public class FlowStateMachineServiceImpl implements FlowStateMachineService, Dis
         return stateMachine;
     }
 
+    @AllArgsConstructor
     private static class StartListener extends StateMachineListenerAdapter<UnderwritingFlowStatusEnum, FlowEventEnum> {
 
         final CountDownLatch latch = new CountDownLatch(1);
-        final StateMachine<UnderwritingFlowStatusEnum, FlowEventEnum> stateMachine;
-
-        public StartListener(StateMachine<UnderwritingFlowStatusEnum, FlowEventEnum> stateMachine) {
-            this.stateMachine = stateMachine;
-        }
+        private final StateMachine<UnderwritingFlowStatusEnum, FlowEventEnum> stateMachine;
 
         @Override
         public void stateMachineStarted(StateMachine<UnderwritingFlowStatusEnum, FlowEventEnum> stateMachine) {
@@ -144,14 +162,29 @@ public class FlowStateMachineServiceImpl implements FlowStateMachineService, Dis
         }
     }
 
+    @AllArgsConstructor
+    private static class ExecuteListener
+            extends StateMachineListenerAdapter<UnderwritingFlowStatusEnum, FlowEventEnum> {
+
+        final CountDownLatch latch = new CountDownLatch(1);
+        private final StateMachine<UnderwritingFlowStatusEnum, FlowEventEnum> stateMachine;
+
+        @Override
+        public void stateEntered(State<UnderwritingFlowStatusEnum, FlowEventEnum> state) {
+            // TODO 考虑PENDING态
+            if (state.getId().isTerminal()) {
+                this.stateMachine.removeStateListener(this);
+                latch.countDown();
+            }
+        }
+
+    }
+
+    @AllArgsConstructor
     private static class StopListener extends StateMachineListenerAdapter<UnderwritingFlowStatusEnum, FlowEventEnum> {
 
         final CountDownLatch latch = new CountDownLatch(1);
-        final StateMachine<UnderwritingFlowStatusEnum, FlowEventEnum> stateMachine;
-
-        public StopListener(StateMachine<UnderwritingFlowStatusEnum, FlowEventEnum> stateMachine) {
-            this.stateMachine = stateMachine;
-        }
+        private final StateMachine<UnderwritingFlowStatusEnum, FlowEventEnum> stateMachine;
 
         @Override
         public void stateMachineStopped(StateMachine<UnderwritingFlowStatusEnum, FlowEventEnum> stateMachine) {

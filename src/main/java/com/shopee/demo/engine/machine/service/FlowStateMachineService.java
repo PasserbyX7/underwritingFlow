@@ -16,6 +16,11 @@ public interface FlowStateMachineService {
     StateMachine<UnderwritingFlowStatusEnum, FlowEventEnum> acquireStateMachine(long underwritingFlowId);
 
     /**
+     * Execute the state machine.
+     * @param stateMachine flow state machine
+     */
+    void execute(StateMachine<UnderwritingFlowStatusEnum, FlowEventEnum>stateMachine);
+    /**
      * Release the state machine. Machine should be stopped.
      *
      * @param underwritingFlowId underwritingFlowId
