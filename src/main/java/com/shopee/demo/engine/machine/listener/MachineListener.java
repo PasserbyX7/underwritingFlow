@@ -4,6 +4,7 @@ import javax.annotation.Resource;
 
 import com.shopee.demo.engine.constant.ExtendedStateEnum;
 import com.shopee.demo.engine.constant.FlowEventEnum;
+import com.shopee.demo.engine.constant.MachineId;
 import com.shopee.demo.engine.constant.UnderwritingFlowStatusEnum;
 import com.shopee.demo.engine.domain.entity.UnderwritingFlow;
 import com.shopee.demo.engine.domain.repository.UnderwritingFlowRepository;
@@ -14,7 +15,7 @@ import org.springframework.statemachine.annotation.WithStateMachine;
 import org.springframework.stereotype.Component;
 
 @Component
-@WithStateMachine(id = "UnderwritingFlowMachine")
+@WithStateMachine(id = MachineId.UNDERWRITING_FLOW_ID)
 public class MachineListener {
 
     @Resource

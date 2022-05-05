@@ -2,6 +2,7 @@ package com.shopee.demo.engine.machine.config;
 
 import com.shopee.demo.engine.constant.ExtendedStateEnum;
 import com.shopee.demo.engine.constant.FlowEventEnum;
+import com.shopee.demo.engine.constant.MachineId;
 import com.shopee.demo.engine.constant.StrategyStatusEnum;
 import com.shopee.demo.engine.constant.UnderwritingFlowStatusEnum;
 import com.shopee.demo.engine.domain.entity.UnderwritingFlow;
@@ -71,7 +72,7 @@ public class FlowMachineConfig extends EnumStateMachineConfigurerAdapter<Underwr
     public void configure(StateMachineConfigurationConfigurer<UnderwritingFlowStatusEnum, FlowEventEnum> config)
             throws Exception {
         config.withConfiguration()
-                .machineId("UnderwritingFlowMachine");
+                .machineId(MachineId.UNDERWRITING_FLOW_ID);
     }
 
     private Guard<UnderwritingFlowStatusEnum, FlowEventEnum> approvedGuard() {

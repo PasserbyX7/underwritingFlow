@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 
 import com.shopee.demo.engine.constant.ExtendedStateEnum;
 import com.shopee.demo.engine.constant.FlowEventEnum;
+import com.shopee.demo.engine.constant.MachineId;
 import com.shopee.demo.engine.constant.UnderwritingFlowStatusEnum;
 import com.shopee.demo.engine.domain.entity.UnderwritingFlow;
 import com.shopee.demo.engine.domain.repository.UnderwritingFlowRepository;
@@ -45,7 +46,7 @@ public class MachinePersister implements StateMachinePersist<UnderwritingFlowSta
                 null,
                 extendedState,
                 null,
-                "UnderwritingFlowMachine");
+                MachineId.UNDERWRITING_FLOW_ID);
         return result;
     }
 

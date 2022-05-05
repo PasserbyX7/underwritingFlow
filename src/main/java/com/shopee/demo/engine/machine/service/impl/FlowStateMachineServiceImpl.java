@@ -9,6 +9,7 @@ import java.util.concurrent.CountDownLatch;
 import javax.annotation.Resource;
 
 import com.shopee.demo.engine.constant.FlowEventEnum;
+import com.shopee.demo.engine.constant.MachineId;
 import com.shopee.demo.engine.constant.UnderwritingFlowStatusEnum;
 import com.shopee.demo.engine.machine.service.FlowStateMachineService;
 
@@ -45,7 +46,7 @@ public class FlowStateMachineServiceImpl implements FlowStateMachineService, Dis
             stateMachine = machines.get(underwritingFlowId);
             if (stateMachine == null) {
                 log.info("Getting new machine from factory with id " + underwritingFlowId);
-                stateMachine = stateMachineFactory.getStateMachine("UnderwritingFlowMachine");
+                stateMachine = stateMachineFactory.getStateMachine(MachineId.UNDERWRITING_FLOW_ID);
                 if (stateMachinePersist != null) {
                     try {
                         StateMachineContext<UnderwritingFlowStatusEnum, FlowEventEnum> stateMachineContext = stateMachinePersist
