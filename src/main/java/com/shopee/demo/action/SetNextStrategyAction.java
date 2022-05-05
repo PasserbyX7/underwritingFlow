@@ -14,10 +14,10 @@ public class SetNextStrategyAction implements Action<UnderwritingFlowStatusEnum,
 
     @Override
     public void execute(StateContext<UnderwritingFlowStatusEnum, FlowEventEnum> context) {
-        UnderwritingFlow<?> underwritingContext = context.getExtendedState().get(ExtendedStateEnum.UNDERWRITING_CONTEXT,
-                UnderwritingFlow.class);
-        underwritingContext.getStrategyContext()
-                .setCurrentStrategy(underwritingContext.getCurrentStrategy().getNextStrategy().getStrategyName());
+        context.getExtendedState()
+                .get(ExtendedStateEnum.UNDERWRITING_CONTEXT, UnderwritingFlow.class)
+                .setNextStrategy();
+
     }
 
 }

@@ -10,5 +10,4 @@ public enum UnderwritingFlowStatusEnum {
     EXPIRED,
     CANCELLED,
     END
-
 }

@@ -9,7 +9,7 @@ import com.shopee.demo.constant.ExtendedStateEnum;
 import com.shopee.demo.constant.FlowEventEnum;
 import com.shopee.demo.constant.UnderwritingFlowStatusEnum;
 import com.shopee.demo.domain.entity.UnderwritingFlow;
-import com.shopee.demo.service.UnderwritingContextService;
+import com.shopee.demo.domain.repository.UnderwritingFlowRepository;
 
 import org.springframework.statemachine.ExtendedState;
 import org.springframework.statemachine.StateMachineContext;
@@ -22,7 +22,7 @@ import org.springframework.stereotype.Component;
 public class MachinePersister implements StateMachinePersist<UnderwritingFlowStatusEnum, FlowEventEnum, Long> {
 
     @Resource
-    private UnderwritingContextService contextService;
+    private UnderwritingFlowRepository contextService;
 
     @Override
     public void write(StateMachineContext<UnderwritingFlowStatusEnum, FlowEventEnum> context, Long contextId)

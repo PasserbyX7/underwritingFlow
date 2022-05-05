@@ -1,22 +1,22 @@
 package com.shopee.demo.domain.entity;
 
-import java.util.Map;
-
-import com.shopee.demo.constant.StrategyEnum;
 import com.shopee.demo.domain.type.input.StrategyInput;
 import com.shopee.demo.domain.type.output.StrategyOutput;
 import com.shopee.demo.domain.type.request.UnderwritingRequest;
 import com.shopee.demo.domain.type.strategy.StrategyResult;
 
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 
 @Data
-@RequiredArgsConstructor(staticName = "of")
 public class StrategyContext<T extends UnderwritingRequest> {
     private final T underwritingRequest;
-    private StrategyEnum currentStrategy;
     private StrategyResult strategyResult;
-    private Map<StrategyEnum, StrategyInput> strategyInput;
-    private Map<StrategyEnum, StrategyOutput> strategyOutput;
+    private final StrategyContainer<StrategyInput> strategyInput;
+    private final StrategyContainer<StrategyOutput> strategyOutput;
+
+    public static <T extends UnderwritingRequest> StrategyContext<T> of(T underwritingRequest) {
+        StrategyContainer<StrategyInput> strategyInput = new StrategyContainer<>();
+        StrategyContainer<StrategyOutput> strategyOutput = new StrategyContainer<>();
+        return new StrategyContext<T>(underwritingRequest, strategyInput, strategyOutput);
+    }
 }

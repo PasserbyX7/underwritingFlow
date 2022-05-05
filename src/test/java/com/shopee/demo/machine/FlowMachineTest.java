@@ -6,11 +6,10 @@ import com.shopee.demo.constant.FlowEventEnum;
 import com.shopee.demo.constant.UnderwritingFlowStatusEnum;
 import com.shopee.demo.domain.converter.SmeUnderwritingRequestConverter;
 import com.shopee.demo.domain.entity.UnderwritingFlow;
-import com.shopee.demo.domain.type.request.SmeUnderwritingRequest;
-import com.shopee.demo.infrastructure.dao.UnderwritingContextDAO;
+import com.shopee.demo.domain.repository.UnderwritingFlowRepository;
+import com.shopee.demo.infrastructure.dao.UnderwritingFlowDAO;
 import com.shopee.demo.infrastructure.data.SmeUnderwritingDO;
 import com.shopee.demo.infrastructure.data.UnderwritingFlowDO;
-import com.shopee.demo.service.UnderwritingContextService;
 import com.shopee.demo.service.UnderwritingFlowService;
 
 import org.junit.jupiter.api.Test;
@@ -40,10 +39,10 @@ public class FlowMachineTest {
     UnderwritingFlowService underwritingFlowService;
 
     @Resource
-    UnderwritingContextService underwritingContextService;
+    UnderwritingFlowRepository underwritingContextService;
 
     @MockBean
-    UnderwritingContextDAO underwritingContextDAO;
+    UnderwritingFlowDAO underwritingContextDAO;
 
     @Test
     void test() throws Exception {
@@ -54,7 +53,7 @@ public class FlowMachineTest {
         // underwritingRequestFactory.create(UnderwritingTypeEnum.SME,
         // "underwritingId");
 
-        UnderwritingFlow<?> flow = underwritingContextService.create(SmeUnderwritingRequestConverter.INSTANCE
+        UnderwritingFlow<?> flow = UnderwritingFlow.of(SmeUnderwritingRequestConverter.INSTANCE
                 .convert(new SmeUnderwritingDO()));
         // when
         doAnswer(invocation -> {

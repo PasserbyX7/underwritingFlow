@@ -13,7 +13,7 @@ public class RetailUnderwritingRequest implements UnderwritingRequest {
     private String smeData;
 
     @Override
-    public UnderwritingTypeEnum getType() {
+    public UnderwritingTypeEnum getUnderwritingType() {
         return UnderwritingTypeEnum.RETAIL;
     }
 

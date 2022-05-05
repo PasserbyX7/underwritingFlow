@@ -17,12 +17,10 @@ public abstract class Strategy<T extends UnderwritingRequest> {
     @Getter
     protected Strategy<T> nextStrategy;
 
-    public StrategyContext<T> execute(StrategyContext<T> strategyContext) {
+    public StrategyResult execute(StrategyContext<T> strategyContext) {
         StrategyResult result = StrategyResult.pass();
-        strategyContext.setStrategyResult(result);
-        // result.setStatus(StrategyStatusEnum.REJECT);
         log.info("执行策略：{} 执行结果：{}", getStrategyName(), result.getStatus());
-        return strategyContext;
+        return result;
     }
 
 }

@@ -6,7 +6,7 @@ import com.shopee.demo.constant.ExtendedStateEnum;
 import com.shopee.demo.constant.FlowEventEnum;
 import com.shopee.demo.constant.UnderwritingFlowStatusEnum;
 import com.shopee.demo.domain.entity.UnderwritingFlow;
-import com.shopee.demo.service.UnderwritingContextService;
+import com.shopee.demo.domain.repository.UnderwritingFlowRepository;
 
 import org.springframework.statemachine.StateContext;
 import org.springframework.statemachine.annotation.OnStateEntry;
@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 public class MachineListener {
 
     @Resource
-    private UnderwritingContextService contextService;
+    private UnderwritingFlowRepository contextService;
 
     @OnStateEntry
     public void anyTransition(StateContext<UnderwritingFlowStatusEnum, FlowEventEnum> context) {

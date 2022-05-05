@@ -1,4 +1,4 @@
-package com.shopee.demo.flow;
+package com.shopee.demo.domain.type.strategy;
 
 import javax.annotation.Resource;
 
@@ -8,7 +8,7 @@ import com.shopee.demo.strategy.Strategy;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SmeStrategyFlow extends StrategyFlow<SmeUnderwritingRequest> {
+public class SmeStrategyFlow extends AbstractStrategyChain<SmeUnderwritingRequest> {
 
     @Resource
     private Strategy<SmeUnderwritingRequest> smeStrategy1;
@@ -29,25 +29,5 @@ public class SmeStrategyFlow extends StrategyFlow<SmeUnderwritingRequest> {
     public Strategy<SmeUnderwritingRequest> getFirstStrategy() {
         return smeStrategy1;
     }
-
-    // @Override
-    // protected void onFlowPending() {
-    //     log.info("flow pending callback");
-    // }
-
-    // @Override
-    // protected void onFlowApproved() {
-    //     log.info("flow approved callback");
-    // }
-
-    // @Override
-    // protected void onFlowReject() {
-    //     log.info("flow reject callback");
-    // }
-
-    // @Override
-    // protected void onFlowCancelled() {
-    //     log.info("flow canceled callback");
-    // }
 
 }

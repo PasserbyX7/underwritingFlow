@@ -1,23 +1,25 @@
 package com.shopee.demo.infrastructure.data;
 
-import java.util.Map;
-
+import com.shopee.demo.constant.DataSourceEnum;
 import com.shopee.demo.constant.StrategyEnum;
+import com.shopee.demo.constant.StrategyStatusEnum;
+import com.shopee.demo.constant.StrategyTerminalReasonEnum;
 import com.shopee.demo.constant.UnderwritingFlowStatusEnum;
 import com.shopee.demo.constant.UnderwritingTypeEnum;
-import com.shopee.demo.domain.type.input.StrategyInput;
-import com.shopee.demo.domain.type.output.StrategyOutput;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
-public class UnderwritingFlowDO {
-    private Long id;
+@EqualsAndHashCode(callSuper=true)
+public class UnderwritingFlowDO extends BaseDO{
     private String underwritingId;
-    private Long requestTime;
+    private UnderwritingTypeEnum underwritingType;
+    private UnderwritingFlowStatusEnum flowStatus;
     private StrategyEnum currentStrategy;
-    private Map<StrategyEnum, StrategyInput> strategyInput;
-    private Map<StrategyEnum, StrategyOutput> strategyOutput;
-    private UnderwritingFlowStatusEnum status;
-    private UnderwritingTypeEnum type;
+    private StrategyStatusEnum strategyStatus;
+    private DataSourceEnum suspendDataSource;
+    private StrategyTerminalReasonEnum terminalReason;
+    private String strategyInput;
+    private String strategyOutput;
 }

@@ -3,10 +3,10 @@ package com.shopee.demo.service.impl;
 import javax.annotation.Resource;
 
 import com.shopee.demo.domain.entity.UnderwritingFlow;
+import com.shopee.demo.domain.repository.UnderwritingFlowRepository;
 import com.shopee.demo.domain.type.request.UnderwritingRequest;
 import com.shopee.demo.factory.FlowMachineFactory;
 import com.shopee.demo.service.DistributeLockService;
-import com.shopee.demo.service.UnderwritingContextService;
 import com.shopee.demo.service.UnderwritingFlowService;
 
 import org.springframework.stereotype.Service;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 public class UnderwritingFlowServiceImpl implements UnderwritingFlowService {
 
     @Resource
-    private UnderwritingContextService underwritingContextService;
+    private UnderwritingFlowRepository underwritingContextService;
 
     @Resource
     private DistributeLockService distributeLockService;
@@ -24,8 +24,8 @@ public class UnderwritingFlowServiceImpl implements UnderwritingFlowService {
     private FlowMachineFactory flowFactory;
 
     @Override
-    public long createUnderwritingTask(UnderwritingRequest underwritingDO) {
-        UnderwritingFlow<?> underwritingContext = underwritingContextService.create(underwritingDO);
+    public long createUnderwritingTask(UnderwritingRequest underwritingRequest) {
+        UnderwritingFlow<?> underwritingContext = UnderwritingFlow.of(underwritingRequest);
         return underwritingContextService.save(underwritingContext);
     }
 

@@ -4,7 +4,7 @@ import com.shopee.demo.constant.UnderwritingTypeEnum;
 
 
 public interface UnderwritingRequest  {
-    UnderwritingTypeEnum getType();
+    UnderwritingTypeEnum getUnderwritingType();
     String getUnderwritingId();
     Long getRequestTime();
     Long getRequestExpireTime();

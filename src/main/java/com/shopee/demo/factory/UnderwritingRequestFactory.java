@@ -20,8 +20,8 @@ public class UnderwritingRequestFactory {
     @Resource
     private RetailUnderwritingDAO retailUnderwritingDAO;
 
-    public UnderwritingRequest create(UnderwritingTypeEnum type, String underwritingId) {
-        switch (type) {
+    public UnderwritingRequest create(UnderwritingTypeEnum underwritingType, String underwritingId) {
+        switch (underwritingType) {
             case SME:
                 return SmeUnderwritingRequestConverter.INSTANCE
                         .convert(smeUnderwritingDAO.selectByRequestId(underwritingId));

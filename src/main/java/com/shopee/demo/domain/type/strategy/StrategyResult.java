@@ -21,8 +21,16 @@ public class StrategyResult {
      */
     private StrategyTerminalReasonEnum terminalReason;
 
-    public static StrategyResult pass(){
-        return new StrategyResult(PASS, null,null);
+    public static StrategyResult pass() {
+        return new StrategyResult(PASS, null, null);
+    }
+
+    public static StrategyResult suspend(DataSourceEnum suspendDataSource) {
+        return new StrategyResult(SUSPEND, suspendDataSource, null);
+    }
+
+    public static StrategyResult terminal(StrategyTerminalReasonEnum terminalReason) {
+        return new StrategyResult(TERMINAL, null, terminalReason);
     }
 
 }

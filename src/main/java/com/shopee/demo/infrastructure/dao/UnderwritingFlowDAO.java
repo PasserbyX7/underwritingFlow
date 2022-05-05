@@ -2,7 +2,7 @@ package com.shopee.demo.infrastructure.dao;
 
 import com.shopee.demo.infrastructure.data.UnderwritingFlowDO;
 
-public interface UnderwritingContextDAO {
+public interface UnderwritingFlowDAO {
     int insertSelective(UnderwritingFlowDO underwritingContextDO);
     UnderwritingFlowDO selectByPrimaryKey(Long id);
 
