@@ -1,11 +1,11 @@
 package com.shopee.demo.infrastructure.data;
 
-import com.shopee.demo.constant.DataSourceEnum;
-import com.shopee.demo.constant.StrategyEnum;
-import com.shopee.demo.constant.StrategyStatusEnum;
-import com.shopee.demo.constant.StrategyTerminalReasonEnum;
-import com.shopee.demo.constant.UnderwritingFlowStatusEnum;
-import com.shopee.demo.constant.UnderwritingTypeEnum;
+import com.shopee.demo.engine.constant.DataSourceEnum;
+import com.shopee.demo.engine.constant.StrategyEnum;
+import com.shopee.demo.engine.constant.StrategyStatusEnum;
+import com.shopee.demo.engine.constant.StrategyTerminalReasonEnum;
+import com.shopee.demo.engine.constant.UnderwritingFlowStatusEnum;
+import com.shopee.demo.engine.constant.UnderwritingTypeEnum;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
