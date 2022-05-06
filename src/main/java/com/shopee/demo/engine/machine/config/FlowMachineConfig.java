@@ -76,7 +76,7 @@ public class FlowMachineConfig extends EnumStateMachineConfigurerAdapter<Underwr
                 UnderwritingFlow<?> underwritingContext = context.getExtendedState().get(
                         ExtendedStateEnum.UNDERWRITING_CONTEXT,
                         UnderwritingFlow.class);
-                StrategyStatusEnum strategyStatus = underwritingContext.getStrategyResult().getStatus();
+                StrategyStatusEnum strategyStatus = underwritingContext.getStrategyResultStatus();
                 return strategyStatus == StrategyStatusEnum.PASS && !underwritingContext.hasNextStrategy();
             }
 
@@ -93,7 +93,7 @@ public class FlowMachineConfig extends EnumStateMachineConfigurerAdapter<Underwr
                 UnderwritingFlow<?> underwritingContext = context.getExtendedState().get(
                         ExtendedStateEnum.UNDERWRITING_CONTEXT,
                         UnderwritingFlow.class);
-                return underwritingContext.getStrategyResult().getStatus() == StrategyStatusEnum.REJECT;
+                return underwritingContext.getStrategyResultStatus() == StrategyStatusEnum.REJECT;
             }
 
         };

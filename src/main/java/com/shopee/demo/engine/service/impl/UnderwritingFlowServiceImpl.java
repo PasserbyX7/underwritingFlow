@@ -28,8 +28,8 @@ public class UnderwritingFlowServiceImpl implements UnderwritingFlowService {
 
     @Override
     public long createUnderwritingTask(UnderwritingRequest underwritingRequest) {
-        UnderwritingFlow<?> underwritingContext = UnderwritingFlow.of(underwritingRequest);
-        return underwritingFlowRepository.save(underwritingContext);
+        UnderwritingFlow<?> underwritingFlow = UnderwritingFlow.of(underwritingRequest);
+        return underwritingFlowRepository.save(underwritingFlow);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.shopee.demo.engine.domain.entity;
 
 import com.shopee.demo.engine.constant.StrategyEnum;
+import com.shopee.demo.engine.constant.StrategyStatusEnum;
 import com.shopee.demo.engine.constant.UnderwritingFlowStatusEnum;
 import com.shopee.demo.engine.domain.service.strategy.Strategy;
 import com.shopee.demo.engine.domain.type.request.UnderwritingRequest;
@@ -44,7 +45,7 @@ public final class UnderwritingFlow<T extends UnderwritingRequest> {
     }
 
     public void execute() {
-        StrategyResult strategyResult = getCurrentStrategy().execute(getStrategyContext());
+        StrategyResult strategyResult = getCurrentStrategy().execute(strategyContext);
         strategyContext.setStrategyResult(strategyResult);
     }
 
@@ -54,12 +55,12 @@ public final class UnderwritingFlow<T extends UnderwritingRequest> {
         }
     }
 
-    public StrategyResult getStrategyResult() {
-        return strategyContext.getStrategyResult();
-    }
-
     public boolean hasNextStrategy() {
         return getCurrentStrategy().getNextStrategy() != null;
+    }
+
+    public StrategyStatusEnum getStrategyResultStatus(){
+        return strategyContext.getStrategyResult().getStatus();
     }
 
     public StrategyEnum getCurrentStrategyName() {
