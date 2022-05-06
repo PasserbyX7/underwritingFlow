@@ -9,7 +9,7 @@ import com.shopee.demo.engine.domain.repository.UnderwritingFlowRepository;
 import com.shopee.demo.engine.domain.type.request.UnderwritingRequest;
 import com.shopee.demo.engine.machine.service.FlowStateMachineService;
 import com.shopee.demo.engine.service.UnderwritingFlowService;
-import com.shopee.demo.infrastructure.service.DistributeLockService;
+import com.shopee.demo.infrastructure.middleware.DistributeLockService;
 
 import org.springframework.statemachine.StateMachine;
 import org.springframework.stereotype.Service;

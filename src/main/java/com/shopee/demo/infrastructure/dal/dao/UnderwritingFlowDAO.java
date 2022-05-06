@@ -1,6 +1,6 @@
-package com.shopee.demo.infrastructure.dao;
+package com.shopee.demo.infrastructure.dal.dao;
 
-import com.shopee.demo.infrastructure.data.UnderwritingFlowDO;
+import com.shopee.demo.infrastructure.dal.data.UnderwritingFlowDO;
 
 public interface UnderwritingFlowDAO {
     int insertSelective(UnderwritingFlowDO underwritingContextDO);

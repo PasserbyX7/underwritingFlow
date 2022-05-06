@@ -1,4 +1,4 @@
-package com.shopee.demo.infrastructure.handler;
+package com.shopee.demo.infrastructure.dal.handler;
 
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;

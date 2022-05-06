@@ -1,7 +1,7 @@
 package com.shopee.demo.engine.domain.converter;
 
 import com.shopee.demo.engine.domain.type.request.SmeUnderwritingRequest;
-import com.shopee.demo.infrastructure.data.SmeUnderwritingDO;
+import com.shopee.demo.infrastructure.dal.data.SmeUnderwritingDO;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;

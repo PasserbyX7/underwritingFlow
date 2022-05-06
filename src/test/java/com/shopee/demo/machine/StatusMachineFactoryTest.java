@@ -18,9 +18,9 @@ import com.shopee.demo.engine.domain.converter.SmeUnderwritingRequestConverter;
 import com.shopee.demo.engine.domain.entity.UnderwritingFlow;
 import com.shopee.demo.engine.domain.repository.UnderwritingFlowRepository;
 import com.shopee.demo.engine.machine.service.FlowStateMachineService;
-import com.shopee.demo.infrastructure.dao.UnderwritingFlowDAO;
-import com.shopee.demo.infrastructure.data.SmeUnderwritingDO;
-import com.shopee.demo.infrastructure.data.UnderwritingFlowDO;
+import com.shopee.demo.infrastructure.dal.dao.UnderwritingFlowDAO;
+import com.shopee.demo.infrastructure.dal.data.SmeUnderwritingDO;
+import com.shopee.demo.infrastructure.dal.data.UnderwritingFlowDO;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

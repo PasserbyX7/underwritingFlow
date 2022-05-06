@@ -6,8 +6,8 @@ import com.shopee.demo.engine.constant.UnderwritingTypeEnum;
 import com.shopee.demo.engine.domain.converter.RetailUnderwritingRequestConverter;
 import com.shopee.demo.engine.domain.converter.SmeUnderwritingRequestConverter;
 import com.shopee.demo.engine.domain.type.request.UnderwritingRequest;
-import com.shopee.demo.infrastructure.dao.RetailUnderwritingDAO;
-import com.shopee.demo.infrastructure.dao.SmeUnderwritingDAO;
+import com.shopee.demo.infrastructure.dal.dao.RetailUnderwritingDAO;
+import com.shopee.demo.infrastructure.dal.dao.SmeUnderwritingDAO;
 
 import org.springframework.stereotype.Component;
 

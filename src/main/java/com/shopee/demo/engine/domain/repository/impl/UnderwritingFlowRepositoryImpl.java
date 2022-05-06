@@ -12,8 +12,8 @@ import com.shopee.demo.engine.domain.type.factory.UnderwritingRequestFactory;
 import com.shopee.demo.engine.domain.type.input.StrategyInput;
 import com.shopee.demo.engine.domain.type.output.StrategyOutput;
 import com.shopee.demo.engine.domain.type.request.UnderwritingRequest;
-import com.shopee.demo.infrastructure.dao.UnderwritingFlowDAO;
-import com.shopee.demo.infrastructure.data.UnderwritingFlowDO;
+import com.shopee.demo.infrastructure.dal.dao.UnderwritingFlowDAO;
+import com.shopee.demo.infrastructure.dal.data.UnderwritingFlowDO;
 
 import org.springframework.stereotype.Service;
 

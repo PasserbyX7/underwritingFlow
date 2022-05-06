@@ -1,6 +1,6 @@
-package com.shopee.demo.infrastructure.service.impl;
+package com.shopee.demo.infrastructure.middleware.impl;
 
-import com.shopee.demo.infrastructure.service.DistributeLockService;
+import com.shopee.demo.infrastructure.middleware.DistributeLockService;
 
 import org.springframework.stereotype.Service;
 

@@ -1,4 +1,4 @@
-package com.shopee.demo.infrastructure.handler;
+package com.shopee.demo.infrastructure.dal.handler;
 
 import java.util.EnumMap;
 import java.util.Map;
@@ -6,9 +6,10 @@ import java.util.Map;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.shopee.demo.engine.constant.StrategyEnum;
-import com.shopee.demo.engine.domain.type.output.StrategyOutput;
+import com.shopee.demo.engine.domain.type.input.StrategyInput;
 
-public class StrategyOutputTypeHandler extends AbstractJsonTypeHandler<Map<StrategyEnum, StrategyOutput>> {
+
+public class StrategyInputTypeHandler extends AbstractJsonTypeHandler<Map<StrategyEnum, StrategyInput>> {
 
     private static ObjectMapper OBJECT_MAPPER;
 
@@ -19,14 +20,14 @@ public class StrategyOutputTypeHandler extends AbstractJsonTypeHandler<Map<Strat
     }
 
     @Override
-    protected Map<StrategyEnum, StrategyOutput> parse(String json) {
+    protected Map<StrategyEnum, StrategyInput> parse(String json) {
         try {
-            Map<StrategyEnum, StrategyOutput> obj = new EnumMap<>(StrategyEnum.class);
+            Map<StrategyEnum, StrategyInput> obj = new EnumMap<>(StrategyEnum.class);
             Map<StrategyEnum, String> map = getObjectMapper().readValue(json,
                     new TypeReference<Map<StrategyEnum, String>>() {
                     });
             for (Map.Entry<StrategyEnum, String> entry : map.entrySet()) {
-                obj.put(entry.getKey(), getObjectMapper().readValue(entry.getValue(), StrategyOutput.class));
+                obj.put(entry.getKey(), getObjectMapper().readValue(entry.getValue(), StrategyInput.class));
             }
             return obj;
         } catch (Exception e) {
@@ -35,10 +36,10 @@ public class StrategyOutputTypeHandler extends AbstractJsonTypeHandler<Map<Strat
     }
 
     @Override
-    protected String toJson(Map<StrategyEnum, StrategyOutput> obj) {
+    protected String toJson(Map<StrategyEnum, StrategyInput> obj) {
         try {
             Map<StrategyEnum, String> map = new EnumMap<>(StrategyEnum.class);
-            for (Map.Entry<StrategyEnum, StrategyOutput> entry : obj.entrySet()) {
+            for (Map.Entry<StrategyEnum, StrategyInput> entry : obj.entrySet()) {
                 map.put(entry.getKey(), getObjectMapper().writeValueAsString(entry.getValue()));
             }
             return getObjectMapper().writeValueAsString(map);

@@ -1,4 +1,4 @@
-package com.shopee.demo.infrastructure.handler;
+package com.shopee.demo.infrastructure.dal.handler;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;

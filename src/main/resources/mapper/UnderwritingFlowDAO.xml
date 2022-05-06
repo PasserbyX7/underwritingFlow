@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.shopee.demo.infrastructure.dao.UnderwritingFlowDAO">
-  <resultMap id="BaseResultMap" type="com.shopee.demo.infrastructure.data.UnderwritingFlowDO">
+  <resultMap id="BaseResultMap" type="com.shopee.demo.infrastructure.dal.data.UnderwritingFlowDO">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="underwriting_id" jdbcType="VARCHAR" property="underwritingId" />
     <result column="request_time" jdbcType="BIGINT" property="requestTime" />
@@ -25,7 +25,7 @@
     delete from underwriting_context_tab
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.shopee.demo.infrastructure.data.UnderwritingFlowDO">
+  <insert id="insert" parameterType="com.shopee.demo.infrastructure.dal.data.UnderwritingFlowDO">
     insert into underwriting_context_tab (id, underwriting_id, request_time,
       current_strategy, strategy_input, strategy_output,
       status, type)
@@ -35,7 +35,7 @@
       #{status,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" useGeneratedKeys="true"
-  parameterType="com.shopee.demo.infrastructure.data.UnderwritingFlowDO">
+  parameterType="com.shopee.demo.infrastructure.dal.data.UnderwritingFlowDO">
     insert into underwriting_context_tab
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -90,7 +90,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.shopee.demo.infrastructure.data.UnderwritingFlowDO">
+  <update id="updateByPrimaryKeySelective" parameterType="com.shopee.demo.infrastructure.dal.data.UnderwritingFlowDO">
     update underwriting_context_tab
     <set>
       <if test="underwritingId != null">
@@ -117,7 +117,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.shopee.demo.infrastructure.data.UnderwritingFlowDO">
+  <update id="updateByPrimaryKey" parameterType="com.shopee.demo.infrastructure.dal.data.UnderwritingFlowDO">
     update underwriting_context_tab
     set underwriting_id = #{underwritingId,jdbcType=VARCHAR},
       request_time = #{requestTime,jdbcType=BIGINT},
