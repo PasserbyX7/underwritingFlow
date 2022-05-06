@@ -8,10 +8,10 @@ import java.util.concurrent.CountDownLatch;
 
 import javax.annotation.Resource;
 
-import com.shopee.demo.engine.constant.FlowEventEnum;
-import com.shopee.demo.engine.constant.MachineId;
-import com.shopee.demo.engine.constant.UnderwritingFlowStatusEnum;
+import com.shopee.demo.engine.machine.constant.MachineId;
 import com.shopee.demo.engine.machine.service.FlowStateMachineService;
+import com.shopee.demo.engine.type.flow.FlowEventEnum;
+import com.shopee.demo.engine.type.flow.UnderwritingFlowStatusEnum;
 
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.context.Lifecycle;

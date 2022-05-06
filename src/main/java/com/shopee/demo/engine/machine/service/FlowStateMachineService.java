@@ -1,7 +1,7 @@
 package com.shopee.demo.engine.machine.service;
 
-import com.shopee.demo.engine.constant.FlowEventEnum;
-import com.shopee.demo.engine.constant.UnderwritingFlowStatusEnum;
+import com.shopee.demo.engine.type.flow.FlowEventEnum;
+import com.shopee.demo.engine.type.flow.UnderwritingFlowStatusEnum;
 
 import org.springframework.statemachine.StateMachine;
 

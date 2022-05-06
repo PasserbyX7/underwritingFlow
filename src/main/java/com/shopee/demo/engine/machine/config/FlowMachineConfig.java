@@ -1,11 +1,11 @@
 package com.shopee.demo.engine.machine.config;
 
-import com.shopee.demo.engine.constant.ExtendedStateEnum;
-import com.shopee.demo.engine.constant.FlowEventEnum;
-import com.shopee.demo.engine.constant.MachineId;
-import com.shopee.demo.engine.constant.StrategyStatusEnum;
-import com.shopee.demo.engine.constant.UnderwritingFlowStatusEnum;
-import com.shopee.demo.engine.domain.entity.UnderwritingFlow;
+import com.shopee.demo.engine.entity.flow.UnderwritingFlow;
+import com.shopee.demo.engine.machine.constant.ExtendedStateEnum;
+import com.shopee.demo.engine.machine.constant.MachineId;
+import com.shopee.demo.engine.type.flow.FlowEventEnum;
+import com.shopee.demo.engine.type.flow.UnderwritingFlowStatusEnum;
+import com.shopee.demo.engine.type.strategy.StrategyStatusEnum;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.statemachine.StateContext;
@@ -17,8 +17,8 @@ import org.springframework.statemachine.config.builders.StateMachineStateConfigu
 import org.springframework.statemachine.config.builders.StateMachineTransitionConfigurer;
 import org.springframework.statemachine.guard.Guard;
 
-import static com.shopee.demo.engine.constant.FlowEventEnum.*;
-import static com.shopee.demo.engine.constant.UnderwritingFlowStatusEnum.*;
+import static com.shopee.demo.engine.type.flow.FlowEventEnum.*;
+import static com.shopee.demo.engine.type.flow.UnderwritingFlowStatusEnum.*;
 
 import java.util.EnumSet;
 

@@ -2,13 +2,13 @@ package com.shopee.demo.engine.service.impl;
 
 import javax.annotation.Resource;
 
-import com.shopee.demo.engine.constant.FlowEventEnum;
-import com.shopee.demo.engine.constant.UnderwritingFlowStatusEnum;
-import com.shopee.demo.engine.domain.entity.UnderwritingFlow;
-import com.shopee.demo.engine.domain.repository.UnderwritingFlowRepository;
-import com.shopee.demo.engine.domain.type.request.UnderwritingRequest;
+import com.shopee.demo.engine.entity.flow.UnderwritingFlow;
 import com.shopee.demo.engine.machine.service.FlowStateMachineService;
+import com.shopee.demo.engine.repository.UnderwritingFlowRepository;
 import com.shopee.demo.engine.service.UnderwritingFlowService;
+import com.shopee.demo.engine.type.flow.FlowEventEnum;
+import com.shopee.demo.engine.type.flow.UnderwritingFlowStatusEnum;
+import com.shopee.demo.engine.type.request.UnderwritingRequest;
 import com.shopee.demo.infrastructure.middleware.DistributeLockService;
 
 import org.springframework.statemachine.StateMachine;
