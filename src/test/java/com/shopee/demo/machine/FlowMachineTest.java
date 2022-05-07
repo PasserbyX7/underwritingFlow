@@ -5,7 +5,7 @@ import javax.annotation.Resource;
 import com.shopee.demo.engine.entity.flow.UnderwritingFlow;
 import com.shopee.demo.engine.repository.UnderwritingFlowRepository;
 import com.shopee.demo.engine.repository.converter.SmeUnderwritingRequestConverter;
-import com.shopee.demo.engine.service.UnderwritingFlowService;
+import com.shopee.demo.engine.service.UnderwritingFlowExecuteService;
 import com.shopee.demo.engine.type.flow.FlowEventEnum;
 import com.shopee.demo.engine.type.flow.UnderwritingFlowStatusEnum;
 import com.shopee.demo.infrastructure.dal.dao.UnderwritingFlowDAO;
@@ -36,7 +36,7 @@ public class FlowMachineTest {
     StateMachineFactory<UnderwritingFlowStatusEnum, FlowEventEnum> factory;
 
     @Resource
-    UnderwritingFlowService underwritingFlowService;
+    UnderwritingFlowExecuteService underwritingFlowService;
 
     @Resource
     UnderwritingFlowRepository underwritingContextService;
@@ -68,7 +68,7 @@ public class FlowMachineTest {
         // then
         long ctxId = underwritingContextService.save(flow);
         log.info("*************状态机测试开始*************");
-        underwritingFlowService.executeUnderwritingTaskAsync(ctxId);
+        underwritingFlowService.executeUnderwritingFlowAsync(ctxId);
         log.info("*************状态机测试结束*************");
     }
 

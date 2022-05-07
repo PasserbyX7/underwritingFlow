@@ -1,7 +1,8 @@
-package com.shopee.demo.engine.type.strategy;
+package com.shopee.demo.engine.factory;
 
 import com.shopee.demo.engine.type.request.UnderwritingRequest;
 import com.shopee.demo.engine.type.request.UnderwritingTypeEnum;
+import com.shopee.demo.engine.type.strategy.StrategyChain;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
@@ -19,7 +20,7 @@ public class StrategyChainFactory implements ApplicationContextAware {
 
     @SuppressWarnings("unchecked")
     public static <T extends UnderwritingRequest> StrategyChain<T> create(UnderwritingTypeEnum type) {
-        String strategyChainName = type.toString().toLowerCase() + "StrategyFlow";
+        String strategyChainName = type.toString().toLowerCase() + "StrategyChain";
         return applicationContext.getBean(strategyChainName, StrategyChain.class);
     }
 

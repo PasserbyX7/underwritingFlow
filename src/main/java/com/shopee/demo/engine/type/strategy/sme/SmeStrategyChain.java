@@ -1,14 +1,15 @@
-package com.shopee.demo.engine.type.strategy;
+package com.shopee.demo.engine.type.strategy.sme;
 
 import javax.annotation.Resource;
 
 import com.shopee.demo.engine.entity.strategy.Strategy;
 import com.shopee.demo.engine.type.request.SmeUnderwritingRequest;
+import com.shopee.demo.engine.type.strategy.AbstractStrategyChain;
 
 import org.springframework.stereotype.Component;
 
 @Component
-public class SmeStrategyFlow extends AbstractStrategyChain<SmeUnderwritingRequest> {
+public class SmeStrategyChain extends AbstractStrategyChain<SmeUnderwritingRequest> {
 
     @Resource
     private Strategy<SmeUnderwritingRequest> smeStrategy1;

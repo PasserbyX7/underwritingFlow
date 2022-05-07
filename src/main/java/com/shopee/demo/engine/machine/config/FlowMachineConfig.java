@@ -7,7 +7,9 @@ import com.shopee.demo.engine.type.flow.FlowEventEnum;
 import com.shopee.demo.engine.type.flow.UnderwritingFlowStatusEnum;
 import com.shopee.demo.engine.type.strategy.StrategyStatusEnum;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.statemachine.StateContext;
 import org.springframework.statemachine.action.Action;
 import org.springframework.statemachine.config.EnableStateMachineFactory;
@@ -17,22 +19,16 @@ import org.springframework.statemachine.config.builders.StateMachineStateConfigu
 import org.springframework.statemachine.config.builders.StateMachineTransitionConfigurer;
 import org.springframework.statemachine.guard.Guard;
 
+import reactor.core.publisher.Mono;
+
 import static com.shopee.demo.engine.type.flow.FlowEventEnum.*;
 import static com.shopee.demo.engine.type.flow.UnderwritingFlowStatusEnum.*;
 
 import java.util.EnumSet;
 
-import javax.annotation.Resource;
-
 @Configuration
 @EnableStateMachineFactory(contextEvents = false)
 public class FlowMachineConfig extends EnumStateMachineConfigurerAdapter<UnderwritingFlowStatusEnum, FlowEventEnum> {
-
-    @Resource
-    private Action<UnderwritingFlowStatusEnum, FlowEventEnum> executeStrategyAction;
-
-    @Resource
-    private Action<UnderwritingFlowStatusEnum, FlowEventEnum> setNextStrategyAction;
 
     @Override
     public void configure(StateMachineStateConfigurer<UnderwritingFlowStatusEnum, FlowEventEnum> states)
@@ -40,7 +36,7 @@ public class FlowMachineConfig extends EnumStateMachineConfigurerAdapter<Underwr
         states.withStates()
                 .initial(CREATED)
                 .choice(CHOICE)
-                .state(ONGOING, executeStrategyAction)
+                .state(ONGOING, executeStrategyAction())
                 .states(EnumSet.allOf(UnderwritingFlowStatusEnum.class));
     }
 
@@ -58,7 +54,7 @@ public class FlowMachineConfig extends EnumStateMachineConfigurerAdapter<Underwr
                 .source(CHOICE)
                 .first(REJECT, rejectGuard())
                 .then(APPROVED, approvedGuard())
-                .last(ONGOING, setNextStrategyAction);
+                .last(ONGOING, setNextStrategyAction());
     }
 
     @Override
@@ -68,7 +64,8 @@ public class FlowMachineConfig extends EnumStateMachineConfigurerAdapter<Underwr
                 .machineId(MachineId.UNDERWRITING_FLOW_ID);
     }
 
-    private Guard<UnderwritingFlowStatusEnum, FlowEventEnum> approvedGuard() {
+    @Bean
+    public Guard<UnderwritingFlowStatusEnum, FlowEventEnum> approvedGuard() {
         return new Guard<UnderwritingFlowStatusEnum, FlowEventEnum>() {
 
             @Override
@@ -83,8 +80,8 @@ public class FlowMachineConfig extends EnumStateMachineConfigurerAdapter<Underwr
         };
     }
 
-    private Guard<UnderwritingFlowStatusEnum, FlowEventEnum> rejectGuard() {
-
+    @Bean
+    public Guard<UnderwritingFlowStatusEnum, FlowEventEnum> rejectGuard() {
         return new Guard<UnderwritingFlowStatusEnum, FlowEventEnum>() {
 
             @Override
@@ -99,4 +96,34 @@ public class FlowMachineConfig extends EnumStateMachineConfigurerAdapter<Underwr
         };
     }
 
+    @Bean
+    public Action<UnderwritingFlowStatusEnum, FlowEventEnum> executeStrategyAction() {
+        return new Action<UnderwritingFlowStatusEnum, FlowEventEnum>() {
+
+            @Override
+            public void execute(StateContext<UnderwritingFlowStatusEnum, FlowEventEnum> context) {
+                context.getExtendedState()
+                        .get(ExtendedStateEnum.UNDERWRITING_CONTEXT, UnderwritingFlow.class)
+                        .execute();
+                context.getStateMachine()
+                        .sendEvent(Mono.just(MessageBuilder.withPayload(FlowEventEnum.STRATEGY_EXECUTE).build()))
+                        .subscribe();
+            }
+
+        };
+    }
+
+    @Bean
+    public Action<UnderwritingFlowStatusEnum, FlowEventEnum> setNextStrategyAction() {
+        return new Action<UnderwritingFlowStatusEnum, FlowEventEnum>() {
+
+            @Override
+            public void execute(StateContext<UnderwritingFlowStatusEnum, FlowEventEnum> context) {
+                context.getExtendedState()
+                        .get(ExtendedStateEnum.UNDERWRITING_CONTEXT, UnderwritingFlow.class)
+                        .setNextStrategy();
+            }
+
+        };
+    }
 }

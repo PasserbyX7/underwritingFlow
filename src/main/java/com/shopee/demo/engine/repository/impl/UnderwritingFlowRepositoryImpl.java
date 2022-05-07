@@ -7,24 +7,24 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.shopee.demo.engine.entity.flow.UnderwritingFlow;
 import com.shopee.demo.engine.entity.strategy.StrategyContainer;
 import com.shopee.demo.engine.entity.strategy.StrategyContext;
-import com.shopee.demo.engine.factory.UnderwritingRequestFactory;
 import com.shopee.demo.engine.repository.UnderwritingFlowRepository;
+import com.shopee.demo.engine.repository.UnderwritingRequestRepository;
 import com.shopee.demo.engine.type.request.UnderwritingRequest;
 import com.shopee.demo.engine.type.strategy.input.StrategyInput;
 import com.shopee.demo.engine.type.strategy.output.StrategyOutput;
 import com.shopee.demo.infrastructure.dal.dao.UnderwritingFlowDAO;
 import com.shopee.demo.infrastructure.dal.data.UnderwritingFlowDO;
 
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@Service
+@Repository
 public class UnderwritingFlowRepositoryImpl implements UnderwritingFlowRepository {
 
     @Resource
-    private UnderwritingRequestFactory requestFactory;
+    private UnderwritingRequestRepository requestRepository;
 
     @Resource
     private UnderwritingFlowDAO underwritingFlowDAO;
@@ -34,7 +34,7 @@ public class UnderwritingFlowRepositoryImpl implements UnderwritingFlowRepositor
 
     @Override
     public long save(UnderwritingFlow<?> flow) {
-        //TODO 写入Log DO
+        // TODO 写入Log DO
         UnderwritingFlowDO flowDO = new UnderwritingFlowDO();
         try {
             flowDO.setUnderwritingId(flow.getUnderwritingRequest().getUnderwritingId());
@@ -57,7 +57,7 @@ public class UnderwritingFlowRepositoryImpl implements UnderwritingFlowRepositor
     @Override
     public UnderwritingFlow<?> load(long underwritingFlowId) {
         UnderwritingFlowDO flowDO = underwritingFlowDAO.selectByPrimaryKey(underwritingFlowId);
-        UnderwritingRequest request = requestFactory.create(flowDO.getUnderwritingType(), flowDO.getUnderwritingId());
+        UnderwritingRequest request = requestRepository.find(flowDO.getUnderwritingId(), flowDO.getUnderwritingType());
         StrategyContainer<StrategyInput> strategyInput = null;
         StrategyContainer<StrategyOutput> strategyOutput = null;
         try {

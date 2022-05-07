@@ -1,4 +1,4 @@
-package com.shopee.demo.application.service;
+package com.shopee.demo.app.service;
 
 import com.shopee.demo.engine.type.request.UnderwritingRequest;
 

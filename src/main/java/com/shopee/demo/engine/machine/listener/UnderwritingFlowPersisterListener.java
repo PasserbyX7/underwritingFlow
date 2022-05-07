@@ -16,13 +16,13 @@ import org.springframework.stereotype.Component;
 
 @Component
 @WithStateMachine(id = MachineId.UNDERWRITING_FLOW_ID)
-public class MachineListener {
+public class UnderwritingFlowPersisterListener {
 
     @Resource
     private UnderwritingFlowRepository contextService;
 
     @OnStateEntry
-    public void anyTransition(StateContext<UnderwritingFlowStatusEnum, FlowEventEnum> context) {
+    public void onStateEntry(StateContext<UnderwritingFlowStatusEnum, FlowEventEnum> context) {
         UnderwritingFlow<?> underwritingContext = context.getExtendedState().get(ExtendedStateEnum.UNDERWRITING_CONTEXT,
         UnderwritingFlow.class);
         UnderwritingFlowStatusEnum status = context.getStateMachine().getState().getId();

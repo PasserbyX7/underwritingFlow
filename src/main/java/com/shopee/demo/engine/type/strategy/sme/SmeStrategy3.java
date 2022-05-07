@@ -1,5 +1,7 @@
-package com.shopee.demo.engine.entity.strategy;
+package com.shopee.demo.engine.type.strategy.sme;
 
+import com.shopee.demo.engine.entity.strategy.Strategy;
+import com.shopee.demo.engine.entity.strategy.StrategyContext;
 import com.shopee.demo.engine.type.request.SmeUnderwritingRequest;
 import com.shopee.demo.engine.type.strategy.StrategyEnum;
 import com.shopee.demo.engine.type.strategy.StrategyResult;
@@ -10,11 +12,11 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Component
-public class SmeStrategy1 extends Strategy<SmeUnderwritingRequest> {
+public class SmeStrategy3 extends Strategy<SmeUnderwritingRequest> {
 
     @Override
     public StrategyEnum getStrategyName() {
-        return StrategyEnum.SME_STRATEGY_1;
+        return StrategyEnum.SME_STRATEGY_3;
     }
 
     @Override
