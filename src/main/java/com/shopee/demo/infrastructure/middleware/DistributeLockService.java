@@ -1,5 +1,7 @@
 package com.shopee.demo.infrastructure.middleware;
 
+import java.util.concurrent.Callable;
+
 public interface DistributeLockService {
-    void executeWithDistributeLock(String key, Runnable runnable);
+    Object executeWithDistributeLock(String key, Callable<Object> runnable);
 }

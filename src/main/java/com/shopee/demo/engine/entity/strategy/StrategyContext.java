@@ -1,6 +1,7 @@
 package com.shopee.demo.engine.entity.strategy;
 
 import com.shopee.demo.engine.type.request.UnderwritingRequest;
+import com.shopee.demo.engine.type.strategy.StrategyContainer;
 import com.shopee.demo.engine.type.strategy.StrategyResult;
 import com.shopee.demo.engine.type.strategy.input.StrategyInput;
 import com.shopee.demo.engine.type.strategy.output.StrategyOutput;

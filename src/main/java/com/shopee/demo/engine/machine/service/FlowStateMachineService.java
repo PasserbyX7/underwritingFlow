@@ -13,7 +13,7 @@ public interface FlowStateMachineService {
      * @param underwritingFlowId underwritingFlowId
      * @return the state machine
      */
-    StateMachine<UnderwritingFlowStatusEnum, FlowEventEnum> acquireStateMachine(long underwritingFlowId);
+    StateMachine<UnderwritingFlowStatusEnum, FlowEventEnum> acquire(long underwritingFlowId);
 
     /**
      * Execute the state machine.
@@ -25,5 +25,5 @@ public interface FlowStateMachineService {
      *
      * @param underwritingFlowId underwritingFlowId
      */
-    void releaseStateMachine(long underwritingFlowId);
+    void release(long underwritingFlowId);
 }

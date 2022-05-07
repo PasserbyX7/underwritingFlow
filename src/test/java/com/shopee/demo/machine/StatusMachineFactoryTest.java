@@ -75,9 +75,9 @@ public class StatusMachineFactoryTest {
         System.out.println(m1);
         System.out.println(m2);
         System.out.println(m3);
-        StateMachine<UnderwritingFlowStatusEnum, FlowEventEnum> m4 = flowStateMachineService.acquireStateMachine(ctxId1);
-        StateMachine<UnderwritingFlowStatusEnum, FlowEventEnum> m5 = flowStateMachineService.acquireStateMachine(ctxId2);
-        StateMachine<UnderwritingFlowStatusEnum, FlowEventEnum> m6 = flowStateMachineService.acquireStateMachine(ctxId3);
+        StateMachine<UnderwritingFlowStatusEnum, FlowEventEnum> m4 = flowStateMachineService.acquire(ctxId1);
+        StateMachine<UnderwritingFlowStatusEnum, FlowEventEnum> m5 = flowStateMachineService.acquire(ctxId2);
+        StateMachine<UnderwritingFlowStatusEnum, FlowEventEnum> m6 = flowStateMachineService.acquire(ctxId3);
         System.out.println(m4);
         System.out.println(m5);
         System.out.println(m6);

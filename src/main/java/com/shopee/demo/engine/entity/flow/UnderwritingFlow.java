@@ -2,7 +2,7 @@ package com.shopee.demo.engine.entity.flow;
 
 import com.shopee.demo.engine.entity.strategy.Strategy;
 import com.shopee.demo.engine.entity.strategy.StrategyContext;
-import com.shopee.demo.engine.factory.StrategyChainFactory;
+import com.shopee.demo.engine.type.factory.StrategyChainFactory;
 import com.shopee.demo.engine.type.flow.UnderwritingFlowStatusEnum;
 import com.shopee.demo.engine.type.request.UnderwritingRequest;
 import com.shopee.demo.engine.type.strategy.StrategyChain;
@@ -10,22 +10,17 @@ import com.shopee.demo.engine.type.strategy.StrategyEnum;
 import com.shopee.demo.engine.type.strategy.StrategyResult;
 import com.shopee.demo.engine.type.strategy.StrategyStatusEnum;
 
-import lombok.Setter;
-import lombok.Value;
-import lombok.experimental.NonFinal;
+import lombok.Data;
 
-@Value
+@Data
 public final class UnderwritingFlow<T extends UnderwritingRequest> {
 
-    private Long id;
-    private T underwritingRequest;
-    private StrategyContext<T> strategyContext;
-    @Setter
-    @NonFinal
+    private final Long id;
+    private final T underwritingRequest;
+    private final StrategyContext<T> strategyContext;
     private UnderwritingFlowStatusEnum flowStatus;
-    @NonFinal
     private StrategyEnum currentStrategy;
-    private StrategyChain<T> strategyChain;
+    private final StrategyChain<T> strategyChain;
 
     public UnderwritingFlow(Long id, T underwritingRequest, StrategyContext<T> strategyContext,
             UnderwritingFlowStatusEnum flowStatus, StrategyEnum currentStrategy) {
@@ -33,7 +28,7 @@ public final class UnderwritingFlow<T extends UnderwritingRequest> {
         this.underwritingRequest = underwritingRequest;
         this.strategyContext = strategyContext;
         this.flowStatus = flowStatus;
-        this.strategyChain = StrategyChainFactory.create(underwritingRequest.getUnderwritingType());
+        this.strategyChain = StrategyChainFactory.getStrategyChain(underwritingRequest.getUnderwritingType());
         this.currentStrategy = currentStrategy != null ? currentStrategy
                 : strategyChain.getFirstStrategy().getStrategyName();
     }

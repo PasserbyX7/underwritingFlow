@@ -35,7 +35,7 @@ public class MachinePersister implements StateMachinePersist<UnderwritingFlowSta
 
     @Override
     public StateMachineContext<UnderwritingFlowStatusEnum, FlowEventEnum> read(Long underwritingFlowId) throws Exception {
-        UnderwritingFlow<?> underwritingFlow = underwritingFlowRepository.load(underwritingFlowId);
+        UnderwritingFlow<?> underwritingFlow = underwritingFlowRepository.find(underwritingFlowId);
         UnderwritingFlowStatusEnum currentStatus = underwritingFlow.getFlowStatus();
         Map<Object, Object> variables = new HashMap<>();
         variables.put(ExtendedStateEnum.UNDERWRITING_CONTEXT, underwritingFlow);

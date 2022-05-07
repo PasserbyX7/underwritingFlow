@@ -1,9 +1,7 @@
-package com.shopee.demo.engine.entity.strategy;
+package com.shopee.demo.engine.type.strategy;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import com.shopee.demo.engine.type.strategy.StrategyEnum;
 
 public class StrategyContainer<T> {
 

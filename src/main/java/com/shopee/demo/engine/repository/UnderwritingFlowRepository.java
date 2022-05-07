@@ -6,6 +6,6 @@ public interface UnderwritingFlowRepository {
 
     long save(UnderwritingFlow<?> underwritingFlow);
 
-    UnderwritingFlow<?> load(long underwritingFlowId);
+    UnderwritingFlow<?> find(long underwritingFlowId);
 
 }

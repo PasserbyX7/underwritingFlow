@@ -27,15 +27,16 @@ public class UnderwritingFlowExecuteServiceImpl implements UnderwritingFlowExecu
 
     @Override
     public void executeUnderwritingFlowAsync(long underwritingFlowId) {
-        UnderwritingFlow<?> underwritingFlow = underwritingFlowRepository.load(underwritingFlowId);
+        UnderwritingFlow<?> underwritingFlow = underwritingFlowRepository.find(underwritingFlowId);
         String underwritingId = underwritingFlow.getUnderwritingRequest().getUnderwritingId();
         distributeLockService.executeWithDistributeLock(underwritingId, () -> {
             // 创建状态机
-            StateMachine<UnderwritingFlowStatusEnum, FlowEventEnum> stateMachine = flowStateMachineService.acquireStateMachine(underwritingFlowId);
+            StateMachine<UnderwritingFlowStatusEnum, FlowEventEnum> stateMachine = flowStateMachineService.acquire(underwritingFlowId);
             // 执行状态机
             flowStateMachineService.execute(stateMachine);
             // 销毁状态机
-            flowStateMachineService.releaseStateMachine(underwritingFlowId);
+            flowStateMachineService.release(underwritingFlowId);
+            return null;
         });
     }
 

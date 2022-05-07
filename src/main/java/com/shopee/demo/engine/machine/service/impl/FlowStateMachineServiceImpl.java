@@ -42,7 +42,7 @@ public class FlowStateMachineServiceImpl implements FlowStateMachineService, Dis
     private final Map<Long, StateMachine<UnderwritingFlowStatusEnum, FlowEventEnum>> machines = new HashMap<>();
 
     @Override
-    public StateMachine<UnderwritingFlowStatusEnum, FlowEventEnum> acquireStateMachine(long underwritingFlowId) {
+    public StateMachine<UnderwritingFlowStatusEnum, FlowEventEnum> acquire(long underwritingFlowId) {
         log.info("Acquiring machine with id " + underwritingFlowId);
         StateMachine<UnderwritingFlowStatusEnum, FlowEventEnum> stateMachine;
         // naive sync to handle concurrency with release
@@ -68,7 +68,7 @@ public class FlowStateMachineServiceImpl implements FlowStateMachineService, Dis
     }
 
     @Override
-    public void releaseStateMachine(long underwritingFlowId) {
+    public void release(long underwritingFlowId) {
         log.info("Releasing machine with id " + underwritingFlowId);
         synchronized (machines) {
             StateMachine<UnderwritingFlowStatusEnum, FlowEventEnum> stateMachine = machines.remove(underwritingFlowId);
@@ -85,7 +85,7 @@ public class FlowStateMachineServiceImpl implements FlowStateMachineService, Dis
         synchronized (machines) {
             List<Long> underwritingFlowIds = new ArrayList<>(machines.keySet());
             for (Long underwritingFlowId : underwritingFlowIds) {
-                releaseStateMachine(underwritingFlowId);
+                release(underwritingFlowId);
             }
         }
     }
