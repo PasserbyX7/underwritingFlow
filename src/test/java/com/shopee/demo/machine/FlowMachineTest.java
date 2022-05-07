@@ -8,6 +8,7 @@ import com.shopee.demo.engine.repository.converter.SmeUnderwritingRequestConvert
 import com.shopee.demo.engine.service.UnderwritingFlowExecuteService;
 import com.shopee.demo.engine.type.flow.FlowEventEnum;
 import com.shopee.demo.engine.type.flow.UnderwritingFlowStatusEnum;
+import com.shopee.demo.engine.type.request.UnderwritingRequest;
 import com.shopee.demo.infrastructure.dal.dao.UnderwritingFlowDAO;
 import com.shopee.demo.infrastructure.dal.data.SmeUnderwritingDO;
 import com.shopee.demo.infrastructure.dal.data.UnderwritingFlowDO;
@@ -49,8 +50,7 @@ public class FlowMachineTest {
         // given
         Map<Long, UnderwritingFlowDO> underwritingContextMap = new HashMap<>();
         Iterator<Long> iter = Stream.iterate(0L, e -> e + 1).iterator();
-        UnderwritingFlow<?> flow = UnderwritingFlow.of(SmeUnderwritingRequestConverter.INSTANCE
-                .convert(new SmeUnderwritingDO()));
+        UnderwritingFlow flow = mockUnderwritingFlow();
         // when
         doAnswer(invocation -> {
             UnderwritingFlowDO entity = invocation.getArgument(0);
@@ -72,4 +72,10 @@ public class FlowMachineTest {
         log.info("*************状态机测试结束*************");
     }
 
+    private UnderwritingFlow mockUnderwritingFlow() {
+        SmeUnderwritingDO smeUnderwritingDO = new SmeUnderwritingDO();
+        UnderwritingRequest smeUnderwritingRequest = SmeUnderwritingRequestConverter.INSTANCE
+                .convert(smeUnderwritingDO);
+        return UnderwritingFlow.of(smeUnderwritingRequest);
+    }
 }

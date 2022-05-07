@@ -70,7 +70,7 @@ public class FlowMachineConfig extends EnumStateMachineConfigurerAdapter<Underwr
 
             @Override
             public boolean evaluate(StateContext<UnderwritingFlowStatusEnum, FlowEventEnum> context) {
-                UnderwritingFlow<?> underwritingContext = context.getExtendedState().get(
+                UnderwritingFlow underwritingContext = context.getExtendedState().get(
                         ExtendedStateEnum.UNDERWRITING_CONTEXT,
                         UnderwritingFlow.class);
                 StrategyStatusEnum strategyStatus = underwritingContext.getStrategyResultStatus();
@@ -87,7 +87,7 @@ public class FlowMachineConfig extends EnumStateMachineConfigurerAdapter<Underwr
             @Override
             public boolean evaluate(StateContext<UnderwritingFlowStatusEnum, FlowEventEnum> context) {
                 // return false;
-                UnderwritingFlow<?> underwritingContext = context.getExtendedState().get(
+                UnderwritingFlow underwritingContext = context.getExtendedState().get(
                         ExtendedStateEnum.UNDERWRITING_CONTEXT,
                         UnderwritingFlow.class);
                 return underwritingContext.getStrategyResultStatus() == StrategyStatusEnum.REJECT;

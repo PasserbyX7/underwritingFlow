@@ -23,7 +23,7 @@ public class UnderwritingFlowPersisterListener {
 
     @OnStateEntry
     public void onStateEntry(StateContext<UnderwritingFlowStatusEnum, FlowEventEnum> context) {
-        UnderwritingFlow<?> underwritingContext = context.getExtendedState().get(ExtendedStateEnum.UNDERWRITING_CONTEXT,
+        UnderwritingFlow underwritingContext = context.getExtendedState().get(ExtendedStateEnum.UNDERWRITING_CONTEXT,
         UnderwritingFlow.class);
         UnderwritingFlowStatusEnum status = context.getStateMachine().getState().getId();
         underwritingContext.setFlowStatus(status);

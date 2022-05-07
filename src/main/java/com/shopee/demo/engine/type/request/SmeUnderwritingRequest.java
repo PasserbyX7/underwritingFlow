@@ -1,7 +1,6 @@
 package com.shopee.demo.engine.type.request;
 
 import com.shopee.demo.engine.repository.converter.SmeUnderwritingRequestConverter;
-import com.shopee.demo.engine.type.strategy.StrategyChain;
 import com.shopee.demo.infrastructure.dal.data.SmeUnderwritingDO;
 
 import lombok.Value;

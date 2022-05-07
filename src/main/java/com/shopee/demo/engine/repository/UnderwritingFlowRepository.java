@@ -4,8 +4,8 @@ import com.shopee.demo.engine.entity.flow.UnderwritingFlow;
 
 public interface UnderwritingFlowRepository {
 
-    long save(UnderwritingFlow<?> underwritingFlow);
+    long save(UnderwritingFlow underwritingFlow);
 
-    UnderwritingFlow<?> find(long underwritingFlowId);
+    UnderwritingFlow find(long underwritingFlowId);
 
 }

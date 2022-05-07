@@ -28,14 +28,14 @@ public class MachinePersister implements StateMachinePersist<UnderwritingFlowSta
     @Override
     public void write(StateMachineContext<UnderwritingFlowStatusEnum, FlowEventEnum> context, Long underwritingFlowId)
             throws Exception {
-        UnderwritingFlow<?> underwritingContext = context.getExtendedState().get(ExtendedStateEnum.UNDERWRITING_CONTEXT,
+        UnderwritingFlow underwritingContext = context.getExtendedState().get(ExtendedStateEnum.UNDERWRITING_CONTEXT,
                 UnderwritingFlow.class);
         underwritingFlowRepository.save(underwritingContext);
     }
 
     @Override
     public StateMachineContext<UnderwritingFlowStatusEnum, FlowEventEnum> read(Long underwritingFlowId) throws Exception {
-        UnderwritingFlow<?> underwritingFlow = underwritingFlowRepository.find(underwritingFlowId);
+        UnderwritingFlow underwritingFlow = underwritingFlowRepository.find(underwritingFlowId);
         UnderwritingFlowStatusEnum currentStatus = underwritingFlow.getFlowStatus();
         Map<Object, Object> variables = new HashMap<>();
         variables.put(ExtendedStateEnum.UNDERWRITING_CONTEXT, underwritingFlow);

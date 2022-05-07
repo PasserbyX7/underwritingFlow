@@ -48,7 +48,7 @@ public class StatusMachineFactoryTest {
         // given
         Map<Long, UnderwritingFlowDO> underwritingContextMap = new HashMap<>();
         Iterator<Long> iter = Stream.iterate(0L, e -> e + 1).iterator();
-        UnderwritingFlow<?> flow = UnderwritingFlow.of(SmeUnderwritingRequestConverter.INSTANCE
+        UnderwritingFlow flow = UnderwritingFlow.of(SmeUnderwritingRequestConverter.INSTANCE
                 .convert(new SmeUnderwritingDO()));
         // when
         doAnswer(invocation -> {

@@ -27,7 +27,7 @@ public class UnderwritingFlowExecuteServiceImpl implements UnderwritingFlowExecu
 
     @Override
     public void executeUnderwritingFlowAsync(long underwritingFlowId) {
-        UnderwritingFlow<?> underwritingFlow = underwritingFlowRepository.find(underwritingFlowId);
+        UnderwritingFlow underwritingFlow = underwritingFlowRepository.find(underwritingFlowId);
         String underwritingId = underwritingFlow.getUnderwritingRequest().getUnderwritingId();
         distributeLockService.executeWithDistributeLock(underwritingId, () -> {
             // 创建状态机

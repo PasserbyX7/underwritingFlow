@@ -15,4 +15,13 @@ public class StrategyContainer<T> {
         strategyContainer.put(strategyEnum, value);
     }
 
+    public String toJson() {
+        // TODO
+        return null;
+    }
+
+    public static <T> StrategyContainer<T> fromJson(String str) {
+        // TODO
+        return null;
+    }
 }

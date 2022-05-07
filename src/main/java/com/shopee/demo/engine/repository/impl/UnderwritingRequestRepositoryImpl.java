@@ -3,11 +3,9 @@ package com.shopee.demo.engine.repository.impl;
 import javax.annotation.Resource;
 
 import com.shopee.demo.engine.repository.UnderwritingRequestRepository;
-import com.shopee.demo.engine.type.request.RetailUnderwritingRequest;
 import com.shopee.demo.engine.type.request.SmeUnderwritingRequest;
 import com.shopee.demo.engine.type.request.UnderwritingRequest;
 import com.shopee.demo.engine.type.request.UnderwritingTypeEnum;
-import com.shopee.demo.infrastructure.dal.dao.RetailUnderwritingDAO;
 import com.shopee.demo.infrastructure.dal.dao.SmeUnderwritingDAO;
 import com.shopee.demo.infrastructure.dal.data.SmeUnderwritingDO;
 
@@ -19,9 +17,6 @@ public class UnderwritingRequestRepositoryImpl implements UnderwritingRequestRep
     @Resource
     private SmeUnderwritingDAO smeUnderwritingDAO;
 
-    @Resource
-    private RetailUnderwritingDAO retailUnderwritingDAO;
-
     @Override
     public void save(UnderwritingRequest underwritingRequest) {
         switch (underwritingRequest.getUnderwritingType()) {
@@ -29,7 +24,7 @@ public class UnderwritingRequestRepositoryImpl implements UnderwritingRequestRep
                 smeUnderwritingDAO.insertSelective(SmeUnderwritingDO.of((SmeUnderwritingRequest) underwritingRequest));
                 break;
             case RETAIL:
-                break;
+                throw new IllegalArgumentException();
             default:
                 throw new IllegalArgumentException();
         }
@@ -42,7 +37,7 @@ public class UnderwritingRequestRepositoryImpl implements UnderwritingRequestRep
             case SME:
                 return SmeUnderwritingRequest.of(smeUnderwritingDAO.selectByUnderwritingId(underwritingId));
             case RETAIL:
-                return RetailUnderwritingRequest.of(retailUnderwritingDAO.selectByUnderwritingId(underwritingId));
+                throw new IllegalArgumentException();
             default:
                 throw new IllegalArgumentException();
         }

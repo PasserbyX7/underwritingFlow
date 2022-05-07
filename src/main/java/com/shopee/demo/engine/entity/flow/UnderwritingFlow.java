@@ -2,10 +2,8 @@ package com.shopee.demo.engine.entity.flow;
 
 import com.shopee.demo.engine.entity.strategy.Strategy;
 import com.shopee.demo.engine.entity.strategy.StrategyContext;
-import com.shopee.demo.engine.type.factory.StrategyChainFactory;
 import com.shopee.demo.engine.type.flow.UnderwritingFlowStatusEnum;
 import com.shopee.demo.engine.type.request.UnderwritingRequest;
-import com.shopee.demo.engine.type.strategy.StrategyChain;
 import com.shopee.demo.engine.type.strategy.StrategyEnum;
 import com.shopee.demo.engine.type.strategy.StrategyResult;
 import com.shopee.demo.engine.type.strategy.StrategyStatusEnum;
@@ -13,31 +11,29 @@ import com.shopee.demo.engine.type.strategy.StrategyStatusEnum;
 import lombok.Data;
 
 @Data
-public final class UnderwritingFlow<T extends UnderwritingRequest> {
+public final class UnderwritingFlow {
 
     private final Long id;
-    private final T underwritingRequest;
-    private final StrategyContext<T> strategyContext;
+    private final UnderwritingRequest underwritingRequest;
+    private final StrategyContext<UnderwritingRequest> strategyContext;
     private UnderwritingFlowStatusEnum flowStatus;
     private StrategyEnum currentStrategy;
-    private final StrategyChain<T> strategyChain;
 
-    public UnderwritingFlow(Long id, T underwritingRequest, StrategyContext<T> strategyContext,
+    public UnderwritingFlow(Long id, UnderwritingRequest underwritingRequest,
+            StrategyContext<UnderwritingRequest> strategyContext,
             UnderwritingFlowStatusEnum flowStatus, StrategyEnum currentStrategy) {
         this.id = id;
         this.underwritingRequest = underwritingRequest;
         this.strategyContext = strategyContext;
         this.flowStatus = flowStatus;
-        this.strategyChain = StrategyChainFactory.getStrategyChain(underwritingRequest.getUnderwritingType());
-        this.currentStrategy = currentStrategy != null ? currentStrategy
-                : strategyChain.getFirstStrategy().getStrategyName();
+        this.currentStrategy = currentStrategy;
     }
 
-    public static <T extends UnderwritingRequest> UnderwritingFlow<T> of(T underwritingRequest) {
+    public static UnderwritingFlow of(UnderwritingRequest underwritingRequest) {
         Long id = null;
         UnderwritingFlowStatusEnum flowStatus = UnderwritingFlowStatusEnum.CREATED;
-        StrategyContext<T> strategyContext = StrategyContext.of(underwritingRequest);
-        return new UnderwritingFlow<T>(id, underwritingRequest, strategyContext, flowStatus, null);
+        StrategyContext<UnderwritingRequest> strategyContext = StrategyContext.of(underwritingRequest);
+        return new UnderwritingFlow(id, underwritingRequest, strategyContext, flowStatus, null);
     }
 
     public void execute() {
@@ -55,7 +51,7 @@ public final class UnderwritingFlow<T extends UnderwritingRequest> {
         return getCurrentStrategy().getNextStrategy() != null;
     }
 
-    public StrategyStatusEnum getStrategyResultStatus(){
+    public StrategyStatusEnum getStrategyResultStatus() {
         return strategyContext.getStrategyResult().getStatus();
     }
 
@@ -63,8 +59,9 @@ public final class UnderwritingFlow<T extends UnderwritingRequest> {
         return getCurrentStrategy().getStrategyName();
     }
 
-    private Strategy<T> getCurrentStrategy() {
-        return strategyChain.getStrategy(currentStrategy);
+    private Strategy<UnderwritingRequest> getCurrentStrategy() {
+        return currentStrategy != null ? underwritingRequest.getStrategyChain().getStrategy(currentStrategy)
+                : underwritingRequest.getStrategyChain().getFirstStrategy();
     }
 
 }
