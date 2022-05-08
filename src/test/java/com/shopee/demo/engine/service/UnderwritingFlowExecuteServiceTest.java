@@ -11,6 +11,7 @@ import static org.mockito.Mockito.verify;
 import java.util.concurrent.Callable;
 
 import com.shopee.demo.engine.entity.flow.UnderwritingFlow;
+import com.shopee.demo.engine.entity.machine.FlowStateMachine;
 import com.shopee.demo.engine.repository.UnderwritingFlowRepository;
 import com.shopee.demo.engine.service.impl.UnderwritingFlowExecuteServiceImpl;
 import com.shopee.demo.engine.type.request.UnderwritingRequest;
@@ -41,8 +42,10 @@ public class UnderwritingFlowExecuteServiceTest {
     private DistributeLockService distributeLockService;
 
     @Mock
-    private FlowStateMachineService flowStateMachineService;
+    private FlowStateMachinePoolService flowStateMachinePoolService;
 
+    @Mock
+    private FlowStateMachine flowStateMachine;
 
     @Test
     void testExecuteUnderwritingFlowAsync() {
@@ -53,14 +56,17 @@ public class UnderwritingFlowExecuteServiceTest {
         doReturn(underwritingFlow)
                 .when(underwritingFlowRepository)
                 .find(anyLong());
+        doReturn(flowStateMachine)
+                .when(flowStateMachinePoolService)
+                .acquire(anyLong());
         doAnswer(inv -> inv.<Callable<Object>>getArgument(1).call())
                 .when(distributeLockService)
                 .executeWithDistributeLock(anyString(), any());
         // then
         underwritingFlowExecuteService.executeUnderwritingFlowAsync(underwritingFlowId);
-        verify(flowStateMachineService, times(1)).acquire(anyLong());
-        verify(flowStateMachineService, times(1)).execute(any());
-        verify(flowStateMachineService, times(1)).release(anyLong());
+        verify(flowStateMachinePoolService, times(1)).acquire(anyLong());
+        verify(flowStateMachine, times(1)).execute();
+        verify(flowStateMachinePoolService, times(1)).release(any());
     }
 
     private UnderwritingFlow mockUnderwritingFlow() {

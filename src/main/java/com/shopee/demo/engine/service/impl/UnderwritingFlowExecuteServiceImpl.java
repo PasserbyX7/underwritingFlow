@@ -3,14 +3,12 @@ package com.shopee.demo.engine.service.impl;
 import javax.annotation.Resource;
 
 import com.shopee.demo.engine.entity.flow.UnderwritingFlow;
+import com.shopee.demo.engine.entity.machine.FlowStateMachine;
 import com.shopee.demo.engine.repository.UnderwritingFlowRepository;
-import com.shopee.demo.engine.service.FlowStateMachineService;
+import com.shopee.demo.engine.service.FlowStateMachinePoolService;
 import com.shopee.demo.engine.service.UnderwritingFlowExecuteService;
-import com.shopee.demo.engine.type.flow.FlowEventEnum;
-import com.shopee.demo.engine.type.flow.UnderwritingFlowStatusEnum;
 import com.shopee.demo.infrastructure.middleware.DistributeLockService;
 
-import org.springframework.statemachine.StateMachine;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -20,10 +18,10 @@ public class UnderwritingFlowExecuteServiceImpl implements UnderwritingFlowExecu
     private UnderwritingFlowRepository underwritingFlowRepository;
 
     @Resource
-    private DistributeLockService distributeLockService;
+    private FlowStateMachinePoolService flowStateMachinePoolService;
 
     @Resource
-    private FlowStateMachineService flowStateMachineService;
+    private DistributeLockService distributeLockService;
 
     @Override
     public void executeUnderwritingFlowAsync(long underwritingFlowId) {
@@ -31,11 +29,11 @@ public class UnderwritingFlowExecuteServiceImpl implements UnderwritingFlowExecu
         String underwritingId = underwritingFlow.getUnderwritingRequest().getUnderwritingId();
         distributeLockService.executeWithDistributeLock(underwritingId, () -> {
             // 创建状态机
-            StateMachine<UnderwritingFlowStatusEnum, FlowEventEnum> stateMachine = flowStateMachineService.acquire(underwritingFlowId);
+            FlowStateMachine flowStateMachine = flowStateMachinePoolService.acquire(underwritingFlowId);
             // 执行状态机
-            flowStateMachineService.execute(stateMachine);
+            flowStateMachine.execute();
             // 销毁状态机
-            flowStateMachineService.release(underwritingFlowId);
+            flowStateMachinePoolService.release(flowStateMachine);
             return null;
         });
     }

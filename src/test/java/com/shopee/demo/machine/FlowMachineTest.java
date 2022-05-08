@@ -40,7 +40,7 @@ public class FlowMachineTest {
     UnderwritingFlowExecuteService underwritingFlowService;
 
     @Resource
-    UnderwritingFlowRepository underwritingContextService;
+    UnderwritingFlowRepository underwritingFlowRepository;
 
     @MockBean
     UnderwritingFlowDAO underwritingContextDAO;
@@ -66,7 +66,7 @@ public class FlowMachineTest {
                 .when(underwritingContextDAO)
                 .selectByPrimaryKey(anyLong());
         // then
-        long ctxId = underwritingContextService.save(flow);
+        long ctxId = underwritingFlowRepository.save(flow);
         log.info("*************状态机测试开始*************");
         underwritingFlowService.executeUnderwritingFlowAsync(ctxId);
         log.info("*************状态机测试结束*************");
@@ -78,4 +78,5 @@ public class FlowMachineTest {
                 .convert(smeUnderwritingDO);
         return UnderwritingFlow.of(smeUnderwritingRequest);
     }
+
 }
