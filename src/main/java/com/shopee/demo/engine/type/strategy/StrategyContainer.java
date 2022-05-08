@@ -22,6 +22,6 @@ public class StrategyContainer<T> {
 
     public static <T> StrategyContainer<T> fromJson(String str) {
         // TODO
-        return null;
+        return new StrategyContainer<>();
     }
 }
