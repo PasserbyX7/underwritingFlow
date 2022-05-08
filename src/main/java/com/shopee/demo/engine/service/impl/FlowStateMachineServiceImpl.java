@@ -1,4 +1,4 @@
-package com.shopee.demo.engine.machine.service.impl;
+package com.shopee.demo.engine.service.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,7 +9,7 @@ import java.util.concurrent.CountDownLatch;
 import javax.annotation.Resource;
 
 import com.shopee.demo.engine.machine.constant.MachineId;
-import com.shopee.demo.engine.machine.service.FlowStateMachineService;
+import com.shopee.demo.engine.service.FlowStateMachineService;
 import com.shopee.demo.engine.type.flow.FlowEventEnum;
 import com.shopee.demo.engine.type.flow.UnderwritingFlowStatusEnum;
 

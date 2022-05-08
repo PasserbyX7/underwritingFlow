@@ -1,4 +1,4 @@
-package com.shopee.demo.engine.machine.service;
+package com.shopee.demo.engine.service;
 
 import com.shopee.demo.engine.type.flow.FlowEventEnum;
 import com.shopee.demo.engine.type.flow.UnderwritingFlowStatusEnum;
