@@ -3,9 +3,9 @@ package com.shopee.demo.engine.entity.machine;
 import java.util.concurrent.CountDownLatch;
 
 import com.shopee.demo.engine.entity.flow.UnderwritingFlow;
-import com.shopee.demo.engine.machine.constant.ExtendedStateEnum;
 import com.shopee.demo.engine.type.flow.FlowEventEnum;
 import com.shopee.demo.engine.type.flow.UnderwritingFlowStatusEnum;
+import com.shopee.demo.engine.type.machine.ExtendedStateEnum;
 
 import org.springframework.context.Lifecycle;
 import org.springframework.messaging.support.MessageBuilder;
@@ -17,7 +17,6 @@ import org.springframework.statemachine.state.State;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Mono;
-
 
 @RequiredArgsConstructor(staticName = "of")
 public class FlowStateMachine {

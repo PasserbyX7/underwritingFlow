@@ -7,9 +7,8 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import com.shopee.demo.engine.entity.machine.FlowStateMachine;
-import com.shopee.demo.engine.service.impl.FlowStateMachinePoolServiceImpl;
-import com.shopee.demo.engine.type.flow.FlowEventEnum;
-import com.shopee.demo.engine.type.flow.UnderwritingFlowStatusEnum;
+import com.shopee.demo.engine.service.machine.FlowStateMachinePersistService;
+import com.shopee.demo.engine.service.machine.impl.FlowStateMachinePoolServiceImpl;
 
 import org.apache.commons.pool2.impl.GenericObjectPool;
 import org.junit.jupiter.api.DisplayName;
@@ -20,7 +19,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
-import org.springframework.statemachine.StateMachinePersist;
 
 @ExtendWith(MockitoExtension.class)
 @DisplayName("FlowMachinePoolServiceTest")
@@ -31,7 +29,7 @@ public class FlowMachinePoolServiceTest {
     private GenericObjectPool<FlowStateMachine> flowMachinePool;
 
     @Mock
-    private StateMachinePersist<UnderwritingFlowStatusEnum, FlowEventEnum, Long> stateMachinePersist;
+    private FlowStateMachinePersistService flowStateMachinePersistService;
 
     @Mock
     private FlowStateMachine flowStateMachine;
@@ -50,14 +48,15 @@ public class FlowMachinePoolServiceTest {
         // then
         flowStateMachinePoolService.acquire(underwritingFlowId);
         verify(flowMachinePool, times(1)).borrowObject();
-        verify(stateMachinePersist, times(1)).read(anyLong());
+        verify(flowStateMachinePersistService, times(1)).read(anyLong());
         verify(flowStateMachine, times(1)).restore(any());
         verify(flowStateMachine, times(1)).start();
     }
 
     @Test
     void testRelease() {
-
+        flowStateMachinePoolService.release(flowStateMachine);
+        verify(flowMachinePool, times(1)).returnObject(any());
     }
 
 }

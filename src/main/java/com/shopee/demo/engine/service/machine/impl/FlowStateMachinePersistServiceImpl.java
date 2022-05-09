@@ -1,4 +1,4 @@
-package com.shopee.demo.engine.machine.persister;
+package com.shopee.demo.engine.service.machine.impl;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -6,35 +6,36 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import com.shopee.demo.engine.entity.flow.UnderwritingFlow;
-import com.shopee.demo.engine.machine.constant.ExtendedStateEnum;
-import com.shopee.demo.engine.machine.constant.MachineId;
 import com.shopee.demo.engine.repository.UnderwritingFlowRepository;
+import com.shopee.demo.engine.service.machine.FlowStateMachinePersistService;
 import com.shopee.demo.engine.type.flow.FlowEventEnum;
 import com.shopee.demo.engine.type.flow.UnderwritingFlowStatusEnum;
+import com.shopee.demo.engine.type.machine.ExtendedStateEnum;
+import com.shopee.demo.engine.type.machine.MachineId;
 
 import org.springframework.statemachine.ExtendedState;
+import org.springframework.statemachine.StateContext;
 import org.springframework.statemachine.StateMachineContext;
-import org.springframework.statemachine.StateMachinePersist;
 import org.springframework.statemachine.support.DefaultExtendedState;
 import org.springframework.statemachine.support.DefaultStateMachineContext;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
-public class MachinePersister implements StateMachinePersist<UnderwritingFlowStatusEnum, FlowEventEnum, Long> {
+@Service
+public class FlowStateMachinePersistServiceImpl implements FlowStateMachinePersistService {
 
     @Resource
     private UnderwritingFlowRepository underwritingFlowRepository;
 
     @Override
-    public void write(StateMachineContext<UnderwritingFlowStatusEnum, FlowEventEnum> context, Long underwritingFlowId)
-            throws Exception {
-        UnderwritingFlow underwritingContext = context.getExtendedState().get(ExtendedStateEnum.UNDERWRITING_CONTEXT,
+    public void write(StateContext<UnderwritingFlowStatusEnum, FlowEventEnum> context) throws Exception {
+        UnderwritingFlow underwritingFlow = context.getExtendedState().get(ExtendedStateEnum.UNDERWRITING_CONTEXT,
                 UnderwritingFlow.class);
-        underwritingFlowRepository.save(underwritingContext);
+        underwritingFlowRepository.save(underwritingFlow);
     }
 
     @Override
-    public StateMachineContext<UnderwritingFlowStatusEnum, FlowEventEnum> read(Long underwritingFlowId) throws Exception {
+    public StateMachineContext<UnderwritingFlowStatusEnum, FlowEventEnum> read(long underwritingFlowId)
+            throws Exception {
         UnderwritingFlow underwritingFlow = underwritingFlowRepository.find(underwritingFlowId);
         UnderwritingFlowStatusEnum currentStatus = underwritingFlow.getFlowStatus();
         Map<Object, Object> variables = new HashMap<>();

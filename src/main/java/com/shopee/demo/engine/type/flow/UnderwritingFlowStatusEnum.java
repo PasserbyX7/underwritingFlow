@@ -1,7 +1,7 @@
 package com.shopee.demo.engine.type.flow;
 
 public enum UnderwritingFlowStatusEnum {
-    CREATED,
+    INITIAL,
     ONGOING,
     CHOICE,
     PENDING,
@@ -9,10 +9,9 @@ public enum UnderwritingFlowStatusEnum {
     REJECT,
     EXPIRED,
     CANCELLED;
-    public boolean isTerminal(){
-        //TODO
-        if(this==APPROVED)
-            return true;
-        return false;
+
+    public boolean isTerminal() {
+        return this == APPROVED || this == REJECT || this == EXPIRED || this == CANCELLED;
     }
+
 }

@@ -1,10 +1,11 @@
-package com.shopee.demo.engine.machine.config;
+package com.shopee.demo.engine.entity.machine.config;
 
 import com.shopee.demo.engine.entity.flow.UnderwritingFlow;
-import com.shopee.demo.engine.machine.constant.ExtendedStateEnum;
-import com.shopee.demo.engine.machine.constant.MachineId;
+import com.shopee.demo.engine.service.machine.FlowStateMachinePersistService;
 import com.shopee.demo.engine.type.flow.FlowEventEnum;
 import com.shopee.demo.engine.type.flow.UnderwritingFlowStatusEnum;
+import com.shopee.demo.engine.type.machine.ExtendedStateEnum;
+import com.shopee.demo.engine.type.machine.MachineId;
 import com.shopee.demo.engine.type.strategy.StrategyStatusEnum;
 
 import org.springframework.context.annotation.Bean;
@@ -12,12 +13,15 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.statemachine.StateContext;
 import org.springframework.statemachine.action.Action;
+import org.springframework.statemachine.annotation.OnStateEntry;
+import org.springframework.statemachine.annotation.WithStateMachine;
 import org.springframework.statemachine.config.EnableStateMachineFactory;
 import org.springframework.statemachine.config.EnumStateMachineConfigurerAdapter;
 import org.springframework.statemachine.config.builders.StateMachineConfigurationConfigurer;
 import org.springframework.statemachine.config.builders.StateMachineStateConfigurer;
 import org.springframework.statemachine.config.builders.StateMachineTransitionConfigurer;
 import org.springframework.statemachine.guard.Guard;
+import org.springframework.stereotype.Component;
 
 import reactor.core.publisher.Mono;
 
@@ -25,6 +29,8 @@ import static com.shopee.demo.engine.type.flow.FlowEventEnum.*;
 import static com.shopee.demo.engine.type.flow.UnderwritingFlowStatusEnum.*;
 
 import java.util.EnumSet;
+
+import javax.annotation.Resource;
 
 @Configuration
 @EnableStateMachineFactory(contextEvents = false)
@@ -34,7 +40,7 @@ public class FlowMachineConfig extends EnumStateMachineConfigurerAdapter<Underwr
     public void configure(StateMachineStateConfigurer<UnderwritingFlowStatusEnum, FlowEventEnum> states)
             throws Exception {
         states.withStates()
-                .initial(CREATED)
+                .initial(INITIAL)
                 .choice(CHOICE)
                 .state(ONGOING, executeStrategyAction())
                 .states(EnumSet.allOf(UnderwritingFlowStatusEnum.class));
@@ -45,7 +51,7 @@ public class FlowMachineConfig extends EnumStateMachineConfigurerAdapter<Underwr
             throws Exception {
         transitions
                 .withExternal()
-                .source(CREATED).target(ONGOING).event(START)
+                .source(INITIAL).target(ONGOING).event(START)
                 .and()
                 .withExternal()
                 .source(ONGOING).target(CHOICE).event(STRATEGY_EXECUTE)
@@ -126,4 +132,19 @@ public class FlowMachineConfig extends EnumStateMachineConfigurerAdapter<Underwr
 
         };
     }
+
+    @Component
+    @WithStateMachine(id = MachineId.UNDERWRITING_FLOW_ID)
+    public static class UnderwritingFlowPersisterListener {
+
+        @Resource
+        private FlowStateMachinePersistService flowStateMachinePersistService;
+
+        @OnStateEntry
+        public void onStateEntry(StateContext<UnderwritingFlowStatusEnum, FlowEventEnum> context) throws Exception {
+            flowStateMachinePersistService.write(context);
+        }
+
+    }
+
 }

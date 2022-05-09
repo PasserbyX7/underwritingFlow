@@ -1,4 +1,4 @@
-package com.shopee.demo.engine.service;
+package com.shopee.demo.engine.service.machine;
 
 import com.shopee.demo.engine.entity.machine.FlowStateMachine;
 

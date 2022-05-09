@@ -31,7 +31,7 @@ public final class UnderwritingFlow {
 
     public static UnderwritingFlow of(UnderwritingRequest underwritingRequest) {
         Long id = null;
-        UnderwritingFlowStatusEnum flowStatus = UnderwritingFlowStatusEnum.CREATED;
+        UnderwritingFlowStatusEnum flowStatus = UnderwritingFlowStatusEnum.INITIAL;
         StrategyContext<UnderwritingRequest> strategyContext = StrategyContext.of(underwritingRequest);
         return new UnderwritingFlow(id, underwritingRequest, strategyContext, flowStatus, null);
     }

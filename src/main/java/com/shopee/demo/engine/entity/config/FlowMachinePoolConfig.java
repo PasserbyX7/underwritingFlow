@@ -3,9 +3,9 @@ package com.shopee.demo.engine.entity.config;
 import javax.annotation.Resource;
 
 import com.shopee.demo.engine.entity.machine.FlowStateMachine;
-import com.shopee.demo.engine.machine.constant.MachineId;
 import com.shopee.demo.engine.type.flow.FlowEventEnum;
 import com.shopee.demo.engine.type.flow.UnderwritingFlowStatusEnum;
+import com.shopee.demo.engine.type.machine.MachineId;
 
 import org.apache.commons.pool2.BasePooledObjectFactory;
 import org.apache.commons.pool2.PooledObject;
