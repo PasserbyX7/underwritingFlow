@@ -4,12 +4,12 @@ import javax.annotation.Resource;
 
 import com.google.common.collect.ImmutableMap;
 import com.shopee.demo.engine.entity.flow.UnderwritingFlow;
+import com.shopee.demo.engine.entity.machine.config.FlowMachineBuilder;
 import com.shopee.demo.engine.repository.UnderwritingFlowRepository;
 import com.shopee.demo.engine.service.machine.FlowStateMachinePersistService;
 import com.shopee.demo.engine.type.flow.FlowEventEnum;
 import com.shopee.demo.engine.type.flow.UnderwritingFlowStatusEnum;
 import com.shopee.demo.engine.type.machine.ExtendedStateEnum;
-import com.shopee.demo.engine.type.machine.MachineId;
 
 import org.springframework.statemachine.ExtendedState;
 import org.springframework.statemachine.StateMachine;
@@ -42,7 +42,7 @@ public class FlowStateMachinePersistServiceImpl implements FlowStateMachinePersi
                 null,
                 extendedState,
                 null,
-                MachineId.UNDERWRITING_FLOW_ID);
+                FlowMachineBuilder.FLOW_STATE_MACHINE_ID);
         stateMachine.getStateMachineAccessor()
                 .doWithAllRegions(function -> function.resetStateMachineReactively(context).block());
     }

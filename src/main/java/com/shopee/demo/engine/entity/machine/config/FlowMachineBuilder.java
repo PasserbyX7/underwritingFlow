@@ -1,21 +1,25 @@
 package com.shopee.demo.engine.entity.machine.config;
 
+import java.util.EnumSet;
+
+import javax.annotation.Resource;
+
 import com.shopee.demo.engine.entity.flow.UnderwritingFlow;
 import com.shopee.demo.engine.service.machine.FlowStateMachinePersistService;
 import com.shopee.demo.engine.type.flow.FlowEventEnum;
 import com.shopee.demo.engine.type.flow.UnderwritingFlowStatusEnum;
-import com.shopee.demo.engine.type.machine.MachineId;
 import com.shopee.demo.engine.type.strategy.StrategyStatusEnum;
 
+import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.statemachine.StateContext;
+import org.springframework.statemachine.StateMachine;
 import org.springframework.statemachine.action.Action;
 import org.springframework.statemachine.annotation.OnStateEntry;
 import org.springframework.statemachine.annotation.WithStateMachine;
-import org.springframework.statemachine.config.EnableStateMachineFactory;
-import org.springframework.statemachine.config.EnumStateMachineConfigurerAdapter;
+import org.springframework.statemachine.config.EnableStateMachine;
+import org.springframework.statemachine.config.StateMachineBuilder;
 import org.springframework.statemachine.config.builders.StateMachineConfigurationConfigurer;
 import org.springframework.statemachine.config.builders.StateMachineStateConfigurer;
 import org.springframework.statemachine.config.builders.StateMachineTransitionConfigurer;
@@ -27,16 +31,25 @@ import reactor.core.publisher.Mono;
 import static com.shopee.demo.engine.type.flow.FlowEventEnum.*;
 import static com.shopee.demo.engine.type.flow.UnderwritingFlowStatusEnum.*;
 
-import java.util.EnumSet;
+@Component
+@EnableStateMachine
+public class FlowMachineBuilder {
 
-import javax.annotation.Resource;
+    public static final String FLOW_STATE_MACHINE_ID="UnderwritingFlowMachine";
 
-@Configuration
-@EnableStateMachineFactory(contextEvents = false)
-public class FlowMachineConfig extends EnumStateMachineConfigurerAdapter<UnderwritingFlowStatusEnum, FlowEventEnum> {
+    @Resource
+    private BeanFactory beanFactory;
 
-    @Override
-    public void configure(StateMachineStateConfigurer<UnderwritingFlowStatusEnum, FlowEventEnum> states)
+    public StateMachine<UnderwritingFlowStatusEnum, FlowEventEnum> build() throws Exception {
+        StateMachineBuilder.Builder<UnderwritingFlowStatusEnum, FlowEventEnum> builder = StateMachineBuilder.builder();
+        configure(builder.configureConfiguration());
+        configure(builder.configureStates());
+        configure(builder.configureTransitions());
+        return builder.build();
+    }
+
+
+    private void configure(StateMachineStateConfigurer<UnderwritingFlowStatusEnum, FlowEventEnum> states)
             throws Exception {
         states.withStates()
                 .initial(INITIAL)
@@ -45,8 +58,8 @@ public class FlowMachineConfig extends EnumStateMachineConfigurerAdapter<Underwr
                 .states(EnumSet.allOf(UnderwritingFlowStatusEnum.class));
     }
 
-    @Override
-    public void configure(StateMachineTransitionConfigurer<UnderwritingFlowStatusEnum, FlowEventEnum> transitions)
+
+    private void configure(StateMachineTransitionConfigurer<UnderwritingFlowStatusEnum, FlowEventEnum> transitions)
             throws Exception {
         transitions
                 .withExternal()
@@ -62,11 +75,11 @@ public class FlowMachineConfig extends EnumStateMachineConfigurerAdapter<Underwr
                 .last(ONGOING, setNextStrategyAction());
     }
 
-    @Override
-    public void configure(StateMachineConfigurationConfigurer<UnderwritingFlowStatusEnum, FlowEventEnum> config)
+
+    private void configure(StateMachineConfigurationConfigurer<UnderwritingFlowStatusEnum, FlowEventEnum> config)
             throws Exception {
-        config.withConfiguration()
-                .machineId(MachineId.UNDERWRITING_FLOW_ID);
+                config.withConfiguration()
+                .machineId(FLOW_STATE_MACHINE_ID);
     }
 
     @Bean
@@ -123,8 +136,9 @@ public class FlowMachineConfig extends EnumStateMachineConfigurerAdapter<Underwr
         };
     }
 
+
     @Component
-    @WithStateMachine(id = MachineId.UNDERWRITING_FLOW_ID)
+    @WithStateMachine(id = FLOW_STATE_MACHINE_ID)
     public static class UnderwritingFlowPersisterListener {
 
         @Resource
