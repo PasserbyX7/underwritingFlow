@@ -5,21 +5,22 @@ import java.util.concurrent.CountDownLatch;
 import com.shopee.demo.engine.entity.flow.UnderwritingFlow;
 import com.shopee.demo.engine.type.flow.FlowEventEnum;
 import com.shopee.demo.engine.type.flow.UnderwritingFlowStatusEnum;
-import com.shopee.demo.engine.type.machine.ExtendedStateEnum;
 
 import org.springframework.context.Lifecycle;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.statemachine.StateMachine;
-import org.springframework.statemachine.StateMachineContext;
 import org.springframework.statemachine.listener.StateMachineListenerAdapter;
 import org.springframework.statemachine.state.State;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Mono;
 
 @RequiredArgsConstructor(staticName = "of")
 public class FlowStateMachine {
+
+    @Getter
     private final StateMachine<UnderwritingFlowStatusEnum, FlowEventEnum> machine;
 
     public FlowStateMachine start() {
@@ -61,18 +62,8 @@ public class FlowStateMachine {
         return this;
     }
 
-    public FlowStateMachine restore(StateMachineContext<UnderwritingFlowStatusEnum, FlowEventEnum> context)
-            throws Exception {
-        // @formatter:off
-        machine.getStateMachineAccessor().doWithAllRegions(function -> function.resetStateMachineReactively(context).block());
-        return this;
-        // @formatter:on
-    }
-
     public Long getUnderwritingFlowId() {
-        return machine.getExtendedState()
-                .get(ExtendedStateEnum.UNDERWRITING_CONTEXT, UnderwritingFlow.class)
-                .getId();
+        return UnderwritingFlow.from(machine.getExtendedState()).getId();
     }
 
     @AllArgsConstructor

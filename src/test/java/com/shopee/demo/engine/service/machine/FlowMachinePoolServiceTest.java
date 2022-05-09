@@ -1,4 +1,4 @@
-package com.shopee.demo.engine.service;
+package com.shopee.demo.engine.service.machine;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -7,7 +7,6 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import com.shopee.demo.engine.entity.machine.FlowStateMachine;
-import com.shopee.demo.engine.service.machine.FlowStateMachinePersistService;
 import com.shopee.demo.engine.service.machine.impl.FlowStateMachinePoolServiceImpl;
 
 import org.apache.commons.pool2.impl.GenericObjectPool;
@@ -41,21 +40,22 @@ public class FlowMachinePoolServiceTest {
     void testAcquire() throws Exception {
         // given
         long underwritingFlowId = 1L;
-        // when
         doReturn(flowStateMachine)
                 .when(flowMachinePool)
                 .borrowObject();
-        // then
+        // when
         flowStateMachinePoolService.acquire(underwritingFlowId);
+        // then
         verify(flowMachinePool, times(1)).borrowObject();
-        verify(flowStateMachinePersistService, times(1)).read(anyLong());
-        verify(flowStateMachine, times(1)).restore(any());
+        verify(flowStateMachinePersistService, times(1)).restore(any(), anyLong());
         verify(flowStateMachine, times(1)).start();
     }
 
     @Test
     void testRelease() {
+        // when
         flowStateMachinePoolService.release(flowStateMachine);
+        // then
         verify(flowMachinePool, times(1)).returnObject(any());
     }
 

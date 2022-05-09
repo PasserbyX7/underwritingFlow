@@ -27,7 +27,7 @@ public class FlowStateMachinePoolServiceImpl implements FlowStateMachinePoolServ
         log.info("Acquiring machine with underwriting flow id[{}]", underwritingFlowId);
         try {
             FlowStateMachine machine = flowMachinePool.borrowObject();
-            machine.restore(flowStateMachinePersistService.read(underwritingFlowId));
+            flowStateMachinePersistService.restore(machine.getMachine(), underwritingFlowId);
             return machine.start();
         } catch (Exception e) {
             throw new StateMachineException("Unable to acquire flow state machine", e);
@@ -36,7 +36,7 @@ public class FlowStateMachinePoolServiceImpl implements FlowStateMachinePoolServ
 
     @Override
     public void release(FlowStateMachine flowStateMachine) {
-        log.info("Releasing machine with underwriting flow id[{}]" + flowStateMachine.getUnderwritingFlowId());
+        log.info("Releasing machine with underwriting flow id[{}]", flowStateMachine.getUnderwritingFlowId());
         try {
             flowMachinePool.returnObject(flowStateMachine);
         } catch (Exception e) {

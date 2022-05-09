@@ -6,6 +6,7 @@ import com.shopee.demo.engine.type.strategy.StrategyResult;
 
 import lombok.Getter;
 import lombok.Setter;
+
 public abstract class Strategy<T extends UnderwritingRequest> {
     public abstract StrategyEnum getStrategyName();
 
@@ -15,4 +16,7 @@ public abstract class Strategy<T extends UnderwritingRequest> {
 
     public abstract StrategyResult execute(StrategyContext<T> strategyContext);
 
+    public boolean hasNextStrategy() {
+        return nextStrategy != null;
+    }
 }

@@ -3,25 +3,26 @@ package com.shopee.demo.engine.service.machine;
 import com.shopee.demo.engine.type.flow.FlowEventEnum;
 import com.shopee.demo.engine.type.flow.UnderwritingFlowStatusEnum;
 
-import org.springframework.statemachine.StateContext;
-import org.springframework.statemachine.StateMachineContext;
+import org.springframework.statemachine.StateMachine;
 
 public interface FlowStateMachinePersistService {
     /**
-     * Write a flow state machine into a persistent store
+     * Persist a state machine
      *
-     * @param context the context
-     * @throws Exception the exception
+     * @param stateMachine the state machine
+     * @throws Exception the exception in case or any persist error
      */
-    void write(StateContext<UnderwritingFlowStatusEnum, FlowEventEnum> context) throws Exception;
+    void persist(StateMachine<UnderwritingFlowStatusEnum, FlowEventEnum> stateMachine) throws Exception;
 
     /**
-     * Read a flow state machine from a persistent store
-     * with a underwriting flow id
+     * Reset a state machine with a given underwriting flow id
+     * Returned machine has been reseted and is ready to be used.
      *
+     * @param stateMachine       the state machine
      * @param underwritingFlowId underwriting flow id
-     * @return the state machine context
-     * @throws Exception the exception
+     * @return the state machine
+     * @throws Exception the exception in case or any persist error
      */
-    StateMachineContext<UnderwritingFlowStatusEnum, FlowEventEnum> read(long underwritingFlowId) throws Exception;
+    void restore(StateMachine<UnderwritingFlowStatusEnum, FlowEventEnum> stateMachine, long underwritingFlowId)
+            throws Exception;
 }

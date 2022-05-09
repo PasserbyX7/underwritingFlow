@@ -4,7 +4,6 @@ import com.shopee.demo.engine.entity.flow.UnderwritingFlow;
 import com.shopee.demo.engine.service.machine.FlowStateMachinePersistService;
 import com.shopee.demo.engine.type.flow.FlowEventEnum;
 import com.shopee.demo.engine.type.flow.UnderwritingFlowStatusEnum;
-import com.shopee.demo.engine.type.machine.ExtendedStateEnum;
 import com.shopee.demo.engine.type.machine.MachineId;
 import com.shopee.demo.engine.type.strategy.StrategyStatusEnum;
 
@@ -76,11 +75,9 @@ public class FlowMachineConfig extends EnumStateMachineConfigurerAdapter<Underwr
 
             @Override
             public boolean evaluate(StateContext<UnderwritingFlowStatusEnum, FlowEventEnum> context) {
-                UnderwritingFlow underwritingContext = context.getExtendedState().get(
-                        ExtendedStateEnum.UNDERWRITING_CONTEXT,
-                        UnderwritingFlow.class);
-                StrategyStatusEnum strategyStatus = underwritingContext.getStrategyResultStatus();
-                return strategyStatus == StrategyStatusEnum.PASS && !underwritingContext.hasNextStrategy();
+                UnderwritingFlow underwritingFlow = UnderwritingFlow.from(context.getExtendedState());
+                StrategyStatusEnum strategyStatus = underwritingFlow.getStrategyResultStatus();
+                return strategyStatus == StrategyStatusEnum.PASS && !underwritingFlow.hasNextStrategy();
             }
 
         };
@@ -92,11 +89,8 @@ public class FlowMachineConfig extends EnumStateMachineConfigurerAdapter<Underwr
 
             @Override
             public boolean evaluate(StateContext<UnderwritingFlowStatusEnum, FlowEventEnum> context) {
-                // return false;
-                UnderwritingFlow underwritingContext = context.getExtendedState().get(
-                        ExtendedStateEnum.UNDERWRITING_CONTEXT,
-                        UnderwritingFlow.class);
-                return underwritingContext.getStrategyResultStatus() == StrategyStatusEnum.REJECT;
+                return UnderwritingFlow.from(context.getExtendedState())
+                        .getStrategyResultStatus() == StrategyStatusEnum.REJECT;
             }
 
         };
@@ -108,9 +102,7 @@ public class FlowMachineConfig extends EnumStateMachineConfigurerAdapter<Underwr
 
             @Override
             public void execute(StateContext<UnderwritingFlowStatusEnum, FlowEventEnum> context) {
-                context.getExtendedState()
-                        .get(ExtendedStateEnum.UNDERWRITING_CONTEXT, UnderwritingFlow.class)
-                        .execute();
+                UnderwritingFlow.from(context.getExtendedState()).execute();
                 context.getStateMachine()
                         .sendEvent(Mono.just(MessageBuilder.withPayload(FlowEventEnum.STRATEGY_EXECUTE).build()))
                         .subscribe();
@@ -125,9 +117,7 @@ public class FlowMachineConfig extends EnumStateMachineConfigurerAdapter<Underwr
 
             @Override
             public void execute(StateContext<UnderwritingFlowStatusEnum, FlowEventEnum> context) {
-                context.getExtendedState()
-                        .get(ExtendedStateEnum.UNDERWRITING_CONTEXT, UnderwritingFlow.class)
-                        .setNextStrategy();
+                UnderwritingFlow.from(context.getExtendedState()).setNextStrategy();
             }
 
         };
@@ -142,7 +132,7 @@ public class FlowMachineConfig extends EnumStateMachineConfigurerAdapter<Underwr
 
         @OnStateEntry
         public void onStateEntry(StateContext<UnderwritingFlowStatusEnum, FlowEventEnum> context) throws Exception {
-            flowStateMachinePersistService.write(context);
+            flowStateMachinePersistService.persist(context.getStateMachine());
         }
 
     }

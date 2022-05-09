@@ -3,10 +3,14 @@ package com.shopee.demo.engine.entity.flow;
 import com.shopee.demo.engine.entity.strategy.Strategy;
 import com.shopee.demo.engine.entity.strategy.StrategyContext;
 import com.shopee.demo.engine.type.flow.UnderwritingFlowStatusEnum;
+import com.shopee.demo.engine.type.machine.ExtendedStateEnum;
 import com.shopee.demo.engine.type.request.UnderwritingRequest;
 import com.shopee.demo.engine.type.strategy.StrategyEnum;
 import com.shopee.demo.engine.type.strategy.StrategyResult;
 import com.shopee.demo.engine.type.strategy.StrategyStatusEnum;
+
+import org.springframework.statemachine.ExtendedState;
+import org.springframework.util.Assert;
 
 import lombok.Data;
 
@@ -36,6 +40,11 @@ public final class UnderwritingFlow {
         return new UnderwritingFlow(id, underwritingRequest, strategyContext, flowStatus, null);
     }
 
+    public static UnderwritingFlow from(ExtendedState extendedState) {
+        Assert.notNull(extendedState, "ExtendedState must not be null");
+        return extendedState.get(ExtendedStateEnum.UNDERWRITING_CONTEXT, UnderwritingFlow.class);
+    }
+
     public void execute() {
         StrategyResult strategyResult = getCurrentStrategy().execute(strategyContext);
         strategyContext.setStrategyResult(strategyResult);
@@ -48,7 +57,7 @@ public final class UnderwritingFlow {
     }
 
     public boolean hasNextStrategy() {
-        return getCurrentStrategy().getNextStrategy() != null;
+        return getCurrentStrategy().hasNextStrategy();
     }
 
     public StrategyStatusEnum getStrategyResultStatus() {

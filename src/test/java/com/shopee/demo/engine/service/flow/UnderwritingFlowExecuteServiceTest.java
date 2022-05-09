@@ -1,4 +1,4 @@
-package com.shopee.demo.engine.service;
+package com.shopee.demo.engine.service.flow;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -53,7 +53,6 @@ public class UnderwritingFlowExecuteServiceTest {
         // given
         long underwritingFlowId = 1L;
         UnderwritingFlow underwritingFlow = mockUnderwritingFlow();
-        // when
         doReturn(underwritingFlow)
                 .when(underwritingFlowRepository)
                 .find(anyLong());
@@ -63,8 +62,9 @@ public class UnderwritingFlowExecuteServiceTest {
         doAnswer(inv -> inv.<Callable<Object>>getArgument(1).call())
                 .when(distributeLockService)
                 .executeWithDistributeLock(anyString(), any());
-        // then
+        // when
         underwritingFlowExecuteService.executeUnderwritingFlowAsync(underwritingFlowId);
+        // then
         verify(flowStateMachinePoolService, times(1)).acquire(anyLong());
         verify(flowStateMachine, times(1)).execute();
         verify(flowStateMachinePoolService, times(1)).release(any());
