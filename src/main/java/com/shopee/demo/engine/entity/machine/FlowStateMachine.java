@@ -87,8 +87,7 @@ public class FlowStateMachine {
 
         @Override
         public void stateEntered(State<UnderwritingFlowStatusEnum, FlowEventEnum> state) {
-            // TODO 考虑PENDING态
-            if (state.getId().isTerminal()) {
+            if (state.getId().isTerminal() || state.getId() == UnderwritingFlowStatusEnum.PENDING) {
                 this.stateMachine.removeStateListener(this);
                 latch.countDown();
             }

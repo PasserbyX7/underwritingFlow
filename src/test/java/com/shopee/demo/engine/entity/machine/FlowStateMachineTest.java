@@ -36,7 +36,7 @@ public class FlowStateMachineTest {
     private StateMachine<UnderwritingFlowStatusEnum, FlowEventEnum> mockMachine() throws Exception {
         StateMachineBuilder.Builder<UnderwritingFlowStatusEnum, FlowEventEnum> builder = StateMachineBuilder.builder();
         builder.configureStates().withStates().initial(INITIAL).states(EnumSet.allOf(UnderwritingFlowStatusEnum.class));
-        builder.configureTransitions().withExternal().source(INITIAL).target(APPROVED).event(FlowEventEnum.START);
+        builder.configureTransitions().withExternal().source(INITIAL).target(PENDING).event(FlowEventEnum.START);
         return builder.build();
     }
 
