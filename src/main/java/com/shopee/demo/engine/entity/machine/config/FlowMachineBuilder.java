@@ -35,10 +35,13 @@ import static com.shopee.demo.engine.type.flow.UnderwritingFlowStatusEnum.*;
 @EnableStateMachine
 public class FlowMachineBuilder {
 
-    public static final String FLOW_STATE_MACHINE_ID="UnderwritingFlowMachine";
+    public static final String FLOW_STATE_MACHINE_ID = "UnderwritingFlowMachine";
 
-    @Resource
-    private BeanFactory beanFactory;
+    private final BeanFactory beanFactory;
+
+    public FlowMachineBuilder(BeanFactory beanFactory) {
+        this.beanFactory = beanFactory;
+    }
 
     public StateMachine<UnderwritingFlowStatusEnum, FlowEventEnum> build() throws Exception {
         StateMachineBuilder.Builder<UnderwritingFlowStatusEnum, FlowEventEnum> builder = StateMachineBuilder.builder();
@@ -48,7 +51,6 @@ public class FlowMachineBuilder {
         return builder.build();
     }
 
-
     private void configure(StateMachineStateConfigurer<UnderwritingFlowStatusEnum, FlowEventEnum> states)
             throws Exception {
         states.withStates()
@@ -57,7 +59,6 @@ public class FlowMachineBuilder {
                 .state(ONGOING, executeStrategyAction())
                 .states(EnumSet.allOf(UnderwritingFlowStatusEnum.class));
     }
-
 
     private void configure(StateMachineTransitionConfigurer<UnderwritingFlowStatusEnum, FlowEventEnum> transitions)
             throws Exception {
@@ -75,10 +76,10 @@ public class FlowMachineBuilder {
                 .last(ONGOING, setNextStrategyAction());
     }
 
-
     private void configure(StateMachineConfigurationConfigurer<UnderwritingFlowStatusEnum, FlowEventEnum> config)
             throws Exception {
-                config.withConfiguration()
+        config.withConfiguration()
+                .beanFactory(beanFactory)
                 .machineId(FLOW_STATE_MACHINE_ID);
     }
 
@@ -135,7 +136,6 @@ public class FlowMachineBuilder {
 
         };
     }
-
 
     @Component
     @WithStateMachine(id = FLOW_STATE_MACHINE_ID)

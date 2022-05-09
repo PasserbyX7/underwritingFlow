@@ -11,7 +11,6 @@ import com.shopee.demo.engine.type.flow.FlowEventEnum;
 import com.shopee.demo.engine.type.flow.UnderwritingFlowStatusEnum;
 import com.shopee.demo.engine.type.machine.ExtendedStateEnum;
 
-import org.springframework.statemachine.ExtendedState;
 import org.springframework.statemachine.StateMachine;
 import org.springframework.statemachine.StateMachineContext;
 import org.springframework.statemachine.support.DefaultExtendedState;
@@ -33,14 +32,11 @@ public class FlowStateMachinePersistServiceImpl implements FlowStateMachinePersi
     public void restore(StateMachine<UnderwritingFlowStatusEnum, FlowEventEnum> stateMachine, long underwritingFlowId)
             throws Exception {
         UnderwritingFlow underwritingFlow = underwritingFlowRepository.find(underwritingFlowId);
-        UnderwritingFlowStatusEnum currentStatus = underwritingFlow.getFlowStatus();
-        ExtendedState extendedState = new DefaultExtendedState(
-                ImmutableMap.of(ExtendedStateEnum.UNDERWRITING_CONTEXT, underwritingFlow));
         StateMachineContext<UnderwritingFlowStatusEnum, FlowEventEnum> context = new DefaultStateMachineContext<UnderwritingFlowStatusEnum, FlowEventEnum>(
-                currentStatus,
+                underwritingFlow.getFlowStatus(),
                 null,
                 null,
-                extendedState,
+                new DefaultExtendedState(ImmutableMap.of(ExtendedStateEnum.UNDERWRITING_CONTEXT, underwritingFlow)),
                 null,
                 FlowMachineBuilder.FLOW_STATE_MACHINE_ID);
         stateMachine.getStateMachineAccessor()

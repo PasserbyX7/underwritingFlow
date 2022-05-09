@@ -13,8 +13,10 @@ import org.springframework.statemachine.ExtendedState;
 import org.springframework.util.Assert;
 
 import lombok.Data;
+import lombok.ToString;
 
 @Data
+@ToString(doNotUseGetters = true)
 public final class UnderwritingFlow {
 
     private final Long id;
