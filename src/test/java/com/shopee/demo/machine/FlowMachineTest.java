@@ -6,8 +6,6 @@ import com.shopee.demo.engine.entity.flow.UnderwritingFlow;
 import com.shopee.demo.engine.repository.UnderwritingFlowRepository;
 import com.shopee.demo.engine.repository.converter.SmeUnderwritingRequestConverter;
 import com.shopee.demo.engine.service.flow.UnderwritingFlowExecuteService;
-import com.shopee.demo.engine.type.flow.FlowEventEnum;
-import com.shopee.demo.engine.type.flow.UnderwritingFlowStatusEnum;
 import com.shopee.demo.engine.type.request.UnderwritingRequest;
 import com.shopee.demo.infrastructure.dal.dao.UnderwritingFlowDAO;
 import com.shopee.demo.infrastructure.dal.data.SmeUnderwritingDO;
@@ -16,7 +14,6 @@ import com.shopee.demo.infrastructure.dal.data.UnderwritingFlowDO;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.statemachine.config.StateMachineFactory;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -32,9 +29,6 @@ import java.util.stream.Stream;
 @Slf4j
 @SpringBootTest
 public class FlowMachineTest {
-
-    @Resource
-    StateMachineFactory<UnderwritingFlowStatusEnum, FlowEventEnum> factory;
 
     @Resource
     UnderwritingFlowExecuteService underwritingFlowService;
