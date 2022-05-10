@@ -73,7 +73,7 @@ public class FlowMachineBuilder {
                 .and()
                 .withChoice()
                 .source(CHOICE)
-                .first(REJECT, rejectGuard())
+                .first(REJECTED, rejectGuard())
                 .then(APPROVED, approvedGuard())
                 .last(ONGOING, setNextStrategyAction());
     }
@@ -151,9 +151,17 @@ public class FlowMachineBuilder {
                     try {
                         flowStateMachinePersistService.persist(stateContext.getStateMachine());
                     } catch (Exception e) {
+                        e.printStackTrace();
+                        throw new RuntimeException(e);
                         // TODO
                     }
                 }
+            }
+
+            @Override
+            public void stateMachineError(StateMachine<UnderwritingFlowStatusEnum, FlowEventEnum> stateMachine,
+                    Exception exception) {
+                exception.printStackTrace();
             }
         };
     }

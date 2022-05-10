@@ -6,12 +6,12 @@ public enum UnderwritingFlowStatusEnum {
     CHOICE,
     PENDING,
     APPROVED,
-    REJECT,
+    REJECTED,
     EXPIRED,
     CANCELLED;
 
     public boolean isTerminal() {
-        return this == APPROVED || this == REJECT || this == EXPIRED || this == CANCELLED;
+        return this == APPROVED || this == REJECTED || this == EXPIRED || this == CANCELLED;
     }
 
 }

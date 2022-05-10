@@ -29,4 +29,8 @@ public class StrategyResult {
         return new StrategyResult(TERMINAL, null, terminalReason);
     }
 
+    public static StrategyResult reject() {
+        return new StrategyResult(REJECT, null, null);
+    }
+
 }
