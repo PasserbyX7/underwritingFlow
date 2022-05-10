@@ -29,6 +29,7 @@ import reactor.core.publisher.Mono;
 
 import static com.shopee.demo.engine.type.flow.FlowEventEnum.*;
 import static com.shopee.demo.engine.type.flow.UnderwritingFlowStatusEnum.*;
+import static com.shopee.demo.engine.type.strategy.StrategyStatusEnum.*;
 
 @Component
 @EnableStateMachine
@@ -94,7 +95,7 @@ public class FlowMachineBuilder {
             public boolean evaluate(StateContext<UnderwritingFlowStatusEnum, FlowEventEnum> context) {
                 UnderwritingFlow underwritingFlow = UnderwritingFlow.from(context.getExtendedState());
                 StrategyStatusEnum strategyStatus = underwritingFlow.getStrategyResultStatus();
-                return strategyStatus == StrategyStatusEnum.PASS && !underwritingFlow.hasNextStrategy();
+                return strategyStatus == PASS && !underwritingFlow.hasNextStrategy();
             }
 
         };
@@ -106,8 +107,7 @@ public class FlowMachineBuilder {
 
             @Override
             public boolean evaluate(StateContext<UnderwritingFlowStatusEnum, FlowEventEnum> context) {
-                return UnderwritingFlow.from(context.getExtendedState())
-                        .getStrategyResultStatus() == StrategyStatusEnum.REJECT;
+                return UnderwritingFlow.from(context.getExtendedState()).getStrategyResultStatus() == REJECT;
             }
 
         };
