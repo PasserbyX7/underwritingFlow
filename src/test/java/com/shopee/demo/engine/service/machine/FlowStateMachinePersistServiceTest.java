@@ -6,13 +6,13 @@ import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
+import com.shopee.demo.engine.constant.FlowEventEnum;
+import com.shopee.demo.engine.constant.FlowStatusEnum;
+import com.shopee.demo.engine.constant.UnderwritingTypeEnum;
 import com.shopee.demo.engine.entity.flow.UnderwritingFlow;
 import com.shopee.demo.engine.repository.UnderwritingFlowRepository;
 import com.shopee.demo.engine.service.machine.impl.FlowStateMachinePersistServiceImpl;
-import com.shopee.demo.engine.type.flow.FlowEventEnum;
-import com.shopee.demo.engine.type.flow.UnderwritingFlowStatusEnum;
 import com.shopee.demo.engine.type.request.UnderwritingRequest;
-import com.shopee.demo.engine.type.request.UnderwritingTypeEnum;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -39,10 +39,10 @@ public class FlowStateMachinePersistServiceTest {
     private UnderwritingFlowRepository underwritingFlowRepository;
 
     @Mock
-    private StateMachine<UnderwritingFlowStatusEnum, FlowEventEnum> stateMachine;
+    private StateMachine<FlowStatusEnum, FlowEventEnum> stateMachine;
 
     @Mock
-    private StateMachineAccessor<UnderwritingFlowStatusEnum, FlowEventEnum> stateMachineAccessor;
+    private StateMachineAccessor<FlowStatusEnum, FlowEventEnum> stateMachineAccessor;
 
     @Test
     void testPersist() throws Exception {

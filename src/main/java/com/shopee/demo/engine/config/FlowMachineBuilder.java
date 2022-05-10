@@ -2,10 +2,10 @@ package com.shopee.demo.engine.config;
 
 import java.util.EnumSet;
 
+import com.shopee.demo.engine.constant.FlowEventEnum;
+import com.shopee.demo.engine.constant.FlowStatusEnum;
 import com.shopee.demo.engine.entity.flow.UnderwritingFlow;
 import com.shopee.demo.engine.service.machine.FlowStateMachinePersistService;
-import com.shopee.demo.engine.type.flow.FlowEventEnum;
-import com.shopee.demo.engine.type.flow.UnderwritingFlowStatusEnum;
 import com.shopee.demo.engine.type.strategy.StrategyStatusEnum;
 
 import org.springframework.beans.factory.BeanFactory;
@@ -27,8 +27,8 @@ import org.springframework.stereotype.Component;
 
 import reactor.core.publisher.Mono;
 
-import static com.shopee.demo.engine.type.flow.FlowEventEnum.*;
-import static com.shopee.demo.engine.type.flow.UnderwritingFlowStatusEnum.*;
+import static com.shopee.demo.engine.constant.FlowEventEnum.*;
+import static com.shopee.demo.engine.constant.FlowStatusEnum.*;
 import static com.shopee.demo.engine.type.strategy.StrategyStatusEnum.*;
 
 @Component
@@ -46,24 +46,24 @@ public class FlowMachineBuilder {
         this.flowStateMachinePersistService = flowStateMachinePersistService;
     }
 
-    public StateMachine<UnderwritingFlowStatusEnum, FlowEventEnum> build() throws Exception {
-        StateMachineBuilder.Builder<UnderwritingFlowStatusEnum, FlowEventEnum> builder = StateMachineBuilder.builder();
+    public StateMachine<FlowStatusEnum, FlowEventEnum> build() throws Exception {
+        StateMachineBuilder.Builder<FlowStatusEnum, FlowEventEnum> builder = StateMachineBuilder.builder();
         configure(builder.configureConfiguration());
         configure(builder.configureStates());
         configure(builder.configureTransitions());
         return builder.build();
     }
 
-    private void configure(StateMachineStateConfigurer<UnderwritingFlowStatusEnum, FlowEventEnum> states)
+    private void configure(StateMachineStateConfigurer<FlowStatusEnum, FlowEventEnum> states)
             throws Exception {
         states.withStates()
                 .initial(INITIAL)
                 .choice(CHOICE)
                 .stateDo(ONGOING, executeStrategyAction())
-                .states(EnumSet.allOf(UnderwritingFlowStatusEnum.class));
+                .states(EnumSet.allOf(FlowStatusEnum.class));
     }
 
-    private void configure(StateMachineTransitionConfigurer<UnderwritingFlowStatusEnum, FlowEventEnum> transitions)
+    private void configure(StateMachineTransitionConfigurer<FlowStatusEnum, FlowEventEnum> transitions)
             throws Exception {
         transitions
                 .withExternal()
@@ -88,7 +88,7 @@ public class FlowMachineBuilder {
                 .last(ONGOING, setNextStrategyAction());
     }
 
-    private void configure(StateMachineConfigurationConfigurer<UnderwritingFlowStatusEnum, FlowEventEnum> config)
+    private void configure(StateMachineConfigurationConfigurer<FlowStatusEnum, FlowEventEnum> config)
             throws Exception {
         config.withConfiguration()
                 .beanFactory(beanFactory)
@@ -97,11 +97,11 @@ public class FlowMachineBuilder {
     }
 
     @Bean
-    public Guard<UnderwritingFlowStatusEnum, FlowEventEnum> approvedGuard() {
-        return new Guard<UnderwritingFlowStatusEnum, FlowEventEnum>() {
+    public Guard<FlowStatusEnum, FlowEventEnum> approvedGuard() {
+        return new Guard<FlowStatusEnum, FlowEventEnum>() {
 
             @Override
-            public boolean evaluate(StateContext<UnderwritingFlowStatusEnum, FlowEventEnum> context) {
+            public boolean evaluate(StateContext<FlowStatusEnum, FlowEventEnum> context) {
                 UnderwritingFlow underwritingFlow = UnderwritingFlow.from(context.getExtendedState());
                 StrategyStatusEnum strategyStatus = underwritingFlow.getStrategyResultStatus();
                 return strategyStatus == PASS && !underwritingFlow.hasNextStrategy();
@@ -111,11 +111,11 @@ public class FlowMachineBuilder {
     }
 
     @Bean
-    public Guard<UnderwritingFlowStatusEnum, FlowEventEnum> rejectGuard() {
-        return new Guard<UnderwritingFlowStatusEnum, FlowEventEnum>() {
+    public Guard<FlowStatusEnum, FlowEventEnum> rejectGuard() {
+        return new Guard<FlowStatusEnum, FlowEventEnum>() {
 
             @Override
-            public boolean evaluate(StateContext<UnderwritingFlowStatusEnum, FlowEventEnum> context) {
+            public boolean evaluate(StateContext<FlowStatusEnum, FlowEventEnum> context) {
                 return UnderwritingFlow.from(context.getExtendedState()).getStrategyResultStatus() == REJECT;
             }
 
@@ -123,11 +123,11 @@ public class FlowMachineBuilder {
     }
 
     @Bean
-    public Guard<UnderwritingFlowStatusEnum, FlowEventEnum> cancelledGuard() {
-        return new Guard<UnderwritingFlowStatusEnum, FlowEventEnum>() {
+    public Guard<FlowStatusEnum, FlowEventEnum> cancelledGuard() {
+        return new Guard<FlowStatusEnum, FlowEventEnum>() {
 
             @Override
-            public boolean evaluate(StateContext<UnderwritingFlowStatusEnum, FlowEventEnum> context) {
+            public boolean evaluate(StateContext<FlowStatusEnum, FlowEventEnum> context) {
                 return UnderwritingFlow.from(context.getExtendedState()).getStrategyResultStatus() == ERROR;
             }
 
@@ -135,11 +135,11 @@ public class FlowMachineBuilder {
     }
 
     @Bean
-    public Guard<UnderwritingFlowStatusEnum, FlowEventEnum> expiredGuard() {
-        return new Guard<UnderwritingFlowStatusEnum, FlowEventEnum>() {
+    public Guard<FlowStatusEnum, FlowEventEnum> expiredGuard() {
+        return new Guard<FlowStatusEnum, FlowEventEnum>() {
 
             @Override
-            public boolean evaluate(StateContext<UnderwritingFlowStatusEnum, FlowEventEnum> context) {
+            public boolean evaluate(StateContext<FlowStatusEnum, FlowEventEnum> context) {
                 return UnderwritingFlow.from(context.getExtendedState()).getStrategyResultStatus() == EXPIRE;
             }
 
@@ -147,11 +147,11 @@ public class FlowMachineBuilder {
     }
 
     @Bean
-    public Guard<UnderwritingFlowStatusEnum, FlowEventEnum> pendingGuard() {
-        return new Guard<UnderwritingFlowStatusEnum, FlowEventEnum>() {
+    public Guard<FlowStatusEnum, FlowEventEnum> pendingGuard() {
+        return new Guard<FlowStatusEnum, FlowEventEnum>() {
 
             @Override
-            public boolean evaluate(StateContext<UnderwritingFlowStatusEnum, FlowEventEnum> context) {
+            public boolean evaluate(StateContext<FlowStatusEnum, FlowEventEnum> context) {
                 return UnderwritingFlow.from(context.getExtendedState()).getStrategyResultStatus() == SUSPEND;
             }
 
@@ -159,11 +159,11 @@ public class FlowMachineBuilder {
     }
 
     @Bean
-    public Action<UnderwritingFlowStatusEnum, FlowEventEnum> executeStrategyAction() {
-        return new Action<UnderwritingFlowStatusEnum, FlowEventEnum>() {
+    public Action<FlowStatusEnum, FlowEventEnum> executeStrategyAction() {
+        return new Action<FlowStatusEnum, FlowEventEnum>() {
 
             @Override
-            public void execute(StateContext<UnderwritingFlowStatusEnum, FlowEventEnum> context) {
+            public void execute(StateContext<FlowStatusEnum, FlowEventEnum> context) {
                 UnderwritingFlow.from(context.getExtendedState()).execute();
                 context.getStateMachine()
                         .sendEvent(Mono.just(MessageBuilder.withPayload(FlowEventEnum.STRATEGY_EXECUTE).build()))
@@ -174,11 +174,11 @@ public class FlowMachineBuilder {
     }
 
     @Bean
-    public Action<UnderwritingFlowStatusEnum, FlowEventEnum> setNextStrategyAction() {
-        return new Action<UnderwritingFlowStatusEnum, FlowEventEnum>() {
+    public Action<FlowStatusEnum, FlowEventEnum> setNextStrategyAction() {
+        return new Action<FlowStatusEnum, FlowEventEnum>() {
 
             @Override
-            public void execute(StateContext<UnderwritingFlowStatusEnum, FlowEventEnum> context) {
+            public void execute(StateContext<FlowStatusEnum, FlowEventEnum> context) {
                 UnderwritingFlow.from(context.getExtendedState()).setNextStrategy();
             }
 
@@ -186,10 +186,10 @@ public class FlowMachineBuilder {
     }
 
     @Bean
-    public StateMachineListener<UnderwritingFlowStatusEnum, FlowEventEnum> underwritingFlowPersisterListener() {
-        return new StateMachineListenerAdapter<UnderwritingFlowStatusEnum, FlowEventEnum>() {
+    public StateMachineListener<FlowStatusEnum, FlowEventEnum> underwritingFlowPersisterListener() {
+        return new StateMachineListenerAdapter<FlowStatusEnum, FlowEventEnum>() {
             @Override
-            public void stateContext(StateContext<UnderwritingFlowStatusEnum, FlowEventEnum> stateContext) {
+            public void stateContext(StateContext<FlowStatusEnum, FlowEventEnum> stateContext) {
                 if (stateContext.getStage() == Stage.STATE_ENTRY) {
                     UnderwritingFlow.from(stateContext.getExtendedState())
                             .setFlowStatus(stateContext.getStateMachine().getState().getId());
@@ -204,7 +204,7 @@ public class FlowMachineBuilder {
             }
 
             @Override
-            public void stateMachineError(StateMachine<UnderwritingFlowStatusEnum, FlowEventEnum> stateMachine,
+            public void stateMachineError(StateMachine<FlowStatusEnum, FlowEventEnum> stateMachine,
                     Exception exception) {
                 exception.printStackTrace();
             }

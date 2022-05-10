@@ -1,4 +1,4 @@
-package com.shopee.demo.engine.type.request;
+package com.shopee.demo.engine.constant;
 
 public enum UnderwritingTypeEnum {
     SME,

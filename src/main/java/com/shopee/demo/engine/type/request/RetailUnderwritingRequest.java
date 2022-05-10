@@ -1,5 +1,6 @@
 package com.shopee.demo.engine.type.request;
 
+import com.shopee.demo.engine.constant.UnderwritingTypeEnum;
 import com.shopee.demo.engine.repository.converter.RetailUnderwritingRequestConverter;
 import com.shopee.demo.infrastructure.dal.data.RetailUnderwritingDO;
 

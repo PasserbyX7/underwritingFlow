@@ -1,6 +1,7 @@
 package com.shopee.demo.engine.type.request;
 
-import com.shopee.demo.engine.type.factory.StrategyChainFactory;
+import com.shopee.demo.engine.constant.UnderwritingTypeEnum;
+import com.shopee.demo.engine.factory.StrategyChainFactory;
 import com.shopee.demo.engine.type.strategy.StrategyChain;
 
 public interface UnderwritingRequest {

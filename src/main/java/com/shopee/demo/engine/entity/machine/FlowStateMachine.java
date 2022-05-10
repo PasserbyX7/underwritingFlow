@@ -2,9 +2,9 @@ package com.shopee.demo.engine.entity.machine;
 
 import java.util.concurrent.CountDownLatch;
 
+import com.shopee.demo.engine.constant.FlowEventEnum;
+import com.shopee.demo.engine.constant.FlowStatusEnum;
 import com.shopee.demo.engine.entity.flow.UnderwritingFlow;
-import com.shopee.demo.engine.type.flow.FlowEventEnum;
-import com.shopee.demo.engine.type.flow.UnderwritingFlowStatusEnum;
 
 import org.springframework.context.Lifecycle;
 import org.springframework.messaging.support.MessageBuilder;
@@ -21,7 +21,7 @@ import reactor.core.publisher.Mono;
 public class FlowStateMachine {
 
     @Getter
-    private final StateMachine<UnderwritingFlowStatusEnum, FlowEventEnum> machine;
+    private final StateMachine<FlowStatusEnum, FlowEventEnum> machine;
 
     public FlowStateMachine start() {
         if (!((Lifecycle) machine).isRunning()) {
@@ -56,13 +56,13 @@ public class FlowStateMachine {
 
     @AllArgsConstructor
     private static class ExecuteListener
-            extends StateMachineListenerAdapter<UnderwritingFlowStatusEnum, FlowEventEnum> {
+            extends StateMachineListenerAdapter<FlowStatusEnum, FlowEventEnum> {
         final CountDownLatch latch = new CountDownLatch(1);
-        private final StateMachine<UnderwritingFlowStatusEnum, FlowEventEnum> stateMachine;
+        private final StateMachine<FlowStatusEnum, FlowEventEnum> stateMachine;
 
         @Override
-        public void stateEntered(State<UnderwritingFlowStatusEnum, FlowEventEnum> state) {
-            if (state.getId().isTerminal() || state.getId() == UnderwritingFlowStatusEnum.PENDING) {
+        public void stateEntered(State<FlowStatusEnum, FlowEventEnum> state) {
+            if (state.getId().isTerminal() || state.getId() == FlowStatusEnum.PENDING) {
                 this.stateMachine.removeStateListener(this);
                 latch.countDown();
             }

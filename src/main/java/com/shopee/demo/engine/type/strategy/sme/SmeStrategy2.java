@@ -1,9 +1,9 @@
 package com.shopee.demo.engine.type.strategy.sme;
 
+import com.shopee.demo.engine.constant.StrategyEnum;
 import com.shopee.demo.engine.entity.strategy.StrategyContext;
 import com.shopee.demo.engine.type.request.SmeUnderwritingRequest;
 import com.shopee.demo.engine.type.strategy.Strategy;
-import com.shopee.demo.engine.type.strategy.StrategyEnum;
 import com.shopee.demo.engine.type.strategy.StrategyResult;
 
 import org.springframework.stereotype.Component;

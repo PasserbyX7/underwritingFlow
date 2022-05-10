@@ -10,13 +10,13 @@ import static org.mockito.Mockito.verify;
 
 import java.util.concurrent.Callable;
 
+import com.shopee.demo.engine.constant.UnderwritingTypeEnum;
 import com.shopee.demo.engine.entity.flow.UnderwritingFlow;
 import com.shopee.demo.engine.entity.machine.FlowStateMachine;
 import com.shopee.demo.engine.repository.UnderwritingFlowRepository;
 import com.shopee.demo.engine.service.flow.impl.UnderwritingFlowExecuteServiceImpl;
 import com.shopee.demo.engine.service.machine.FlowStateMachinePoolService;
 import com.shopee.demo.engine.type.request.UnderwritingRequest;
-import com.shopee.demo.engine.type.request.UnderwritingTypeEnum;
 import com.shopee.demo.infrastructure.middleware.DistributeLockService;
 
 import org.junit.jupiter.api.DisplayName;

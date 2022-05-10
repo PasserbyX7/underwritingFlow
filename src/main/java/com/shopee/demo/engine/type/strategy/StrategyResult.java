@@ -2,6 +2,8 @@ package com.shopee.demo.engine.type.strategy;
 
 import static com.shopee.demo.engine.type.strategy.StrategyStatusEnum.*;
 
+import com.shopee.demo.engine.constant.DataSourceEnum;
+
 import lombok.Value;
 
 @Value
@@ -13,9 +15,9 @@ public class StrategyResult {
      */
     private DataSourceEnum suspendDataSource;
     /**
-     * 当status为terminal时有值
+     * 当status为error时有值
      */
-    private StrategyTerminalReasonEnum terminalReason;
+    private String errorMsg;
 
     public static StrategyResult pass() {
         return new StrategyResult(PASS, null, null);
@@ -25,8 +27,8 @@ public class StrategyResult {
         return new StrategyResult(SUSPEND, suspendDataSource, null);
     }
 
-    public static StrategyResult terminal(StrategyTerminalReasonEnum terminalReason) {
-        return new StrategyResult(ERROR, null, terminalReason);
+    public static StrategyResult error(String errorMsg) {
+        return new StrategyResult(ERROR, null, errorMsg);
     }
 
     public static StrategyResult reject() {

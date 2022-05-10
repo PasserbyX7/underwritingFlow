@@ -4,11 +4,11 @@ import javax.annotation.Resource;
 
 import com.google.common.collect.ImmutableMap;
 import com.shopee.demo.engine.config.FlowMachineBuilder;
+import com.shopee.demo.engine.constant.FlowEventEnum;
+import com.shopee.demo.engine.constant.FlowStatusEnum;
 import com.shopee.demo.engine.entity.flow.UnderwritingFlow;
 import com.shopee.demo.engine.repository.UnderwritingFlowRepository;
 import com.shopee.demo.engine.service.machine.FlowStateMachinePersistService;
-import com.shopee.demo.engine.type.flow.FlowEventEnum;
-import com.shopee.demo.engine.type.flow.UnderwritingFlowStatusEnum;
 
 import org.springframework.statemachine.StateMachine;
 import org.springframework.statemachine.StateMachineContext;
@@ -23,15 +23,15 @@ public class FlowStateMachinePersistServiceImpl implements FlowStateMachinePersi
     private UnderwritingFlowRepository underwritingFlowRepository;
 
     @Override
-    public void persist(StateMachine<UnderwritingFlowStatusEnum, FlowEventEnum> stateMachine) throws Exception {
+    public void persist(StateMachine<FlowStatusEnum, FlowEventEnum> stateMachine) throws Exception {
         underwritingFlowRepository.save(UnderwritingFlow.from(stateMachine.getExtendedState()));
     }
 
     @Override
-    public void restore(StateMachine<UnderwritingFlowStatusEnum, FlowEventEnum> stateMachine, long underwritingFlowId)
+    public void restore(StateMachine<FlowStatusEnum, FlowEventEnum> stateMachine, long underwritingFlowId)
             throws Exception {
         UnderwritingFlow underwritingFlow = underwritingFlowRepository.find(underwritingFlowId);
-        StateMachineContext<UnderwritingFlowStatusEnum, FlowEventEnum> context = new DefaultStateMachineContext<UnderwritingFlowStatusEnum, FlowEventEnum>(
+        StateMachineContext<FlowStatusEnum, FlowEventEnum> context = new DefaultStateMachineContext<FlowStatusEnum, FlowEventEnum>(
                 underwritingFlow.getFlowStatus(),
                 null,
                 null,

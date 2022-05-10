@@ -3,6 +3,8 @@ package com.shopee.demo.engine.type.strategy;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.shopee.demo.engine.constant.StrategyEnum;
+
 public class StrategyContainer<T> {
 
     private final Map<StrategyEnum, T> strategyContainer = new HashMap<>();

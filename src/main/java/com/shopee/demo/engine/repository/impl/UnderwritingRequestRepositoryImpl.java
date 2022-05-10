@@ -2,10 +2,10 @@ package com.shopee.demo.engine.repository.impl;
 
 import javax.annotation.Resource;
 
+import com.shopee.demo.engine.constant.UnderwritingTypeEnum;
 import com.shopee.demo.engine.repository.UnderwritingRequestRepository;
 import com.shopee.demo.engine.type.request.SmeUnderwritingRequest;
 import com.shopee.demo.engine.type.request.UnderwritingRequest;
-import com.shopee.demo.engine.type.request.UnderwritingTypeEnum;
 import com.shopee.demo.infrastructure.dal.dao.SmeUnderwritingDAO;
 import com.shopee.demo.infrastructure.dal.data.SmeUnderwritingDO;
 

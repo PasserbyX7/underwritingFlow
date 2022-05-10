@@ -1,4 +1,4 @@
-package com.shopee.demo.engine.type.flow;
+package com.shopee.demo.engine.constant;
 
 public enum FlowEventEnum {
     START,

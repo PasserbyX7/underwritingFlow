@@ -19,7 +19,7 @@ public class UnderwritingFlowConverter {
         if (flow.getStrategyContext().getStrategyResult() != null) {
             flowDO.setStrategyStatus(flow.getStrategyContext().getStrategyResult().getStatus());
             flowDO.setSuspendDataSource(flow.getStrategyContext().getStrategyResult().getSuspendDataSource());
-            flowDO.setTerminalReason(flow.getStrategyContext().getStrategyResult().getTerminalReason());
+            flowDO.setErrorMsg(flow.getStrategyContext().getStrategyResult().getErrorMsg());
         }
         return flowDO;
     }

@@ -11,12 +11,12 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import com.shopee.demo.app.service.impl.UnderwritingServiceImpl;
+import com.shopee.demo.engine.constant.UnderwritingTypeEnum;
 import com.shopee.demo.engine.entity.flow.UnderwritingFlow;
 import com.shopee.demo.engine.repository.UnderwritingFlowRepository;
 import com.shopee.demo.engine.repository.UnderwritingRequestRepository;
 import com.shopee.demo.engine.service.flow.UnderwritingFlowExecuteService;
 import com.shopee.demo.engine.type.request.UnderwritingRequest;
-import com.shopee.demo.engine.type.request.UnderwritingTypeEnum;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

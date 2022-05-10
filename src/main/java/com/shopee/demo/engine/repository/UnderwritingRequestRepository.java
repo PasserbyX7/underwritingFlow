@@ -1,7 +1,7 @@
 package com.shopee.demo.engine.repository;
 
+import com.shopee.demo.engine.constant.UnderwritingTypeEnum;
 import com.shopee.demo.engine.type.request.UnderwritingRequest;
-import com.shopee.demo.engine.type.request.UnderwritingTypeEnum;
 
 public interface UnderwritingRequestRepository {
 

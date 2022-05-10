@@ -1,7 +1,7 @@
-package com.shopee.demo.engine.type.factory;
+package com.shopee.demo.engine.factory;
 
+import com.shopee.demo.engine.constant.UnderwritingTypeEnum;
 import com.shopee.demo.engine.type.request.UnderwritingRequest;
-import com.shopee.demo.engine.type.request.UnderwritingTypeEnum;
 import com.shopee.demo.engine.type.strategy.StrategyChain;
 
 import org.springframework.beans.BeansException;

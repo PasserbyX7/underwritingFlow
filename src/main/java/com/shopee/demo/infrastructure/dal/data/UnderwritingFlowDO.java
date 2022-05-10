@@ -1,11 +1,10 @@
 package com.shopee.demo.infrastructure.dal.data;
 
-import com.shopee.demo.engine.type.flow.UnderwritingFlowStatusEnum;
-import com.shopee.demo.engine.type.request.UnderwritingTypeEnum;
-import com.shopee.demo.engine.type.strategy.DataSourceEnum;
-import com.shopee.demo.engine.type.strategy.StrategyEnum;
+import com.shopee.demo.engine.constant.DataSourceEnum;
+import com.shopee.demo.engine.constant.FlowStatusEnum;
+import com.shopee.demo.engine.constant.StrategyEnum;
+import com.shopee.demo.engine.constant.UnderwritingTypeEnum;
 import com.shopee.demo.engine.type.strategy.StrategyStatusEnum;
-import com.shopee.demo.engine.type.strategy.StrategyTerminalReasonEnum;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -15,11 +14,11 @@ import lombok.EqualsAndHashCode;
 public class UnderwritingFlowDO extends BaseDO{
     private String underwritingId;
     private UnderwritingTypeEnum underwritingType;
-    private UnderwritingFlowStatusEnum flowStatus;
+    private FlowStatusEnum flowStatus;
     private StrategyEnum currentStrategy;
     private StrategyStatusEnum strategyStatus;
     private DataSourceEnum suspendDataSource;
-    private StrategyTerminalReasonEnum terminalReason;
+    private String errorMsg;
     private String strategyInput;
     private String strategyOutput;
 }

@@ -13,10 +13,10 @@ import java.util.List;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import com.shopee.demo.engine.config.FlowMachineBuilder;
+import com.shopee.demo.engine.constant.FlowEventEnum;
+import com.shopee.demo.engine.constant.FlowStatusEnum;
 import com.shopee.demo.engine.entity.flow.UnderwritingFlow;
 import com.shopee.demo.engine.service.machine.FlowStateMachinePersistService;
-import com.shopee.demo.engine.type.flow.FlowEventEnum;
-import com.shopee.demo.engine.type.flow.UnderwritingFlowStatusEnum;
 import com.shopee.demo.engine.type.strategy.StrategyStatusEnum;
 
 import org.junit.jupiter.api.DisplayName;
@@ -36,9 +36,9 @@ import org.springframework.statemachine.support.DefaultExtendedState;
 import org.springframework.statemachine.support.DefaultStateMachineContext;
 import org.springframework.statemachine.test.StateMachineTestPlanBuilder;
 
-import static com.shopee.demo.engine.type.flow.FlowEventEnum.*;
+import static com.shopee.demo.engine.constant.FlowEventEnum.*;
+import static com.shopee.demo.engine.constant.FlowStatusEnum.*;
 import static com.shopee.demo.engine.type.strategy.StrategyStatusEnum.*;
-import static com.shopee.demo.engine.type.flow.UnderwritingFlowStatusEnum.*;
 
 @ExtendWith(MockitoExtension.class)
 @DisplayName("UnderwritingFlowExecuteServiceTest")
@@ -67,7 +67,7 @@ public class StateMachineTest {
         doAnswer(inv -> expectedStrategyStatus.get(0)).when(underwritingFlow).getStrategyResultStatus();
         // then
         StateMachineTestPlanBuilder
-                .<UnderwritingFlowStatusEnum, FlowEventEnum>builder()
+                .<FlowStatusEnum, FlowEventEnum>builder()
                 .defaultAwaitTime(3)
                 .stateMachine(mockMachine())
                 .step()
@@ -95,7 +95,7 @@ public class StateMachineTest {
         doAnswer(inv -> expectedStrategyStatus.get(0)).when(underwritingFlow).getStrategyResultStatus();
         // then
         StateMachineTestPlanBuilder
-                .<UnderwritingFlowStatusEnum, FlowEventEnum>builder()
+                .<FlowStatusEnum, FlowEventEnum>builder()
                 .defaultAwaitTime(3)
                 .stateMachine(mockMachine())
                 .step()
@@ -123,7 +123,7 @@ public class StateMachineTest {
         doAnswer(inv -> expectedStrategyStatus.get(0)).when(underwritingFlow).getStrategyResultStatus();
         // then
         StateMachineTestPlanBuilder
-                .<UnderwritingFlowStatusEnum, FlowEventEnum>builder()
+                .<FlowStatusEnum, FlowEventEnum>builder()
                 .defaultAwaitTime(3)
                 .stateMachine(mockMachine())
                 .step()
@@ -151,7 +151,7 @@ public class StateMachineTest {
         doAnswer(inv -> expectedStrategyStatus.get(0)).when(underwritingFlow).getStrategyResultStatus();
         // then
         StateMachineTestPlanBuilder
-                .<UnderwritingFlowStatusEnum, FlowEventEnum>builder()
+                .<FlowStatusEnum, FlowEventEnum>builder()
                 .defaultAwaitTime(3)
                 .stateMachine(mockMachine())
                 .step()
@@ -179,7 +179,7 @@ public class StateMachineTest {
         doAnswer(inv -> expectedStrategyStatus.get(0)).when(underwritingFlow).getStrategyResultStatus();
         // then
         StateMachineTestPlanBuilder
-                .<UnderwritingFlowStatusEnum, FlowEventEnum>builder()
+                .<FlowStatusEnum, FlowEventEnum>builder()
                 .defaultAwaitTime(3)
                 .stateMachine(mockMachine())
                 .step()
@@ -207,7 +207,7 @@ public class StateMachineTest {
         doAnswer(inv -> expectedStrategyStatus.get(0)).when(underwritingFlow).getStrategyResultStatus();
         // then
         StateMachineTestPlanBuilder
-                .<UnderwritingFlowStatusEnum, FlowEventEnum>builder()
+                .<FlowStatusEnum, FlowEventEnum>builder()
                 .defaultAwaitTime(3)
                 .stateMachine(mockMachine())
                 .step()
@@ -235,7 +235,7 @@ public class StateMachineTest {
         doAnswer(inv -> expectedStrategyStatus.get(0)).when(underwritingFlow).getStrategyResultStatus();
         // then
         StateMachineTestPlanBuilder
-                .<UnderwritingFlowStatusEnum, FlowEventEnum>builder()
+                .<FlowStatusEnum, FlowEventEnum>builder()
                 .defaultAwaitTime(3)
                 .stateMachine(mockMachine())
                 .step()
@@ -263,7 +263,7 @@ public class StateMachineTest {
         doAnswer(inv -> expectedStrategyStatus.get(0)).when(underwritingFlow).getStrategyResultStatus();
         // then
         StateMachineTestPlanBuilder
-                .<UnderwritingFlowStatusEnum, FlowEventEnum>builder()
+                .<FlowStatusEnum, FlowEventEnum>builder()
                 .defaultAwaitTime(3)
                 .stateMachine(mockMachine())
                 .step()
@@ -291,7 +291,7 @@ public class StateMachineTest {
         doAnswer(inv -> expectedStrategyStatus.get(0)).when(underwritingFlow).getStrategyResultStatus();
         // then
         StateMachineTestPlanBuilder
-                .<UnderwritingFlowStatusEnum, FlowEventEnum>builder()
+                .<FlowStatusEnum, FlowEventEnum>builder()
                 .defaultAwaitTime(3)
                 .stateMachine(mockMachine())
                 .step()
@@ -319,7 +319,7 @@ public class StateMachineTest {
         doAnswer(inv -> expectedStrategyStatus.get(0)).when(underwritingFlow).getStrategyResultStatus();
         // then
         StateMachineTestPlanBuilder
-                .<UnderwritingFlowStatusEnum, FlowEventEnum>builder()
+                .<FlowStatusEnum, FlowEventEnum>builder()
                 .defaultAwaitTime(3)
                 .stateMachine(mockMachine())
                 .step()
@@ -347,7 +347,7 @@ public class StateMachineTest {
         doAnswer(inv -> expectedStrategyStatus.get(0)).when(underwritingFlow).getStrategyResultStatus();
         // then
         StateMachineTestPlanBuilder
-                .<UnderwritingFlowStatusEnum, FlowEventEnum>builder()
+                .<FlowStatusEnum, FlowEventEnum>builder()
                 .defaultAwaitTime(3)
                 .stateMachine(mockMachine())
                 .step()
@@ -375,7 +375,7 @@ public class StateMachineTest {
         doAnswer(inv -> expectedStrategyStatus.get(0)).when(underwritingFlow).getStrategyResultStatus();
         // then
         StateMachineTestPlanBuilder
-                .<UnderwritingFlowStatusEnum, FlowEventEnum>builder()
+                .<FlowStatusEnum, FlowEventEnum>builder()
                 .defaultAwaitTime(3)
                 .stateMachine(mockMachine())
                 .step()
@@ -403,7 +403,7 @@ public class StateMachineTest {
         doAnswer(inv -> expectedStrategyStatus.get(0)).when(underwritingFlow).getStrategyResultStatus();
         // then
         StateMachineTestPlanBuilder
-                .<UnderwritingFlowStatusEnum, FlowEventEnum>builder()
+                .<FlowStatusEnum, FlowEventEnum>builder()
                 .defaultAwaitTime(3)
                 .stateMachine(mockMachine())
                 .step()
@@ -431,7 +431,7 @@ public class StateMachineTest {
         doAnswer(inv -> expectedStrategyStatus.get(0)).when(underwritingFlow).getStrategyResultStatus();
         // then
         StateMachineTestPlanBuilder
-                .<UnderwritingFlowStatusEnum, FlowEventEnum>builder()
+                .<FlowStatusEnum, FlowEventEnum>builder()
                 .defaultAwaitTime(3)
                 .stateMachine(mockMachine())
                 .step()
@@ -459,7 +459,7 @@ public class StateMachineTest {
         doAnswer(inv -> expectedStrategyStatus.get(0)).when(underwritingFlow).getStrategyResultStatus();
         // then
         StateMachineTestPlanBuilder
-                .<UnderwritingFlowStatusEnum, FlowEventEnum>builder()
+                .<FlowStatusEnum, FlowEventEnum>builder()
                 .defaultAwaitTime(3)
                 .stateMachine(mockMachine())
                 .step()
@@ -477,10 +477,10 @@ public class StateMachineTest {
         verify(flowStateMachinePersistService, times(1)).persist(any());
     }
 
-    private StateMachine<UnderwritingFlowStatusEnum, FlowEventEnum> mockMachine()
+    private StateMachine<FlowStatusEnum, FlowEventEnum> mockMachine()
             throws Exception {
-        StateMachine<UnderwritingFlowStatusEnum, FlowEventEnum> machine = flowMachineBuilder.build();
-        StateMachineContext<UnderwritingFlowStatusEnum, FlowEventEnum> context = new DefaultStateMachineContext<UnderwritingFlowStatusEnum, FlowEventEnum>(
+        StateMachine<FlowStatusEnum, FlowEventEnum> machine = flowMachineBuilder.build();
+        StateMachineContext<FlowStatusEnum, FlowEventEnum> context = new DefaultStateMachineContext<FlowStatusEnum, FlowEventEnum>(
                 underwritingFlow.getFlowStatus(),
                 null,
                 null,

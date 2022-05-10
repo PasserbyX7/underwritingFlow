@@ -1,8 +1,5 @@
 package com.shopee.demo.engine.entity.machine;
 
-import com.shopee.demo.engine.type.flow.FlowEventEnum;
-import com.shopee.demo.engine.type.flow.UnderwritingFlowStatusEnum;
-
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Timeout;
@@ -13,9 +10,12 @@ import org.mockito.quality.Strictness;
 import org.springframework.statemachine.StateMachine;
 import org.springframework.statemachine.config.StateMachineBuilder;
 
-import static com.shopee.demo.engine.type.flow.UnderwritingFlowStatusEnum.*;
+import static com.shopee.demo.engine.constant.FlowStatusEnum.*;
 
 import java.util.EnumSet;
+
+import com.shopee.demo.engine.constant.FlowEventEnum;
+import com.shopee.demo.engine.constant.FlowStatusEnum;
 
 @ExtendWith(MockitoExtension.class)
 @DisplayName("FlowStateMachineTest")
@@ -26,16 +26,16 @@ public class FlowStateMachineTest {
     @Timeout(3)
     void testExecute() throws Exception {
         // given
-        StateMachine<UnderwritingFlowStatusEnum, FlowEventEnum> machine = mockMachine();
+        StateMachine<FlowStatusEnum, FlowEventEnum> machine = mockMachine();
         // then
         FlowStateMachine.of(machine).start();
         FlowStateMachine.of(machine).execute();
         FlowStateMachine.of(machine).stop();
     }
 
-    private StateMachine<UnderwritingFlowStatusEnum, FlowEventEnum> mockMachine() throws Exception {
-        StateMachineBuilder.Builder<UnderwritingFlowStatusEnum, FlowEventEnum> builder = StateMachineBuilder.builder();
-        builder.configureStates().withStates().initial(INITIAL).states(EnumSet.allOf(UnderwritingFlowStatusEnum.class));
+    private StateMachine<FlowStatusEnum, FlowEventEnum> mockMachine() throws Exception {
+        StateMachineBuilder.Builder<FlowStatusEnum, FlowEventEnum> builder = StateMachineBuilder.builder();
+        builder.configureStates().withStates().initial(INITIAL).states(EnumSet.allOf(FlowStatusEnum.class));
         builder.configureTransitions().withExternal().source(INITIAL).target(PENDING).event(FlowEventEnum.START);
         return builder.build();
     }
