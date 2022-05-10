@@ -4,9 +4,9 @@ import java.util.EnumSet;
 
 import com.shopee.demo.engine.constant.FlowEventEnum;
 import com.shopee.demo.engine.constant.FlowStatusEnum;
+import com.shopee.demo.engine.constant.StrategyStatusEnum;
 import com.shopee.demo.engine.entity.flow.UnderwritingFlow;
 import com.shopee.demo.engine.service.machine.FlowStateMachinePersistService;
-import com.shopee.demo.engine.type.strategy.StrategyStatusEnum;
 
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.annotation.Bean;
@@ -29,7 +29,7 @@ import reactor.core.publisher.Mono;
 
 import static com.shopee.demo.engine.constant.FlowEventEnum.*;
 import static com.shopee.demo.engine.constant.FlowStatusEnum.*;
-import static com.shopee.demo.engine.type.strategy.StrategyStatusEnum.*;
+import static com.shopee.demo.engine.constant.StrategyStatusEnum.*;
 
 @Component
 @EnableStateMachine

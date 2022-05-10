@@ -1,4 +1,4 @@
-package com.shopee.demo.engine.type.strategy;
+package com.shopee.demo.engine.constant;
 
 public enum StrategyStatusEnum {
     PASS,

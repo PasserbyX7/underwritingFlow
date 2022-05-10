@@ -3,8 +3,8 @@ package com.shopee.demo.infrastructure.dal.data;
 import com.shopee.demo.engine.constant.DataSourceEnum;
 import com.shopee.demo.engine.constant.FlowStatusEnum;
 import com.shopee.demo.engine.constant.StrategyEnum;
+import com.shopee.demo.engine.constant.StrategyStatusEnum;
 import com.shopee.demo.engine.constant.UnderwritingTypeEnum;
-import com.shopee.demo.engine.type.strategy.StrategyStatusEnum;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

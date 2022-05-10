@@ -15,9 +15,9 @@ import com.google.common.collect.Lists;
 import com.shopee.demo.engine.config.FlowMachineBuilder;
 import com.shopee.demo.engine.constant.FlowEventEnum;
 import com.shopee.demo.engine.constant.FlowStatusEnum;
+import com.shopee.demo.engine.constant.StrategyStatusEnum;
 import com.shopee.demo.engine.entity.flow.UnderwritingFlow;
 import com.shopee.demo.engine.service.machine.FlowStateMachinePersistService;
-import com.shopee.demo.engine.type.strategy.StrategyStatusEnum;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -38,7 +38,7 @@ import org.springframework.statemachine.test.StateMachineTestPlanBuilder;
 
 import static com.shopee.demo.engine.constant.FlowEventEnum.*;
 import static com.shopee.demo.engine.constant.FlowStatusEnum.*;
-import static com.shopee.demo.engine.type.strategy.StrategyStatusEnum.*;
+import static com.shopee.demo.engine.constant.StrategyStatusEnum.*;
 
 @ExtendWith(MockitoExtension.class)
 @DisplayName("UnderwritingFlowExecuteServiceTest")

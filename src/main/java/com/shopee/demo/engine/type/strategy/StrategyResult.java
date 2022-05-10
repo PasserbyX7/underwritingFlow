@@ -1,8 +1,9 @@
 package com.shopee.demo.engine.type.strategy;
 
-import static com.shopee.demo.engine.type.strategy.StrategyStatusEnum.*;
+import static com.shopee.demo.engine.constant.StrategyStatusEnum.*;
 
 import com.shopee.demo.engine.constant.DataSourceEnum;
+import com.shopee.demo.engine.constant.StrategyStatusEnum;
 
 import lombok.Value;
 
