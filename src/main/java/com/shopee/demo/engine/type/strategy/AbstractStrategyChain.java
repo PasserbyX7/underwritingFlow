@@ -2,7 +2,6 @@ package com.shopee.demo.engine.type.strategy;
 
 import javax.annotation.PostConstruct;
 
-import com.shopee.demo.engine.entity.strategy.Strategy;
 import com.shopee.demo.engine.type.request.UnderwritingRequest;
 
 import org.springframework.stereotype.Component;

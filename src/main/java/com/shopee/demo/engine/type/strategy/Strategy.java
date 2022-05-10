@@ -1,8 +1,7 @@
-package com.shopee.demo.engine.entity.strategy;
+package com.shopee.demo.engine.type.strategy;
 
+import com.shopee.demo.engine.entity.strategy.StrategyContext;
 import com.shopee.demo.engine.type.request.UnderwritingRequest;
-import com.shopee.demo.engine.type.strategy.StrategyEnum;
-import com.shopee.demo.engine.type.strategy.StrategyResult;
 
 import lombok.Getter;
 import lombok.Setter;

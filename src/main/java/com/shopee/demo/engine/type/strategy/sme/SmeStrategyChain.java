@@ -2,9 +2,9 @@ package com.shopee.demo.engine.type.strategy.sme;
 
 import javax.annotation.Resource;
 
-import com.shopee.demo.engine.entity.strategy.Strategy;
 import com.shopee.demo.engine.type.request.SmeUnderwritingRequest;
 import com.shopee.demo.engine.type.strategy.AbstractStrategyChain;
+import com.shopee.demo.engine.type.strategy.Strategy;
 
 import org.springframework.stereotype.Component;
 
