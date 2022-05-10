@@ -39,8 +39,7 @@ public class FlowStateMachinePersistServiceImpl implements FlowStateMachinePersi
                 new DefaultExtendedState(ImmutableMap.of(ExtendedStateEnum.UNDERWRITING_CONTEXT, underwritingFlow)),
                 null,
                 FlowMachineBuilder.FLOW_STATE_MACHINE_ID);
-        stateMachine.getStateMachineAccessor()
-                .doWithAllRegions(function -> function.resetStateMachineReactively(context).block());
+        stateMachine.getStateMachineAccessor().doWithAllRegions(f -> f.resetStateMachineReactively(context).block());
     }
 
 }

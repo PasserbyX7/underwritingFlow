@@ -56,7 +56,7 @@ public class FlowMachineBuilder {
         states.withStates()
                 .initial(INITIAL)
                 .choice(CHOICE)
-                .state(ONGOING, executeStrategyAction())
+                .stateDo(ONGOING, executeStrategyAction())
                 .states(EnumSet.allOf(UnderwritingFlowStatusEnum.class));
     }
 
@@ -146,6 +146,7 @@ public class FlowMachineBuilder {
 
         @OnStateEntry
         public void onStateEntry(StateContext<UnderwritingFlowStatusEnum, FlowEventEnum> context) throws Exception {
+            UnderwritingFlow.from(context.getExtendedState()).setFlowStatus(context.getStateMachine().getState().getId());
             flowStateMachinePersistService.persist(context.getStateMachine());
         }
 

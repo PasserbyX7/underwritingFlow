@@ -7,6 +7,7 @@ import com.shopee.demo.engine.repository.UnderwritingFlowRepository;
 import com.shopee.demo.engine.repository.converter.SmeUnderwritingRequestConverter;
 import com.shopee.demo.engine.service.flow.UnderwritingFlowExecuteService;
 import com.shopee.demo.engine.type.request.UnderwritingRequest;
+import com.shopee.demo.infrastructure.dal.dao.SmeUnderwritingDAO;
 import com.shopee.demo.infrastructure.dal.dao.UnderwritingFlowDAO;
 import com.shopee.demo.infrastructure.dal.data.SmeUnderwritingDO;
 import com.shopee.demo.infrastructure.dal.data.UnderwritingFlowDO;
@@ -20,6 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Mockito.doReturn;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -39,6 +41,9 @@ public class FlowMachineTest {
     @MockBean
     UnderwritingFlowDAO underwritingContextDAO;
 
+    @MockBean
+    SmeUnderwritingDAO smeUnderwritingDAO;
+
     @Test
     void test() throws Exception {
         // given
@@ -46,6 +51,9 @@ public class FlowMachineTest {
         Iterator<Long> iter = Stream.iterate(0L, e -> e + 1).iterator();
         UnderwritingFlow flow = mockUnderwritingFlow();
         // when
+        doReturn(mockSmeUnderwritingDO())
+            .when(smeUnderwritingDAO)
+            .selectByUnderwritingId(any());
         doAnswer(invocation -> {
             UnderwritingFlowDO entity = invocation.getArgument(0);
             if (entity.getId() == null) {
@@ -73,4 +81,9 @@ public class FlowMachineTest {
         return UnderwritingFlow.of(smeUnderwritingRequest);
     }
 
+    private SmeUnderwritingDO mockSmeUnderwritingDO() {
+        SmeUnderwritingDO smeUnderwritingDO = new SmeUnderwritingDO();
+        smeUnderwritingDO.setUnderwritingId("underwritingId");
+        return smeUnderwritingDO;
+    }
 }
