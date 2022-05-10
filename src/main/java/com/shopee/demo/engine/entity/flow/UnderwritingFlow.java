@@ -4,7 +4,6 @@ import java.util.Optional;
 
 import com.shopee.demo.engine.entity.strategy.StrategyContext;
 import com.shopee.demo.engine.type.flow.UnderwritingFlowStatusEnum;
-import com.shopee.demo.engine.type.machine.ExtendedStateEnum;
 import com.shopee.demo.engine.type.request.UnderwritingRequest;
 import com.shopee.demo.engine.type.strategy.Strategy;
 import com.shopee.demo.engine.type.strategy.StrategyEnum;
@@ -20,6 +19,8 @@ import lombok.ToString;
 @Data
 @ToString(doNotUseGetters = true)
 public final class UnderwritingFlow {
+
+    public static final String EXTENDED_STATE_KEY = "UnderwritingFlowExtendedStateKey";
 
     private final Long id;
     private final UnderwritingRequest underwritingRequest;
@@ -46,7 +47,7 @@ public final class UnderwritingFlow {
 
     public static UnderwritingFlow from(ExtendedState extendedState) {
         Assert.notNull(extendedState, "ExtendedState must not be null");
-        return extendedState.get(ExtendedStateEnum.UNDERWRITING_CONTEXT, UnderwritingFlow.class);
+        return extendedState.get(UnderwritingFlow.EXTENDED_STATE_KEY, UnderwritingFlow.class);
     }
 
     public void execute() {

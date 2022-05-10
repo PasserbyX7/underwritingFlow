@@ -17,7 +17,6 @@ import com.shopee.demo.engine.entity.flow.UnderwritingFlow;
 import com.shopee.demo.engine.service.machine.FlowStateMachinePersistService;
 import com.shopee.demo.engine.type.flow.FlowEventEnum;
 import com.shopee.demo.engine.type.flow.UnderwritingFlowStatusEnum;
-import com.shopee.demo.engine.type.machine.ExtendedStateEnum;
 import com.shopee.demo.engine.type.strategy.StrategyStatusEnum;
 
 import org.junit.jupiter.api.DisplayName;
@@ -485,7 +484,7 @@ public class StateMachineTest {
                 underwritingFlow.getFlowStatus(),
                 null,
                 null,
-                new DefaultExtendedState(ImmutableMap.of(ExtendedStateEnum.UNDERWRITING_CONTEXT, underwritingFlow)),
+                new DefaultExtendedState(ImmutableMap.of(UnderwritingFlow.EXTENDED_STATE_KEY, underwritingFlow)),
                 null,
                 FlowMachineBuilder.FLOW_STATE_MACHINE_ID);
         machine.getStateMachineAccessor().doWithAllRegions(f -> f.resetStateMachineReactively(context).block());

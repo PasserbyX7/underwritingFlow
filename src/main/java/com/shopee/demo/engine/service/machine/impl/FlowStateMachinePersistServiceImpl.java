@@ -9,7 +9,6 @@ import com.shopee.demo.engine.repository.UnderwritingFlowRepository;
 import com.shopee.demo.engine.service.machine.FlowStateMachinePersistService;
 import com.shopee.demo.engine.type.flow.FlowEventEnum;
 import com.shopee.demo.engine.type.flow.UnderwritingFlowStatusEnum;
-import com.shopee.demo.engine.type.machine.ExtendedStateEnum;
 
 import org.springframework.statemachine.StateMachine;
 import org.springframework.statemachine.StateMachineContext;
@@ -36,7 +35,7 @@ public class FlowStateMachinePersistServiceImpl implements FlowStateMachinePersi
                 underwritingFlow.getFlowStatus(),
                 null,
                 null,
-                new DefaultExtendedState(ImmutableMap.of(ExtendedStateEnum.UNDERWRITING_CONTEXT, underwritingFlow)),
+                new DefaultExtendedState(ImmutableMap.of(UnderwritingFlow.EXTENDED_STATE_KEY, underwritingFlow)),
                 null,
                 FlowMachineBuilder.FLOW_STATE_MACHINE_ID);
         stateMachine.getStateMachineAccessor().doWithAllRegions(f -> f.resetStateMachineReactively(context).block());
