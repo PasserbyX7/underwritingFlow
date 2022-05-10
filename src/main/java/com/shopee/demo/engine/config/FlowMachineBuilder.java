@@ -1,4 +1,4 @@
-package com.shopee.demo.engine.entity.machine.config;
+package com.shopee.demo.engine.config;
 
 import java.util.EnumSet;
 

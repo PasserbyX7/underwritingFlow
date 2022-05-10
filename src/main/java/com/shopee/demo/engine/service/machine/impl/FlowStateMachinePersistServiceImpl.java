@@ -3,8 +3,8 @@ package com.shopee.demo.engine.service.machine.impl;
 import javax.annotation.Resource;
 
 import com.google.common.collect.ImmutableMap;
+import com.shopee.demo.engine.config.FlowMachineBuilder;
 import com.shopee.demo.engine.entity.flow.UnderwritingFlow;
-import com.shopee.demo.engine.entity.machine.config.FlowMachineBuilder;
 import com.shopee.demo.engine.repository.UnderwritingFlowRepository;
 import com.shopee.demo.engine.service.machine.FlowStateMachinePersistService;
 import com.shopee.demo.engine.type.flow.FlowEventEnum;

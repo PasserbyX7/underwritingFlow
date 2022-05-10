@@ -25,13 +25,7 @@ public class FlowStateMachine {
 
     public FlowStateMachine start() {
         if (!((Lifecycle) machine).isRunning()) {
-            StartListener listener = new StartListener(machine);
-            machine.addStateListener(listener);
             machine.startReactively().block();
-            try {
-                listener.latch.await();
-            } catch (InterruptedException e) {
-            }
         }
         return this;
     }
@@ -51,32 +45,13 @@ public class FlowStateMachine {
 
     public FlowStateMachine stop() {
         if (((Lifecycle) machine).isRunning()) {
-            StopListener listener = new StopListener(machine);
-            machine.addStateListener(listener);
             machine.stopReactively().block();
-            try {
-                listener.latch.await();
-            } catch (InterruptedException e) {
-            }
         }
         return this;
     }
 
     public Long getUnderwritingFlowId() {
         return UnderwritingFlow.from(machine.getExtendedState()).getId();
-    }
-
-    @AllArgsConstructor
-    private static class StartListener extends StateMachineListenerAdapter<UnderwritingFlowStatusEnum, FlowEventEnum> {
-
-        final CountDownLatch latch = new CountDownLatch(1);
-        private final StateMachine<UnderwritingFlowStatusEnum, FlowEventEnum> stateMachine;
-
-        @Override
-        public void stateMachineStarted(StateMachine<UnderwritingFlowStatusEnum, FlowEventEnum> stateMachine) {
-            this.stateMachine.removeStateListener(this);
-            latch.countDown();
-        }
     }
 
     @AllArgsConstructor
@@ -93,18 +68,6 @@ public class FlowStateMachine {
             }
         }
 
-    }
-
-    @AllArgsConstructor
-    private static class StopListener extends StateMachineListenerAdapter<UnderwritingFlowStatusEnum, FlowEventEnum> {
-        final CountDownLatch latch = new CountDownLatch(1);
-        private final StateMachine<UnderwritingFlowStatusEnum, FlowEventEnum> stateMachine;
-
-        @Override
-        public void stateMachineStopped(StateMachine<UnderwritingFlowStatusEnum, FlowEventEnum> stateMachine) {
-            this.stateMachine.removeStateListener(this);
-            latch.countDown();
-        }
     }
 
 }

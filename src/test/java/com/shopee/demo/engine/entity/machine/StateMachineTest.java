@@ -12,8 +12,8 @@ import java.util.List;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
+import com.shopee.demo.engine.config.FlowMachineBuilder;
 import com.shopee.demo.engine.entity.flow.UnderwritingFlow;
-import com.shopee.demo.engine.entity.machine.config.FlowMachineBuilder;
 import com.shopee.demo.engine.service.machine.FlowStateMachinePersistService;
 import com.shopee.demo.engine.type.flow.FlowEventEnum;
 import com.shopee.demo.engine.type.flow.UnderwritingFlowStatusEnum;
