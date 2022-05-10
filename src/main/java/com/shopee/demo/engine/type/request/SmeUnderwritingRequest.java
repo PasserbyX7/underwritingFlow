@@ -18,6 +18,11 @@ public class SmeUnderwritingRequest implements UnderwritingRequest {
         return UnderwritingTypeEnum.SME;
     }
 
+    @Override
+    public boolean isExpire() {
+        return requestTime >= requestExpireTime;
+    }
+
     public static SmeUnderwritingRequest of(SmeUnderwritingDO requestDO){
         return SmeUnderwritingRequestConverter.INSTANCE.convert(requestDO);
     }

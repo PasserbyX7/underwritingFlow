@@ -18,7 +18,13 @@ public class RetailUnderwritingRequest implements UnderwritingRequest {
         return UnderwritingTypeEnum.RETAIL;
     }
 
-    public static RetailUnderwritingRequest of(RetailUnderwritingDO requestDO){
+    @Override
+    public boolean isExpire() {
+        return requestTime >= requestExpireTime;
+    }
+
+    public static RetailUnderwritingRequest of(RetailUnderwritingDO requestDO) {
         return RetailUnderwritingRequestConverter.INSTANCE.convert(requestDO);
     }
+
 }

@@ -9,9 +9,7 @@ public interface UnderwritingRequest {
 
     String getUnderwritingId();
 
-    Long getRequestTime();
-
-    Long getRequestExpireTime();
+    boolean isExpire();
 
     default StrategyChain<UnderwritingRequest> getStrategyChain() {
         return StrategyChainFactory.getStrategyChain(getUnderwritingType());

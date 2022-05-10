@@ -1,5 +1,7 @@
 package com.shopee.demo.engine.entity.flow;
 
+import java.util.Optional;
+
 import com.shopee.demo.engine.entity.strategy.Strategy;
 import com.shopee.demo.engine.entity.strategy.StrategyContext;
 import com.shopee.demo.engine.type.flow.UnderwritingFlowStatusEnum;
@@ -63,7 +65,10 @@ public final class UnderwritingFlow {
     }
 
     public StrategyStatusEnum getStrategyResultStatus() {
-        return strategyContext.getStrategyResult().getStatus();
+        return Optional.ofNullable(strategyContext)
+                .map(StrategyContext::getStrategyResult)
+                .map(StrategyResult::getStatus)
+                .orElse(null);
     }
 
     public StrategyEnum getCurrentStrategyName() {

@@ -84,14 +84,10 @@ public class UnderwritingFlowExecuteServiceTest {
             }
 
             @Override
-            public Long getRequestTime() {
-                return 1651922495900L;
+            public boolean isExpire() {
+                return false;
             }
 
-            @Override
-            public Long getRequestExpireTime() {
-                return 1651922495900L;
-            }
         });
     }
 
