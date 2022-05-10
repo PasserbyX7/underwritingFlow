@@ -26,7 +26,7 @@ public class StrategyResult {
     }
 
     public static StrategyResult terminal(StrategyTerminalReasonEnum terminalReason) {
-        return new StrategyResult(TERMINAL, null, terminalReason);
+        return new StrategyResult(ERROR, null, terminalReason);
     }
 
     public static StrategyResult reject() {
