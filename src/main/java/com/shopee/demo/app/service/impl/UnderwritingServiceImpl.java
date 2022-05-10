@@ -43,10 +43,4 @@ public class UnderwritingServiceImpl implements UnderwritingService {
 
     }
 
-    @Override
-    public void createUnderwritingFlow(long underwritingId) {
-        // TODO Auto-generated method stub
-
-    }
-
 }

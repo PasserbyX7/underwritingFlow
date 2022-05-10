@@ -1,9 +1,8 @@
-package com.shopee.demo.engine.entity.config;
+package com.shopee.demo.engine.entity.machine.config;
 
 import javax.annotation.Resource;
 
 import com.shopee.demo.engine.entity.machine.FlowStateMachine;
-import com.shopee.demo.engine.entity.machine.config.FlowMachineBuilder;
 
 import org.apache.commons.pool2.BasePooledObjectFactory;
 import org.apache.commons.pool2.PooledObject;

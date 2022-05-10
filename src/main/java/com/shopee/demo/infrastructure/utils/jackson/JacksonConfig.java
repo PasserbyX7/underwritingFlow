@@ -1,4 +1,4 @@
-package com.shopee.demo.infrastructure.utils.config;
+package com.shopee.demo.infrastructure.utils.jackson;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 

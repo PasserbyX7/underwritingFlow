@@ -3,9 +3,9 @@ package com.shopee.demo.engine.service.machine;
 import com.shopee.demo.engine.entity.machine.FlowStateMachine;
 
 public interface FlowStateMachinePoolService {
+
     /**
-     * Acquires the state machine. Machine from this method
-     * is returned started.
+     * Acquires the state machine. Machine from this method is returned started.
      *
      * @param underwritingFlowId underwritingFlowId
      * @return the state machine
