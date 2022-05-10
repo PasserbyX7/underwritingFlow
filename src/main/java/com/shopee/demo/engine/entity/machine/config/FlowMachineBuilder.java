@@ -70,11 +70,20 @@ public class FlowMachineBuilder {
                 .source(INITIAL).target(ONGOING).event(START)
                 .and()
                 .withExternal()
+                .source(PENDING).target(ONGOING).event(START)
+                .and()
+                .withExternal()
+                .source(ONGOING).target(CHOICE).event(START).action(executeStrategyAction())
+                .and()
+                .withExternal()
                 .source(ONGOING).target(CHOICE).event(STRATEGY_EXECUTE)
                 .and()
                 .withChoice()
                 .source(CHOICE)
                 .first(REJECTED, rejectGuard())
+                .then(CANCELLED, cancelledGuard())
+                .then(EXPIRED, expiredGuard())
+                .then(PENDING, pendingGuard())
                 .then(APPROVED, approvedGuard())
                 .last(ONGOING, setNextStrategyAction());
     }
@@ -114,6 +123,42 @@ public class FlowMachineBuilder {
     }
 
     @Bean
+    public Guard<UnderwritingFlowStatusEnum, FlowEventEnum> cancelledGuard() {
+        return new Guard<UnderwritingFlowStatusEnum, FlowEventEnum>() {
+
+            @Override
+            public boolean evaluate(StateContext<UnderwritingFlowStatusEnum, FlowEventEnum> context) {
+                return UnderwritingFlow.from(context.getExtendedState()).getStrategyResultStatus() == ERROR;
+            }
+
+        };
+    }
+
+    @Bean
+    public Guard<UnderwritingFlowStatusEnum, FlowEventEnum> expiredGuard() {
+        return new Guard<UnderwritingFlowStatusEnum, FlowEventEnum>() {
+
+            @Override
+            public boolean evaluate(StateContext<UnderwritingFlowStatusEnum, FlowEventEnum> context) {
+                return UnderwritingFlow.from(context.getExtendedState()).getStrategyResultStatus() == EXPIRE;
+            }
+
+        };
+    }
+
+    @Bean
+    public Guard<UnderwritingFlowStatusEnum, FlowEventEnum> pendingGuard() {
+        return new Guard<UnderwritingFlowStatusEnum, FlowEventEnum>() {
+
+            @Override
+            public boolean evaluate(StateContext<UnderwritingFlowStatusEnum, FlowEventEnum> context) {
+                return UnderwritingFlow.from(context.getExtendedState()).getStrategyResultStatus() == SUSPEND;
+            }
+
+        };
+    }
+
+    @Bean
     public Action<UnderwritingFlowStatusEnum, FlowEventEnum> executeStrategyAction() {
         return new Action<UnderwritingFlowStatusEnum, FlowEventEnum>() {
 
@@ -122,7 +167,7 @@ public class FlowMachineBuilder {
                 UnderwritingFlow.from(context.getExtendedState()).execute();
                 context.getStateMachine()
                         .sendEvent(Mono.just(MessageBuilder.withPayload(FlowEventEnum.STRATEGY_EXECUTE).build()))
-                        .subscribe();
+                        .blockFirst();
             }
 
         };

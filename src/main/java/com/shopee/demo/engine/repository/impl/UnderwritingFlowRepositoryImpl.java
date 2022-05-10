@@ -27,7 +27,7 @@ public class UnderwritingFlowRepositoryImpl implements UnderwritingFlowRepositor
     @Override
     public long save(UnderwritingFlow flow) {
         UnderwritingFlowDO flowDO = UnderwritingFlowConverter.convert(flow);
-        log.info("保存授信Flow：当前策略[{}] 当前状态[{}]", flow.getCurrentStrategyName(), flow.getFlowStatus());
+        log.info("保存授信Flow：当前状态[{}] 当前策略[{}]",flow.getFlowStatus(), flow.getCurrentStrategyName());
         underwritingFlowDAO.saveOrUpdateById(flowDO);
         return flowDO.getId();
     }

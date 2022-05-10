@@ -4,5 +4,6 @@ public enum StrategyStatusEnum {
     PASS,
     REJECT,
     SUSPEND,
+    EXPIRE,
     ERROR;
 }

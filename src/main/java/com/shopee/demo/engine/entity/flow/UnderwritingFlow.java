@@ -72,7 +72,7 @@ public final class UnderwritingFlow {
     }
 
     public StrategyEnum getCurrentStrategyName() {
-        return getCurrentStrategy().getStrategyName();
+        return currentStrategy;
     }
 
     private Strategy<UnderwritingRequest> getCurrentStrategy() {
