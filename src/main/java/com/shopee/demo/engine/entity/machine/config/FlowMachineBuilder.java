@@ -2,8 +2,6 @@ package com.shopee.demo.engine.entity.machine.config;
 
 import java.util.EnumSet;
 
-import javax.annotation.Resource;
-
 import com.shopee.demo.engine.entity.flow.UnderwritingFlow;
 import com.shopee.demo.engine.service.machine.FlowStateMachinePersistService;
 import com.shopee.demo.engine.type.flow.FlowEventEnum;
@@ -15,15 +13,16 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.statemachine.StateContext;
 import org.springframework.statemachine.StateMachine;
+import org.springframework.statemachine.StateContext.Stage;
 import org.springframework.statemachine.action.Action;
-import org.springframework.statemachine.annotation.OnStateEntry;
-import org.springframework.statemachine.annotation.WithStateMachine;
 import org.springframework.statemachine.config.EnableStateMachine;
 import org.springframework.statemachine.config.StateMachineBuilder;
 import org.springframework.statemachine.config.builders.StateMachineConfigurationConfigurer;
 import org.springframework.statemachine.config.builders.StateMachineStateConfigurer;
 import org.springframework.statemachine.config.builders.StateMachineTransitionConfigurer;
 import org.springframework.statemachine.guard.Guard;
+import org.springframework.statemachine.listener.StateMachineListener;
+import org.springframework.statemachine.listener.StateMachineListenerAdapter;
 import org.springframework.stereotype.Component;
 
 import reactor.core.publisher.Mono;
@@ -37,10 +36,13 @@ public class FlowMachineBuilder {
 
     public static final String FLOW_STATE_MACHINE_ID = "UnderwritingFlowMachine";
 
-    private final BeanFactory beanFactory;
+    private BeanFactory beanFactory;
 
-    public FlowMachineBuilder(BeanFactory beanFactory) {
+    private FlowStateMachinePersistService flowStateMachinePersistService;
+
+    public FlowMachineBuilder(BeanFactory beanFactory, FlowStateMachinePersistService flowStateMachinePersistService) {
         this.beanFactory = beanFactory;
+        this.flowStateMachinePersistService = flowStateMachinePersistService;
     }
 
     public StateMachine<UnderwritingFlowStatusEnum, FlowEventEnum> build() throws Exception {
@@ -80,6 +82,7 @@ public class FlowMachineBuilder {
             throws Exception {
         config.withConfiguration()
                 .beanFactory(beanFactory)
+                .listener(underwritingFlowPersisterListener())
                 .machineId(FLOW_STATE_MACHINE_ID);
     }
 
@@ -137,19 +140,22 @@ public class FlowMachineBuilder {
         };
     }
 
-    @Component
-    @WithStateMachine(id = FLOW_STATE_MACHINE_ID)
-    public static class UnderwritingFlowPersisterListener {
-
-        @Resource
-        private FlowStateMachinePersistService flowStateMachinePersistService;
-
-        @OnStateEntry
-        public void onStateEntry(StateContext<UnderwritingFlowStatusEnum, FlowEventEnum> context) throws Exception {
-            UnderwritingFlow.from(context.getExtendedState()).setFlowStatus(context.getStateMachine().getState().getId());
-            flowStateMachinePersistService.persist(context.getStateMachine());
-        }
-
+    @Bean
+    public StateMachineListener<UnderwritingFlowStatusEnum, FlowEventEnum> underwritingFlowPersisterListener() {
+        return new StateMachineListenerAdapter<UnderwritingFlowStatusEnum, FlowEventEnum>() {
+            @Override
+            public void stateContext(StateContext<UnderwritingFlowStatusEnum, FlowEventEnum> stateContext) {
+                if (stateContext.getStage() == Stage.STATE_ENTRY) {
+                    UnderwritingFlow.from(stateContext.getExtendedState())
+                            .setFlowStatus(stateContext.getStateMachine().getState().getId());
+                    try {
+                        flowStateMachinePersistService.persist(stateContext.getStateMachine());
+                    } catch (Exception e) {
+                        // TODO
+                    }
+                }
+            }
+        };
     }
 
 }
