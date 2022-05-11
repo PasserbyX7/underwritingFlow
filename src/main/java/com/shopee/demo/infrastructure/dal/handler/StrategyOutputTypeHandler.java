@@ -6,7 +6,7 @@ import java.util.Map;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.shopee.demo.engine.constant.StrategyEnum;
-import com.shopee.demo.engine.type.strategy.output.StrategyOutput;
+import com.shopee.demo.engine.type.strategy.StrategyOutput;
 
 public class StrategyOutputTypeHandler extends AbstractJsonTypeHandler<Map<StrategyEnum, StrategyOutput>> {
 
