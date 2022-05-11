@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shopee.demo.infrastructure.dal.dao.UnderwritingFlowLogDAO">
+  <resultMap id="BaseResultMap" type="com.shopee.demo.infrastructure.dal.data.UnderwritingFlowLogDO">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="underwriting_flow_id" jdbcType="BIGINT" property="underwritingFlowId" />
+    <result column="flow_status" jdbcType="VARCHAR" property="flowStatus" />
+    <result column="current_strategy" jdbcType="VARCHAR" property="currentStrategy" />
+    <result column="strategy_status" jdbcType="VARCHAR" property="strategyStatus" />
+    <result column="suspend_data_source" jdbcType="VARCHAR" property="suspendDataSource" />
+    <result column="terminal_reason" jdbcType="VARCHAR" property="terminalReason" />
+    <result column="strategy_input" jdbcType="VARCHAR" property="strategyInput" />
+    <result column="strategy_output" jdbcType="VARCHAR" property="strategyOutput" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="create_date" jdbcType="BIGINT" property="createDate" />
+    <result column="modifier" jdbcType="VARCHAR" property="modifier" />
+    <result column="modify_date" jdbcType="BIGINT" property="modifyDate" />
+    <result column="version" jdbcType="INTEGER" property="version" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, underwriting_flow_id, flow_status, current_strategy, strategy_status, suspend_data_source,
+    terminal_reason, strategy_input, strategy_output, creator, create_date, modifier,
+    modify_date, version
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from underwriting_flow_log_tab
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <insert id="insertSelective" parameterType="com.shopee.demo.infrastructure.dal.data.UnderwritingFlowLogDO">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into underwriting_flow_log_tab
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="underwritingFlowId != null">
+        underwriting_flow_id,
+      </if>
+      <if test="flowStatus != null">
+        flow_status,
+      </if>
+      <if test="currentStrategy != null">
+        current_strategy,
+      </if>
+      <if test="strategyStatus != null">
+        strategy_status,
+      </if>
+      <if test="suspendDataSource != null">
+        suspend_data_source,
+      </if>
+      <if test="terminalReason != null">
+        terminal_reason,
+      </if>
+      <if test="strategyInput != null">
+        strategy_input,
+      </if>
+      <if test="strategyOutput != null">
+        strategy_output,
+      </if>
+      <if test="creator != null">
+        creator,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="modifyDate != null">
+        modify_date,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="underwritingFlowId != null">
+        #{underwritingFlowId,jdbcType=BIGINT},
+      </if>
+      <if test="flowStatus != null">
+        #{flowStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="currentStrategy != null">
+        #{currentStrategy,jdbcType=VARCHAR},
+      </if>
+      <if test="strategyStatus != null">
+        #{strategyStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="suspendDataSource != null">
+        #{suspendDataSource,jdbcType=VARCHAR},
+      </if>
+      <if test="terminalReason != null">
+        #{terminalReason,jdbcType=VARCHAR},
+      </if>
+      <if test="strategyInput != null">
+        #{strategyInput,jdbcType=VARCHAR},
+      </if>
+      <if test="strategyOutput != null">
+        #{strategyOutput,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=BIGINT},
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyDate != null">
+        #{modifyDate,jdbcType=BIGINT},
+      </if>
+      <if test="version != null">
+        #{version,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

@@ -2,11 +2,11 @@ package com.shopee.demo.engine.service.machine.impl;
 
 import javax.annotation.Resource;
 
+import com.shopee.demo.engine.config.FlowMachinePoolConfig.FlowMachinePool;
 import com.shopee.demo.engine.entity.machine.FlowStateMachine;
 import com.shopee.demo.engine.service.machine.FlowStateMachinePersistService;
 import com.shopee.demo.engine.service.machine.FlowStateMachinePoolService;
 
-import org.apache.commons.pool2.impl.GenericObjectPool;
 import org.springframework.statemachine.StateMachineException;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 public class FlowStateMachinePoolServiceImpl implements FlowStateMachinePoolService {
 
     @Resource
-    private GenericObjectPool<FlowStateMachine> flowMachinePool;
+    private FlowMachinePool flowMachinePool;
 
     @Resource
     private FlowStateMachinePersistService flowStateMachinePersistService;

@@ -6,7 +6,7 @@ CREATE TABLE `underwriting_flow_tab` (
   `current_strategy` varchar(16) NOT NULL COMMENT '当前授信策略',
   `strategy_status` varchar(16) NULL COMMENT '当前授信状态',
   `suspend_data_source` varchar(16) NULL COMMENT '当前策略不可用数据源',
-  `terminal_reason` varchar(128) NULL COMMENT '当前策略终止理由',
+  `error_msg` varchar(128) NULL COMMENT '当前策略错误信息',
   `strategy_input` text NULL COMMENT '策略输入',
   `strategy_output` text NULL COMMENT '策略输出',
   `creator` varchar(64) NULL COMMENT '创建人',
@@ -33,5 +33,5 @@ CREATE TABLE `underwriting_flow_log_tab` (
   `modify_date` bigint(20) unsigned NULL COMMENT '修改时间',
   `version` int(11) NULL COMMENT '版本号',
   PRIMARY KEY (`id`) USING BTREE,
-  KEY `key_flow_id_create_date` (underwriting_flow_id,create_date)
+  KEY `key_flow_id_create_date` (underwriting_flow_id, create_date)
 ) ENGINE = InnoDB DEFAULT CHARSET = UTF8MB4;

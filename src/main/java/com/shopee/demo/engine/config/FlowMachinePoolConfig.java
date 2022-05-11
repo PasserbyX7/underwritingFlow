@@ -10,39 +10,53 @@ import org.apache.commons.pool2.impl.DefaultPooledObject;
 import org.apache.commons.pool2.impl.GenericObjectPool;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Component;
 
 @Configuration
 public class FlowMachinePoolConfig {
 
     @Resource
-    private BasePooledObjectFactory<FlowStateMachine> pooledFlowMachineFactory;
+    private FlowMachineBuilder flowMachineBuilder;
 
     @Bean
-    public GenericObjectPool<FlowStateMachine> flowMachinePool() {
+    public FlowMachinePool flowMachinePool() {
+        BasePooledObjectFactory<FlowStateMachine> pooledFlowMachineFactory = pooledFlowMachineFactory();
         GenericObjectPool<FlowStateMachine> flowMachinePool = new GenericObjectPool<>(pooledFlowMachineFactory);
-        return flowMachinePool;
+        return new FlowMachinePool(flowMachinePool);
     }
 
-    @Component
-    public static class PooledFlowMachineFactory extends BasePooledObjectFactory<FlowStateMachine> {
+    @Bean
+    public BasePooledObjectFactory<FlowStateMachine> pooledFlowMachineFactory() {
+        return new BasePooledObjectFactory<FlowStateMachine>() {
+            @Override
+            public FlowStateMachine create() throws Exception {
+                return FlowStateMachine.of(flowMachineBuilder.build());
+            }
 
-        @Resource
-        private FlowMachineBuilder flowMachineBuilder;
+            @Override
+            public void passivateObject(PooledObject<FlowStateMachine> p) throws Exception {
+                p.getObject().stop();
+            }
 
-        @Override
-        public FlowStateMachine create() throws Exception {
-            return FlowStateMachine.of(flowMachineBuilder.build());
+            @Override
+            public PooledObject<FlowStateMachine> wrap(FlowStateMachine machine) {
+                return new DefaultPooledObject<FlowStateMachine>(machine);
+            }
+        };
+    }
+
+    public static class FlowMachinePool {
+        private final GenericObjectPool<FlowStateMachine> pool;
+
+        public FlowMachinePool(GenericObjectPool<FlowStateMachine> pool) {
+            this.pool = pool;
         }
 
-        @Override
-        public void passivateObject(PooledObject<FlowStateMachine> p) throws Exception {
-            p.getObject().stop();
+        public FlowStateMachine borrowObject() throws Exception {
+            return pool.borrowObject();
         }
 
-        @Override
-        public PooledObject<FlowStateMachine> wrap(FlowStateMachine machine) {
-            return new DefaultPooledObject<FlowStateMachine>(machine);
+        public void returnObject(FlowStateMachine flowStateMachine) throws Exception {
+            pool.returnObject(flowStateMachine);
         }
 
     }

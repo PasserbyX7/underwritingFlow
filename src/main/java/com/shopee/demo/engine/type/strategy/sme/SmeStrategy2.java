@@ -2,6 +2,7 @@ package com.shopee.demo.engine.type.strategy.sme;
 
 import java.util.List;
 
+import com.google.common.collect.Lists;
 import com.shopee.demo.engine.constant.StrategyEnum;
 import com.shopee.demo.engine.entity.strategy.StrategyContext;
 import com.shopee.demo.engine.service.intergration.DataIntegration;
@@ -31,8 +32,7 @@ public class SmeStrategy2 extends Strategy<SmeUnderwritingRequest> {
 
     @Override
     protected List<DataIntegration<SmeUnderwritingRequest>> getDataIntegrations() {
-        // TODO Auto-generated method stub
-        return null;
+        return Lists.newArrayList();
     }
 
 }
