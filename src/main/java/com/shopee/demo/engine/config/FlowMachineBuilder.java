@@ -23,14 +23,19 @@ import org.springframework.statemachine.config.builders.StateMachineTransitionCo
 import org.springframework.statemachine.guard.Guard;
 import org.springframework.statemachine.listener.StateMachineListener;
 import org.springframework.statemachine.listener.StateMachineListenerAdapter;
+import org.springframework.statemachine.monitor.AbstractStateMachineMonitor;
+import org.springframework.statemachine.monitor.StateMachineMonitor;
+import org.springframework.statemachine.transition.Transition;
 import org.springframework.stereotype.Component;
 
+import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
 
 import static com.shopee.demo.engine.constant.FlowEventEnum.*;
 import static com.shopee.demo.engine.constant.FlowStatusEnum.*;
 import static com.shopee.demo.engine.constant.StrategyStatusEnum.*;
 
+@Slf4j
 @Component
 @EnableStateMachine
 public class FlowMachineBuilder {
@@ -93,7 +98,10 @@ public class FlowMachineBuilder {
         config.withConfiguration()
                 .beanFactory(beanFactory)
                 .listener(underwritingFlowPersisterListener())
-                .machineId(FLOW_STATE_MACHINE_ID);
+                .machineId(FLOW_STATE_MACHINE_ID)
+                .and()
+                .withMonitoring()
+                .monitor(stateMachineMonitor());
     }
 
     @Bean
@@ -208,6 +216,19 @@ public class FlowMachineBuilder {
                     Exception exception) {
                 exception.printStackTrace();
             }
+        };
+    }
+
+    @Bean
+    public StateMachineMonitor<FlowStatusEnum, FlowEventEnum> stateMachineMonitor() {
+        return new AbstractStateMachineMonitor<FlowStatusEnum, FlowEventEnum>() {
+            @Override
+            public void transition(StateMachine<FlowStatusEnum, FlowEventEnum> stateMachine,
+                    Transition<FlowStatusEnum, FlowEventEnum> transition, long duration) {
+                log.info("machine[{}]:[{}]->[{}] cost[{}]ms", stateMachine.getId(), transition.getSource().getId(),
+                        transition.getTarget().getId(), duration);
+            }
+
         };
     }
 
