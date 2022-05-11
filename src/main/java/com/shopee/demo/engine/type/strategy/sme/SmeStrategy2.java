@@ -1,7 +1,10 @@
 package com.shopee.demo.engine.type.strategy.sme;
 
+import java.util.List;
+
 import com.shopee.demo.engine.constant.StrategyEnum;
 import com.shopee.demo.engine.entity.strategy.StrategyContext;
+import com.shopee.demo.engine.service.intergration.DataIntegration;
 import com.shopee.demo.engine.type.request.SmeUnderwritingRequest;
 import com.shopee.demo.engine.type.strategy.Strategy;
 import com.shopee.demo.engine.type.strategy.StrategyResult;
@@ -24,6 +27,12 @@ public class SmeStrategy2 extends Strategy<SmeUnderwritingRequest> {
         StrategyResult result = StrategyResult.pass();
         log.info("执行策略：{} 执行结果：{}", getStrategyName(), result.getStatus());
         return result;
+    }
+
+    @Override
+    protected List<DataIntegration<SmeUnderwritingRequest>> getDataIntegrations() {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }
