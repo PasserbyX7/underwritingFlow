@@ -4,42 +4,40 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Timeout;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.internal.stubbing.answers.AnswersWithDelay;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
+import org.springframework.context.Lifecycle;
+import org.springframework.messaging.Message;
+import org.springframework.statemachine.ExtendedState;
 import org.springframework.statemachine.StateMachine;
-import org.springframework.statemachine.StateMachineContext;
-import org.springframework.statemachine.config.StateMachineBuilder;
-import org.springframework.statemachine.support.DefaultExtendedState;
-import org.springframework.statemachine.support.DefaultStateMachineContext;
+import org.springframework.statemachine.listener.StateMachineListener;
+import org.springframework.statemachine.state.StateMachineState;
+
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import static com.shopee.demo.engine.constant.FlowStatusEnum.*;
+import static org.junit.Assert.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-import java.util.EnumSet;
-import java.util.List;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicReference;
 
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Lists;
-import com.shopee.demo.engine.config.FlowMachineBuilder;
 import com.shopee.demo.engine.constant.FlowEventEnum;
 import com.shopee.demo.engine.constant.FlowStatusEnum;
-import com.shopee.demo.engine.constant.StrategyStatusEnum;
+import com.shopee.demo.engine.constant.UnderwritingTypeEnum;
 import com.shopee.demo.engine.entity.flow.UnderwritingFlow;
-import com.shopee.demo.engine.service.machine.FlowStateMachinePersistService;
-
-import static com.shopee.demo.engine.constant.FlowEventEnum.*;
-import static com.shopee.demo.engine.constant.FlowStatusEnum.*;
-import static com.shopee.demo.engine.constant.StrategyStatusEnum.*;
+import com.shopee.demo.engine.exception.flow.FlowException;
+import com.shopee.demo.engine.type.request.UnderwritingRequest;
 
 @ExtendWith(MockitoExtension.class)
 @DisplayName("FlowStateMachineTest")
@@ -47,107 +45,135 @@ import static com.shopee.demo.engine.constant.StrategyStatusEnum.*;
 public class FlowStateMachineTest {
 
     @InjectMocks
-    private FlowMachineBuilder flowMachineBuilder;
+    private FlowStateMachine flowStateMachine;
+
+    @Mock(extraInterfaces = { Lifecycle.class })
+    private StateMachine<FlowStatusEnum, FlowEventEnum> machine;
 
     @Mock
-    private UnderwritingFlow underwritingFlow;
-
-    @Mock
-    private FlowStateMachinePersistService flowStateMachinePersistService;
+    private ExtendedState extendedState;
 
     @Test
+    void testStart() {
+        // given
+        doReturn(false).when((Lifecycle) machine).isRunning();
+        doReturn(Mono.empty()).when(machine).startReactively();
+        // when
+        flowStateMachine.start();
+        // then
+        verify(machine, times(1)).startReactively();
+    }
+
+    @Test
+    void testStop() {
+        // given
+        doReturn(true).when((Lifecycle) machine).isRunning();
+        doReturn(Mono.empty()).when(machine).stopReactively();
+        // when
+        flowStateMachine.stop();
+        // then
+        verify(machine, times(1)).stopReactively();
+    }
+
     @Timeout(3)
-    void testNormalFlow() throws Exception {
+    @Test
+    void testExecuteSuccess() throws Exception {
         // given
-        List<StrategyStatusEnum> expectedStrategyStatus = Lists.newArrayList(null, PASS);
-        doReturn(INITIAL).when(underwritingFlow).getFlowStatus();
-        doReturn(false).when(underwritingFlow).hasNextStrategy();
-        doAnswer(inv -> expectedStrategyStatus.remove(0)).when(underwritingFlow).execute();
-        doAnswer(inv -> expectedStrategyStatus.get(0)).when(underwritingFlow).getStrategyResultStatus();
-        FlowStateMachine flowMachine = FlowStateMachine.of(mockMachine());
+        long timeout = 1000L;
+        AtomicReference<StateMachineListener<FlowStatusEnum, FlowEventEnum>> listenerRef = new AtomicReference<>();
+        doReturn(true).when((Lifecycle) machine).isRunning();
+        doReturn(false).when(machine).hasStateMachineError();
+        doReturn(extendedState).when(machine).getExtendedState();
+        doReturn(mockUnderwritingFlow())
+                .when(extendedState)
+                .get(eq(UnderwritingFlow.EXTENDED_STATE_KEY), eq(UnderwritingFlow.class));
+        doAnswer(inv -> {
+            listenerRef.set(inv.<StateMachineListener<FlowStatusEnum, FlowEventEnum>>getArgument(0));
+            return null;
+        }).when(machine).addStateListener(any());
+        doAnswer(inv -> {
+            listenerRef.get().stateEntered(new StateMachineState<>(APPROVED, machine));
+            return Flux.empty();
+        }).when(machine).sendEvent(ArgumentMatchers.<Mono<Message<FlowEventEnum>>>any());
         // when
-        flowMachine.start().execute().stop();
+        flowStateMachine.execute(timeout);
         // then
-        verify(underwritingFlow, times(1)).execute();
-        verify(underwritingFlow, never()).setNextStrategy();
-        verify(flowStateMachinePersistService, times(2)).persist(any());
+        verify(machine, times(1)).sendEvent(ArgumentMatchers.<Mono<Message<FlowEventEnum>>>any());
     }
 
-    @Test
     @Timeout(3)
-    void testPersistException() throws Exception {
+    @Test
+    void testExecuteFailOnTimeout() throws Exception {
         // given
-        doReturn(INITIAL).when(underwritingFlow).getFlowStatus();
-        doThrow(new IllegalArgumentException("illegal argument")).when(flowStateMachinePersistService).persist(any());
-        FlowStateMachine flowMachine = FlowStateMachine.of(mockMachine());
+        long timeout = 1000L;
+        AtomicReference<StateMachineListener<FlowStatusEnum, FlowEventEnum>> listenerRef = new AtomicReference<>();
+        doReturn(true).when((Lifecycle) machine).isRunning();
+        doReturn(false).when(machine).hasStateMachineError();
+        doReturn(extendedState).when(machine).getExtendedState();
+        doReturn(mockUnderwritingFlow())
+                .when(extendedState)
+                .get(eq(UnderwritingFlow.EXTENDED_STATE_KEY), eq(UnderwritingFlow.class));
+        doAnswer(inv -> {
+            listenerRef.set(inv.<StateMachineListener<FlowStatusEnum, FlowEventEnum>>getArgument(0));
+            return null;
+        }).when(machine).addStateListener(any());
+        doAnswer(inv -> {
+            new Thread(() -> {
+                try {
+                    TimeUnit.MILLISECONDS.sleep(timeout * 2);
+                } catch (InterruptedException e) {
+                }
+                listenerRef.get().stateEntered(new StateMachineState<>(APPROVED, machine));
+            }).start();
+            return Flux.empty();
+        }).when(machine).sendEvent(ArgumentMatchers.<Mono<Message<FlowEventEnum>>>any());
         // when
-        flowMachine.start().execute().stop();
-        // then
-        verify(underwritingFlow, times(1)).execute();
-        verify(underwritingFlow, never()).setNextStrategy();
-        verify(flowStateMachinePersistService, times(1)).persist(any());
+        assertThrows(FlowException.class, () -> flowStateMachine.execute(timeout));
     }
 
-    @Test
     @Timeout(3)
-    void testExecuteException() throws Exception {
-        // given
-        doReturn(INITIAL).when(underwritingFlow).getFlowStatus();
-        doThrow(new IllegalArgumentException("illegal argument")).when(underwritingFlow).execute();
-        FlowStateMachine flowMachine = FlowStateMachine.of(mockMachine());
-        // when
-        flowMachine.start().execute().stop();
-        // then
-        verify(underwritingFlow, times(1)).execute();
-        verify(underwritingFlow, never()).setNextStrategy();
-        verify(flowStateMachinePersistService, times(1)).persist(any());
-    }
-
     @Test
-    @Timeout(3)
-    void testSetStrategyException() throws Exception {
+    void testExecuteFailOnStateMachineException() throws Exception {
         // given
-        doReturn(INITIAL).when(underwritingFlow).getFlowStatus();
-        doThrow(new IllegalArgumentException("illegal argument")).when(underwritingFlow).setNextStrategy();
-        FlowStateMachine flowMachine = FlowStateMachine.of(mockMachine());
+        long timeout = 1000L;
+        AtomicReference<StateMachineListener<FlowStatusEnum, FlowEventEnum>> listenerRef = new AtomicReference<>();
+        doReturn(true).when((Lifecycle) machine).isRunning();
+        doReturn(true).when(machine).hasStateMachineError();
+        doReturn(extendedState).when(machine).getExtendedState();
+        doReturn(mockUnderwritingFlow())
+                .when(extendedState)
+                .get(eq(UnderwritingFlow.EXTENDED_STATE_KEY), eq(UnderwritingFlow.class));
+        doAnswer(inv -> {
+            listenerRef.set(inv.<StateMachineListener<FlowStatusEnum, FlowEventEnum>>getArgument(0));
+            return null;
+        }).when(machine).addStateListener(any());
+        doAnswer(inv -> {
+            listenerRef.get().stateMachineError(machine, new IllegalStateException());
+            return Flux.empty();
+        }).when(machine).sendEvent(ArgumentMatchers.<Mono<Message<FlowEventEnum>>>any());
         // when
-        flowMachine.start().execute().stop();
-        // then
-        verify(underwritingFlow, times(2)).execute();
-        verify(underwritingFlow, times(1)).setNextStrategy();
-        verify(flowStateMachinePersistService, times(1)).persist(any());
+        assertThrows(FlowException.class, () -> flowStateMachine.execute(timeout));
     }
 
-    // TODO 状态机超时处理
-    @Test
-    // @Timeout(3)
-    void testTimeoutException() throws Exception {
-        // given
-        doReturn(INITIAL).when(underwritingFlow).getFlowStatus();
-        doAnswer(new AnswersWithDelay(10000000, null)).when(underwritingFlow).execute();
-        FlowStateMachine flowMachine = FlowStateMachine.of(mockMachine());
-        // when
-        flowMachine.start().execute().stop();
-        // then
-        verify(underwritingFlow, times(1)).execute();
-        verify(underwritingFlow, never()).setNextStrategy();
-        verify(flowStateMachinePersistService, times(1)).persist(any());
-    }
+    private UnderwritingFlow mockUnderwritingFlow() {
+        return UnderwritingFlow.of(new UnderwritingRequest() {
 
-    private StateMachine<FlowStatusEnum, FlowEventEnum> mockMachine()
-            throws Exception {
-        StateMachine<FlowStatusEnum, FlowEventEnum> machine = flowMachineBuilder.build();
-        StateMachineContext<FlowStatusEnum, FlowEventEnum> context = new DefaultStateMachineContext<FlowStatusEnum, FlowEventEnum>(
-                underwritingFlow.getFlowStatus(),
-                null,
-                null,
-                new DefaultExtendedState(ImmutableMap.of(UnderwritingFlow.EXTENDED_STATE_KEY, underwritingFlow)),
-                null,
-                FlowMachineBuilder.FLOW_STATE_MACHINE_ID);
+            @Override
+            public UnderwritingTypeEnum getUnderwritingType() {
+                return UnderwritingTypeEnum.SME;
+            }
 
-        machine.getStateMachineAccessor().doWithAllRegions(f -> f.resetStateMachineReactively(context).block());
-        machine.startReactively().block();
-        return machine;
+            @Override
+            public String getUnderwritingId() {
+                return "mockedUnderwritingId";
+            }
+
+            @Override
+            public boolean isExpire() {
+                return false;
+            }
+
+        });
     }
 
 }

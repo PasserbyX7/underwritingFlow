@@ -8,10 +8,12 @@ import org.apache.commons.pool2.BasePooledObjectFactory;
 import org.apache.commons.pool2.PooledObject;
 import org.apache.commons.pool2.impl.DefaultPooledObject;
 import org.apache.commons.pool2.impl.GenericObjectPool;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
+@EnableConfigurationProperties(FlowStateMachineProperties.class)
 public class FlowMachinePoolConfig {
 
     @Resource
@@ -55,7 +57,7 @@ public class FlowMachinePoolConfig {
             return pool.borrowObject();
         }
 
-        public void returnObject(FlowStateMachine flowStateMachine) throws Exception {
+        public void returnObject(FlowStateMachine flowStateMachine)  {
             pool.returnObject(flowStateMachine);
         }
 

@@ -6,10 +6,10 @@ import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
+import com.shopee.demo.engine.config.FlowMachinePoolConfig.FlowMachinePool;
 import com.shopee.demo.engine.entity.machine.FlowStateMachine;
 import com.shopee.demo.engine.service.machine.impl.FlowStateMachinePoolServiceImpl;
 
-import org.apache.commons.pool2.impl.GenericObjectPool;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -25,7 +25,7 @@ import org.mockito.quality.Strictness;
 public class FlowMachinePoolServiceTest {
 
     @Mock
-    private GenericObjectPool<FlowStateMachine> flowMachinePool;
+    private FlowMachinePool flowMachinePool;
 
     @Mock
     private FlowStateMachinePersistService flowStateMachinePersistService;

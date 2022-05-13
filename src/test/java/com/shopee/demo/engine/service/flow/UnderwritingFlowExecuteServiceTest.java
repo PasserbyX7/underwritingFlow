@@ -10,6 +10,7 @@ import static org.mockito.Mockito.verify;
 
 import java.util.concurrent.Callable;
 
+import com.shopee.demo.engine.config.FlowStateMachineProperties;
 import com.shopee.demo.engine.constant.UnderwritingTypeEnum;
 import com.shopee.demo.engine.entity.flow.UnderwritingFlow;
 import com.shopee.demo.engine.entity.machine.FlowStateMachine;
@@ -48,11 +49,17 @@ public class UnderwritingFlowExecuteServiceTest {
     @Mock
     private FlowStateMachine flowStateMachine;
 
+    @Mock
+    private FlowStateMachineProperties flowStateMachineProperties;
+
     @Test
     void testExecuteUnderwritingFlowAsync() {
         // given
         long underwritingFlowId = 1L;
         UnderwritingFlow underwritingFlow = mockUnderwritingFlow();
+        doReturn(1000L)
+            .when(flowStateMachineProperties)
+            .getFlowTimeout();
         doReturn(underwritingFlow)
                 .when(underwritingFlowRepository)
                 .find(anyLong());
@@ -66,7 +73,7 @@ public class UnderwritingFlowExecuteServiceTest {
         underwritingFlowExecuteService.executeUnderwritingFlowAsync(underwritingFlowId);
         // then
         verify(flowStateMachinePoolService, times(1)).acquire(anyLong());
-        verify(flowStateMachine, times(1)).execute();
+        verify(flowStateMachine, times(1)).execute(anyLong());
         verify(flowStateMachinePoolService, times(1)).release(any());
     }
 

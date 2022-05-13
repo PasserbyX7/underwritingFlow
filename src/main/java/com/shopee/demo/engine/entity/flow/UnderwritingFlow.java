@@ -39,6 +39,7 @@ public final class UnderwritingFlow {
     }
 
     public static UnderwritingFlow of(UnderwritingRequest underwritingRequest) {
+        Assert.notNull(underwritingRequest, "UnderwritingRequest must not be null");
         Long id = null;
         FlowStatusEnum flowStatus = FlowStatusEnum.INITIAL;
         StrategyContext<UnderwritingRequest> strategyContext = StrategyContext.of(underwritingRequest);

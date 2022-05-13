@@ -6,6 +6,7 @@ import java.util.concurrent.TimeUnit;
 import com.shopee.demo.engine.constant.FlowEventEnum;
 import com.shopee.demo.engine.constant.FlowStatusEnum;
 import com.shopee.demo.engine.entity.flow.UnderwritingFlow;
+import com.shopee.demo.engine.exception.flow.FlowException;
 
 import org.springframework.context.Lifecycle;
 import org.springframework.messaging.support.MessageBuilder;
@@ -24,51 +25,62 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor(staticName = "of")
 public class FlowStateMachine {
 
+    private static String STATE_MACHINE_EXCEPTION = "StateMachineException";
+
     @Getter
     private final StateMachine<FlowStatusEnum, FlowEventEnum> machine;
 
-    public FlowStateMachine start() {
+    public void start() {
         if (!((Lifecycle) machine).isRunning()) {
             machine.startReactively().block();
         }
-        return this;
     }
 
-    public FlowStateMachine execute() {
+    /**
+     *
+     * @param timeout specify underwriting timeout in milliseconds
+     */
+    public void execute(long timeout) {
         if (((Lifecycle) machine).isRunning()) {
-            ExecuteListener listener = new ExecuteListener(machine);
-            machine.addStateListener(listener);
-            machine.sendEvent(Mono.just(MessageBuilder.withPayload(FlowEventEnum.START).build())).blockLast();
-            try {
-                StopWatch sw = new StopWatch();
-                sw.start();
-                listener.latch.await(3, TimeUnit.SECONDS);
-                sw.stop();
-
-                double duration = sw.getTotalTimeSeconds();
-                log.info("underwriting flow[{}] execute {} seconds",
-                        UnderwritingFlow.from(machine.getExtendedState()).toString(),
-                        duration);
-                if (duration > 3) {
-                    // 状态机超时或状态机含有异常，都向上抛出
-                    // TODO 上抛异常
-                }
-
-            } catch (InterruptedException e) {
+            long duration = doExecute(timeout);
+            log.info("underwriting flow execute {} ms [{}] ", duration,
+                    UnderwritingFlow.from(machine.getExtendedState()));
+            if (duration > timeout) {
+                throw new FlowException("flow underwriting timeout");
+            }
+            if (machine.hasStateMachineError()) {
+                Exception e = machine.getExtendedState().get(STATE_MACHINE_EXCEPTION, Exception.class);
+                throw new FlowException(e);
             }
         }
-        return this;
     }
 
-    public FlowStateMachine stop() {
+    public void stop() {
         if (((Lifecycle) machine).isRunning()) {
             machine.stopReactively().block();
         }
-        return this;
     }
 
     public Long getUnderwritingFlowId() {
         return UnderwritingFlow.from(machine.getExtendedState()).getId();
+    }
+
+    /**
+     *
+     * @return 授信耗时（单位毫秒）
+     */
+    private long doExecute(long timeout) {
+        StopWatch sw = new StopWatch();
+        ExecuteListener listener = new ExecuteListener(machine);
+        machine.addStateListener(listener);
+        try {
+            sw.start();
+            machine.sendEvent(Mono.just(MessageBuilder.withPayload(FlowEventEnum.START).build())).subscribe();
+            listener.latch.await(timeout, TimeUnit.MILLISECONDS);
+            sw.stop();
+        } catch (InterruptedException e) {
+        }
+        return sw.getLastTaskTimeMillis();
     }
 
     @AllArgsConstructor
@@ -80,14 +92,15 @@ public class FlowStateMachine {
         @Override
         public void stateEntered(State<FlowStatusEnum, FlowEventEnum> state) {
             if (state.getId().isTerminal() || state.getId() == FlowStatusEnum.PENDING) {
-                this.stateMachine.removeStateListener(this);
+                stateMachine.removeStateListener(this);
                 latch.countDown();
             }
         }
 
         @Override
         public void stateMachineError(StateMachine<FlowStatusEnum, FlowEventEnum> stateMachine, Exception exception) {
-            this.stateMachine.removeStateListener(this);
+            stateMachine.removeStateListener(this);
+            stateMachine.getExtendedState().getVariables().put(STATE_MACHINE_EXCEPTION, exception);
             latch.countDown();
         }
 

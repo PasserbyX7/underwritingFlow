@@ -2,6 +2,7 @@ package com.shopee.demo.engine.service.flow.impl;
 
 import javax.annotation.Resource;
 
+import com.shopee.demo.engine.config.FlowStateMachineProperties;
 import com.shopee.demo.engine.entity.flow.UnderwritingFlow;
 import com.shopee.demo.engine.entity.machine.FlowStateMachine;
 import com.shopee.demo.engine.repository.UnderwritingFlowRepository;
@@ -13,6 +14,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UnderwritingFlowExecuteServiceImpl implements UnderwritingFlowExecuteService {
+
+    @Resource
+    private FlowStateMachineProperties flowStateMachineProperties;
 
     @Resource
     private UnderwritingFlowRepository underwritingFlowRepository;
@@ -33,7 +37,7 @@ public class UnderwritingFlowExecuteServiceImpl implements UnderwritingFlowExecu
                 // 创建状态机
                 flowStateMachine = flowStateMachinePoolService.acquire(underwritingFlowId);
                 // 执行状态机
-                flowStateMachine.execute();
+                flowStateMachine.execute(flowStateMachineProperties.getFlowTimeout());
                 return null;
             } finally {
                 // 销毁状态机

@@ -28,7 +28,8 @@ public class FlowStateMachinePoolServiceImpl implements FlowStateMachinePoolServ
         try {
             FlowStateMachine machine = flowMachinePool.borrowObject();
             flowStateMachinePersistService.restore(machine.getMachine(), underwritingFlowId);
-            return machine.start();
+            machine.start();
+            return machine;
         } catch (Exception e) {
             throw new StateMachineException("Unable to acquire flow state machine", e);
         }
