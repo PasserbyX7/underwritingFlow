@@ -6,6 +6,7 @@ import com.shopee.demo.engine.constant.FlowEventEnum;
 import com.shopee.demo.engine.constant.FlowStatusEnum;
 import com.shopee.demo.engine.constant.StrategyStatusEnum;
 import com.shopee.demo.engine.entity.flow.UnderwritingFlow;
+import com.shopee.demo.engine.exception.flow.FlowException;
 import com.shopee.demo.engine.service.machine.FlowStateMachinePersistService;
 
 import org.springframework.beans.factory.BeanFactory;
@@ -81,7 +82,7 @@ public class FlowMachineBuilder {
                 .source(ONGOING).target(CHOICE).event(START).action(executeStrategyAction())
                 .and()
                 .withExternal()
-                .source(ONGOING).target(CHOICE).event(STRATEGY_EXECUTE)
+                .source(ONGOING).target(CHOICE).event(EXECUTE)
                 .and()
                 .withChoice()
                 .source(CHOICE)
@@ -98,6 +99,7 @@ public class FlowMachineBuilder {
         config.withConfiguration()
                 .beanFactory(beanFactory)
                 .listener(underwritingFlowPersisterListener())
+                .listener(errorHandleListener())
                 .machineId(FLOW_STATE_MACHINE_ID)
                 .and()
                 .withMonitoring()
@@ -172,10 +174,14 @@ public class FlowMachineBuilder {
 
             @Override
             public void execute(StateContext<FlowStatusEnum, FlowEventEnum> context) {
-                UnderwritingFlow.from(context.getExtendedState()).execute();
-                context.getStateMachine()
-                        .sendEvent(Mono.just(MessageBuilder.withPayload(FlowEventEnum.STRATEGY_EXECUTE).build()))
-                        .blockFirst();
+                try {
+                    UnderwritingFlow.from(context.getExtendedState()).execute();
+                    context.getStateMachine()
+                            .sendEvent(Mono.just(MessageBuilder.withPayload(EXECUTE).build()))
+                            .subscribe();
+                } catch (Exception e) {
+                    context.getStateMachine().setStateMachineError(new FlowException("flow execute error", e));
+                }
             }
 
         };
@@ -187,7 +193,11 @@ public class FlowMachineBuilder {
 
             @Override
             public void execute(StateContext<FlowStatusEnum, FlowEventEnum> context) {
-                UnderwritingFlow.from(context.getExtendedState()).setNextStrategy();
+                try {
+                    UnderwritingFlow.from(context.getExtendedState()).setNextStrategy();
+                } catch (Exception e) {
+                    context.getStateMachine().setStateMachineError(new FlowException("flow set strategy error", e));
+                }
             }
 
         };
@@ -198,23 +208,28 @@ public class FlowMachineBuilder {
         return new StateMachineListenerAdapter<FlowStatusEnum, FlowEventEnum>() {
             @Override
             public void stateContext(StateContext<FlowStatusEnum, FlowEventEnum> stateContext) {
-                if (stateContext.getStage() == Stage.STATE_ENTRY) {
-                    UnderwritingFlow.from(stateContext.getExtendedState())
-                            .setFlowStatus(stateContext.getStateMachine().getState().getId());
+                if (!stateContext.getStateMachine().hasStateMachineError()
+                        && stateContext.getStage() == Stage.STATE_ENTRY) {
                     try {
+                        UnderwritingFlow.from(stateContext.getExtendedState())
+                                .setFlowStatus(stateContext.getStateMachine().getState().getId());
                         flowStateMachinePersistService.persist(stateContext.getStateMachine());
                     } catch (Exception e) {
-                        e.printStackTrace();
-                        throw new RuntimeException(e);
-                        // TODO
+                        stateContext.getStateMachine().setStateMachineError(new FlowException("flow persist error", e));
                     }
+
                 }
             }
+        };
+    }
 
+    @Bean
+    public StateMachineListener<FlowStatusEnum, FlowEventEnum> errorHandleListener() {
+        return new StateMachineListenerAdapter<FlowStatusEnum, FlowEventEnum>() {
             @Override
             public void stateMachineError(StateMachine<FlowStatusEnum, FlowEventEnum> stateMachine,
                     Exception exception) {
-                exception.printStackTrace();
+                log.info("state machine exception[{}]", stateMachine, exception);
             }
         };
     }

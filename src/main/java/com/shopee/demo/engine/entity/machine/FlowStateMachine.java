@@ -1,6 +1,7 @@
 package com.shopee.demo.engine.entity.machine;
 
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 import com.shopee.demo.engine.constant.FlowEventEnum;
 import com.shopee.demo.engine.constant.FlowStatusEnum;
@@ -11,12 +12,15 @@ import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.statemachine.StateMachine;
 import org.springframework.statemachine.listener.StateMachineListenerAdapter;
 import org.springframework.statemachine.state.State;
+import org.springframework.util.StopWatch;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
 
+@Slf4j
 @RequiredArgsConstructor(staticName = "of")
 public class FlowStateMachine {
 
@@ -36,7 +40,20 @@ public class FlowStateMachine {
             machine.addStateListener(listener);
             machine.sendEvent(Mono.just(MessageBuilder.withPayload(FlowEventEnum.START).build())).blockLast();
             try {
-                listener.latch.await();
+                StopWatch sw = new StopWatch();
+                sw.start();
+                listener.latch.await(3, TimeUnit.SECONDS);
+                sw.stop();
+
+                double duration = sw.getTotalTimeSeconds();
+                log.info("underwriting flow[{}] execute {} seconds",
+                        UnderwritingFlow.from(machine.getExtendedState()).toString(),
+                        duration);
+                if (duration > 3) {
+                    // 状态机超时或状态机含有异常，都向上抛出
+                    // TODO 上抛异常
+                }
+
             } catch (InterruptedException e) {
             }
         }
@@ -66,6 +83,12 @@ public class FlowStateMachine {
                 this.stateMachine.removeStateListener(this);
                 latch.countDown();
             }
+        }
+
+        @Override
+        public void stateMachineError(StateMachine<FlowStatusEnum, FlowEventEnum> stateMachine, Exception exception) {
+            this.stateMachine.removeStateListener(this);
+            latch.countDown();
         }
 
     }
