@@ -3,16 +3,19 @@ package com.shopee.demo.app.service;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
+import java.util.Optional;
+
 import com.shopee.demo.app.service.impl.UnderwritingServiceImpl;
 import com.shopee.demo.engine.constant.UnderwritingTypeEnum;
 import com.shopee.demo.engine.entity.flow.UnderwritingFlow;
+import com.shopee.demo.engine.exception.flow.FlowException;
 import com.shopee.demo.engine.repository.UnderwritingFlowRepository;
 import com.shopee.demo.engine.repository.UnderwritingRequestRepository;
 import com.shopee.demo.engine.service.flow.UnderwritingFlowExecuteService;
@@ -72,17 +75,11 @@ public class UnderwritingServiceTest {
     void testExecuteUnderwritingFail() {
         // given
         UnderwritingRequest underwritingRequest = mockSmeUnderwritingRequest();
-        doAnswer(invocation -> invocation.<TransactionCallback<Long>>getArgument(0)
-                .doInTransaction(new SimpleTransactionStatus()))
-                .when(transactionTemplate)
-                .execute(any());
-        doThrow(new RuntimeException())
-                .when(requestRepository)
-                .save(any(UnderwritingRequest.class));
+        doReturn(Optional.of(underwritingRequest)).when(requestRepository).find(anyString(), any());
         // when
-        assertThrows(RuntimeException.class, () -> underwritingService.executeUnderwriting(underwritingRequest));
+        assertThrows(FlowException.class, () -> underwritingService.executeUnderwriting(underwritingRequest));
         // then
-        verify(requestRepository, times(1)).save(any(UnderwritingRequest.class));
+        verify(requestRepository, never()).save(any(UnderwritingRequest.class));
         verify(flowRepository, never()).save(any(UnderwritingFlow.class));
         verify(flowExecuteService, never()).executeUnderwritingFlowAsync(anyLong());
     }

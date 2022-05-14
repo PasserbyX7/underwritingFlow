@@ -26,6 +26,7 @@ import static org.mockito.Mockito.doReturn;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 @Slf4j
@@ -39,7 +40,7 @@ public class FlowMachineTest {
     UnderwritingFlowRepository underwritingFlowRepository;
 
     @MockBean
-    UnderwritingFlowDAO underwritingContextDAO;
+    UnderwritingFlowDAO underwritingFlowDAO;
 
     @MockBean
     SmeUnderwritingDAO smeUnderwritingDAO;
@@ -51,7 +52,7 @@ public class FlowMachineTest {
         Iterator<Long> iter = Stream.iterate(0L, e -> e + 1).iterator();
         UnderwritingFlow flow = mockUnderwritingFlow();
         // when
-        doReturn(mockSmeUnderwritingDO())
+        doReturn(Optional.ofNullable(mockSmeUnderwritingDO()))
             .when(smeUnderwritingDAO)
             .selectByUnderwritingId(any());
         doAnswer(invocation -> {
@@ -62,10 +63,10 @@ public class FlowMachineTest {
             underwritingContextMap.put(entity.getId(), entity);
             return entity;
         })
-                .when(underwritingContextDAO)
+                .when(underwritingFlowDAO)
                 .saveOrUpdateById(any(UnderwritingFlowDO.class));
-        doAnswer(invocation -> underwritingContextMap.get(invocation.getArgument(0)))
-                .when(underwritingContextDAO)
+        doAnswer(invocation -> Optional.ofNullable(underwritingContextMap.get(invocation.getArgument(0))))
+                .when(underwritingFlowDAO)
                 .selectByPrimaryKey(anyLong());
         // then
         long ctxId = underwritingFlowRepository.save(flow);

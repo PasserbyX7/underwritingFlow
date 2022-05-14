@@ -10,10 +10,13 @@ import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
+import java.util.Optional;
+
 import com.shopee.demo.engine.constant.UnderwritingTypeEnum;
 import com.shopee.demo.engine.entity.flow.UnderwritingFlow;
 import com.shopee.demo.engine.repository.converter.UnderwritingFlowConverter;
 import com.shopee.demo.engine.repository.impl.UnderwritingFlowRepositoryImpl;
+import com.shopee.demo.engine.type.request.UnderwritingRequest;
 import com.shopee.demo.infrastructure.dal.dao.UnderwritingFlowDAO;
 import com.shopee.demo.infrastructure.dal.data.UnderwritingFlowDO;
 
@@ -44,6 +47,9 @@ public class UnderwritingFlowRepositoryTest {
     private UnderwritingFlowDO flowDO;
 
     @Mock
+    private UnderwritingRequest request;
+
+    @Mock
     private UnderwritingFlowDAO underwritingFlowDAO;
 
     @Mock
@@ -52,8 +58,8 @@ public class UnderwritingFlowRepositoryTest {
     private static MockedStatic<UnderwritingFlowConverter> underwritingFlowConverter;
 
     @BeforeAll
-    static public void beforeAll(){
-        underwritingFlowConverter=mockStatic(UnderwritingFlowConverter.class);
+    static public void beforeAll() {
+        underwritingFlowConverter = mockStatic(UnderwritingFlowConverter.class);
     }
 
     @AfterAll
@@ -86,7 +92,8 @@ public class UnderwritingFlowRepositoryTest {
         long flowId = 1L;
         doReturn("id").when(flowDO).getUnderwritingId();
         doReturn(UnderwritingTypeEnum.SME).when(flowDO).getUnderwritingType();
-        doReturn(flowDO).when(underwritingFlowDAO).selectByPrimaryKey(anyLong());
+        doReturn(Optional.ofNullable(flowDO)).when(underwritingFlowDAO).selectByPrimaryKey(anyLong());
+        doReturn(Optional.ofNullable(request)).when(requestRepository).find(anyString(), any());
         underwritingFlowConverter
                 .when(() -> UnderwritingFlowConverter.convert(any(), any()))
                 .thenReturn(flow);

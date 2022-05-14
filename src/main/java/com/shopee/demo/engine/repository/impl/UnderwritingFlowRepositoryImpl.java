@@ -3,6 +3,7 @@ package com.shopee.demo.engine.repository.impl;
 import javax.annotation.Resource;
 
 import com.shopee.demo.engine.entity.flow.UnderwritingFlow;
+import com.shopee.demo.engine.exception.flow.FlowException;
 import com.shopee.demo.engine.repository.UnderwritingFlowRepository;
 import com.shopee.demo.engine.repository.UnderwritingRequestRepository;
 import com.shopee.demo.engine.repository.converter.UnderwritingFlowConverter;
@@ -23,7 +24,7 @@ public class UnderwritingFlowRepositoryImpl implements UnderwritingFlowRepositor
 
     @Override
     public long save(UnderwritingFlow flow) {
-        //TODO插入log
+        // TODO插入log
         UnderwritingFlowDO flowDO = UnderwritingFlowConverter.convert(flow);
         underwritingFlowDAO.saveOrUpdateById(flowDO);
         return flowDO.getId();
@@ -31,8 +32,12 @@ public class UnderwritingFlowRepositoryImpl implements UnderwritingFlowRepositor
 
     @Override
     public UnderwritingFlow find(long underwritingFlowId) {
-        UnderwritingFlowDO flowDO = underwritingFlowDAO.selectByPrimaryKey(underwritingFlowId);
-        UnderwritingRequest request = requestRepository.find(flowDO.getUnderwritingId(), flowDO.getUnderwritingType());
+        UnderwritingFlowDO flowDO = underwritingFlowDAO
+                .selectByPrimaryKey(underwritingFlowId)
+                .orElseThrow(() -> new FlowException("Underwriting flow does not exist"));
+        UnderwritingRequest request = requestRepository
+                .find(flowDO.getUnderwritingId(), flowDO.getUnderwritingType())
+                .orElseThrow(() -> new FlowException("Underwriting request does not exist"));
         UnderwritingFlow flow = UnderwritingFlowConverter.convert(flowDO, request);
         return flow;
     }

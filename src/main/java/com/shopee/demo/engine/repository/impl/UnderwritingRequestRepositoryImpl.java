@@ -1,5 +1,7 @@
 package com.shopee.demo.engine.repository.impl;
 
+import java.util.Optional;
+
 import javax.annotation.Resource;
 
 import com.shopee.demo.engine.constant.UnderwritingTypeEnum;
@@ -30,10 +32,10 @@ public class UnderwritingRequestRepositoryImpl implements UnderwritingRequestRep
     }
 
     @Override
-    public UnderwritingRequest find(String underwritingId, UnderwritingTypeEnum underwritingType) {
+    public Optional<UnderwritingRequest> find(String underwritingId, UnderwritingTypeEnum underwritingType) {
         switch (underwritingType) {
             case SME:
-                return SmeUnderwritingRequest.of(smeUnderwritingDAO.selectByUnderwritingId(underwritingId));
+                return smeUnderwritingDAO.selectByUnderwritingId(underwritingId).map(SmeUnderwritingRequest::of);
             default:
                 throw new IllegalArgumentException("undefined underwriting type");
         }

@@ -1,17 +1,22 @@
 package com.shopee.demo.engine.service.flow.impl;
 
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
 import javax.annotation.Resource;
 
 import com.shopee.demo.engine.config.FlowStateMachineProperties;
-import com.shopee.demo.engine.entity.flow.UnderwritingFlow;
 import com.shopee.demo.engine.entity.machine.FlowStateMachine;
+import com.shopee.demo.engine.exception.flow.FlowException;
 import com.shopee.demo.engine.repository.UnderwritingFlowRepository;
 import com.shopee.demo.engine.service.flow.UnderwritingFlowExecuteService;
 import com.shopee.demo.engine.service.machine.FlowStateMachinePoolService;
-import com.shopee.demo.infrastructure.middleware.DistributeLockService;
 
 import org.springframework.stereotype.Service;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class UnderwritingFlowExecuteServiceImpl implements UnderwritingFlowExecuteService {
 
@@ -24,30 +29,51 @@ public class UnderwritingFlowExecuteServiceImpl implements UnderwritingFlowExecu
     @Resource
     private FlowStateMachinePoolService flowStateMachinePoolService;
 
-    @Resource
-    private DistributeLockService distributeLockService;
-
     @Override
     public void executeUnderwritingFlowAsync(long underwritingFlowId) {
-        //TODO 如果授信flow不存在则终止流程
-        UnderwritingFlow underwritingFlow = underwritingFlowRepository.find(underwritingFlowId);
-        String underwritingId = underwritingFlow.getUnderwritingRequest().getUnderwritingId();
-        //TODO 如果加锁失败则抛出异常
-        distributeLockService.executeWithDistributeLock(underwritingId, () -> {
-            FlowStateMachine flowStateMachine = null;
+        try {
+            String underwritingId = underwritingFlowRepository.find(underwritingFlowId)
+                    .getUnderwritingRequest()
+                    .getUnderwritingId();
+            executeFlowWithDistributedLock(underwritingFlowId, underwritingId);
+        } catch (Exception e) {
+            // TODO 异常监控上报
+        }
+    }
+
+    private void executeFlowWithDistributedLock(long underwritingFlowId, String underwritingId) {
+        Lock lock = getDistributedLock(underwritingId);
+        if (lock.tryLock()) {
             try {
-                // 创建状态机
-                flowStateMachine = flowStateMachinePoolService.acquire(underwritingFlowId);
-                // 执行状态机
-                flowStateMachine.execute(flowStateMachineProperties.getFlowTimeout());
-                return null;
+                log.info("Underwriting flow[{}] start execution with distributed Lock[{}]", underwritingFlowId, underwritingId);
+                executeFlow(underwritingFlowId);
             } finally {
-                // 销毁状态机
-                if (flowStateMachine != null) {
-                    flowStateMachinePoolService.release(flowStateMachine);
-                }
+                log.info("Underwriting flow[{}] end execution with distributed Lock[{}]", underwritingFlowId, underwritingId);
+                lock.unlock();
             }
-        });
+        } else {
+            throw new FlowException("There is a underwriting flow being executed");
+        }
+    }
+
+    private void executeFlow(long underwritingFlowId) {
+        FlowStateMachine flowStateMachine = null;
+        try {
+            // 创建状态机
+            flowStateMachine = flowStateMachinePoolService.acquire(underwritingFlowId);
+            // 执行状态机
+            flowStateMachine.execute(flowStateMachineProperties.getFlowTimeout());
+        } finally {
+            // 销毁状态机
+            if (flowStateMachine != null) {
+                flowStateMachinePoolService.release(flowStateMachine);
+            }
+        }
+    }
+
+    private Lock getDistributedLock(String underwritingId) {
+        // TODO 根据underwritingId获取分布式锁
+        return new ReentrantLock();
     }
 
 }

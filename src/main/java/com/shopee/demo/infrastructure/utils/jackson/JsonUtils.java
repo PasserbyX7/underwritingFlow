@@ -1,5 +1,8 @@
 package com.shopee.demo.infrastructure.utils.jackson;
 
+import java.io.IOException;
+import java.net.URL;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -50,6 +53,15 @@ public class JsonUtils implements ApplicationContextAware {
         try {
             return mapper.readTree(content);
         } catch (Exception e) {
+            // TODO
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static JsonNode readTree(URL source) {
+        try {
+            return mapper.readTree(source);
+        } catch (IOException e) {
             // TODO
             throw new RuntimeException(e);
         }

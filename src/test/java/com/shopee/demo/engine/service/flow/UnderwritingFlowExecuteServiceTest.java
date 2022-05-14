@@ -2,13 +2,9 @@ package com.shopee.demo.engine.service.flow;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-
-import java.util.concurrent.Callable;
 
 import com.shopee.demo.engine.config.FlowStateMachineProperties;
 import com.shopee.demo.engine.constant.UnderwritingTypeEnum;
@@ -18,7 +14,6 @@ import com.shopee.demo.engine.repository.UnderwritingFlowRepository;
 import com.shopee.demo.engine.service.flow.impl.UnderwritingFlowExecuteServiceImpl;
 import com.shopee.demo.engine.service.machine.FlowStateMachinePoolService;
 import com.shopee.demo.engine.type.request.UnderwritingRequest;
-import com.shopee.demo.infrastructure.middleware.DistributeLockService;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -39,9 +34,6 @@ public class UnderwritingFlowExecuteServiceTest {
 
     @Mock
     private UnderwritingFlowRepository underwritingFlowRepository;
-
-    @Mock
-    private DistributeLockService distributeLockService;
 
     @Mock
     private FlowStateMachinePoolService flowStateMachinePoolService;
@@ -66,9 +58,6 @@ public class UnderwritingFlowExecuteServiceTest {
         doReturn(flowStateMachine)
                 .when(flowStateMachinePoolService)
                 .acquire(anyLong());
-        doAnswer(inv -> inv.<Callable<Object>>getArgument(1).call())
-                .when(distributeLockService)
-                .executeWithDistributeLock(anyString(), any());
         // when
         underwritingFlowExecuteService.executeUnderwritingFlowAsync(underwritingFlowId);
         // then
