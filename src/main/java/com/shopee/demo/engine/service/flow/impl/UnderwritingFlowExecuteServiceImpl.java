@@ -47,10 +47,12 @@ public class UnderwritingFlowExecuteServiceImpl implements UnderwritingFlowExecu
         Lock lock = getDistributedLock(underwritingId);
         if (lock.tryLock()) {
             try {
-                log.info("Underwriting flow[{}] start execution with distributed Lock[{}]", underwritingFlowId, underwritingId);
+                log.info("Underwriting flow[{}] start execution with distributed Lock[{}]", underwritingFlowId,
+                        underwritingId);
                 executeFlow(underwritingFlowId);
             } finally {
-                log.info("Underwriting flow[{}] end execution with distributed Lock[{}]", underwritingFlowId, underwritingId);
+                log.info("Underwriting flow[{}] end execution with distributed Lock[{}]", underwritingFlowId,
+                        underwritingId);
                 lock.unlock();
             }
         } else {
@@ -75,6 +77,7 @@ public class UnderwritingFlowExecuteServiceImpl implements UnderwritingFlowExecu
 
     private Lock getDistributedLock(String underwritingId) {
         // TODO 根据underwritingId获取分布式锁
+        // TODO 分布式key增加环境标识符
         return new ReentrantLock();
     }
 
