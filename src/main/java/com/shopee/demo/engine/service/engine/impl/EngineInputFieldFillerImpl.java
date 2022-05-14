@@ -1,4 +1,4 @@
-package com.shopee.demo.engine.service.strategy.impl;
+package com.shopee.demo.engine.service.engine.impl;
 
 import java.util.Iterator;
 import java.util.Map.Entry;
@@ -9,7 +9,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.shopee.demo.engine.service.strategy.EngineInputFieldFiller;
+import com.shopee.demo.engine.service.engine.EngineInputFieldFiller;
 import com.shopee.demo.engine.type.engine.EngineInput;
 import com.shopee.demo.engine.type.strategy.StrategyInput;
 
@@ -60,7 +60,7 @@ public class EngineInputFieldFillerImpl implements EngineInputFieldFiller {
     }
 
     protected final void setValue(JsonNode node, String fieldName, JsonNode value) {
-        if (node == null || fieldName == null || value.isNull()) {
+        if (node == null || fieldName == null || value.isNull() || "@class".equals(fieldName)) {
             return;
         }
         JsonNode target = node.get(fieldName);

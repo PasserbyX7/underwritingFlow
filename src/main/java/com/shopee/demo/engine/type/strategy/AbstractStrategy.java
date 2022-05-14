@@ -32,7 +32,7 @@ public abstract class AbstractStrategy<T extends UnderwritingRequest> implements
     protected Strategy<T> nextStrategy;
 
     @Override
-    public StrategyResult execute(StrategyContext<T> strategyContext) {
+    public final StrategyResult execute(StrategyContext<T> strategyContext) {
         UnderwritingTypeEnum underwritingType = strategyContext.getUnderwritingRequest().getUnderwritingType();
         EngineInput engineInput = engineInputFactory.createSmeEngineInput(underwritingType);
         for (DataIntegration<T> dataIntegration : getDataIntegrations()) {
