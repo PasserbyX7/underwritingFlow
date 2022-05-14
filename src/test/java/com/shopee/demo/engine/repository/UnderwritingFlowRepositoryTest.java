@@ -17,11 +17,14 @@ import com.shopee.demo.engine.repository.impl.UnderwritingFlowRepositoryImpl;
 import com.shopee.demo.infrastructure.dal.dao.UnderwritingFlowDAO;
 import com.shopee.demo.infrastructure.dal.data.UnderwritingFlowDO;
 
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockedStatic;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
@@ -46,12 +49,24 @@ public class UnderwritingFlowRepositoryTest {
     @Mock
     private UnderwritingRequestRepository requestRepository;
 
+    private static MockedStatic<UnderwritingFlowConverter> underwritingFlowConverter;
+
+    @BeforeAll
+    static public void beforeAll(){
+        underwritingFlowConverter=mockStatic(UnderwritingFlowConverter.class);
+    }
+
+    @AfterAll
+    public static void afterAll() {
+        underwritingFlowConverter.close();
+    }
+
     @Test
     void testSave() {
         // given
         long expectedFlowId = 1L;
         UnderwritingFlowDO flowDO = new UnderwritingFlowDO();
-        mockStatic(UnderwritingFlowConverter.class)
+        underwritingFlowConverter
                 .when(() -> UnderwritingFlowConverter.convert(any()))
                 .thenReturn(flowDO);
         doAnswer(inv -> {
@@ -72,7 +87,7 @@ public class UnderwritingFlowRepositoryTest {
         doReturn("id").when(flowDO).getUnderwritingId();
         doReturn(UnderwritingTypeEnum.SME).when(flowDO).getUnderwritingType();
         doReturn(flowDO).when(underwritingFlowDAO).selectByPrimaryKey(anyLong());
-        mockStatic(UnderwritingFlowConverter.class)
+        underwritingFlowConverter
                 .when(() -> UnderwritingFlowConverter.convert(any(), any()))
                 .thenReturn(flow);
         // when

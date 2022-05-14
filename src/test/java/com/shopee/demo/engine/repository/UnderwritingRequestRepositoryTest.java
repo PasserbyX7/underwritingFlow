@@ -14,11 +14,14 @@ import com.shopee.demo.engine.type.request.SmeUnderwritingRequest;
 import com.shopee.demo.infrastructure.dal.dao.SmeUnderwritingDAO;
 import com.shopee.demo.infrastructure.dal.data.SmeUnderwritingDO;
 
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockedStatic;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
@@ -37,10 +40,23 @@ public class UnderwritingRequestRepositoryTest {
     @Mock
     private SmeUnderwritingRequest underwritingRequest;
 
+    private static MockedStatic<SmeUnderwritingRequest> smeUnderwritingRequest;
+    private static MockedStatic<SmeUnderwritingDO> smeUnderwritingDO;
+
+    @BeforeAll
+    static public void beforeAll() {
+        smeUnderwritingRequest = mockStatic(SmeUnderwritingRequest.class);
+        smeUnderwritingDO = mockStatic(SmeUnderwritingDO.class);
+    }
+
+    @AfterAll
+    public static void afterAll() {
+        smeUnderwritingRequest.close();
+        smeUnderwritingDO.close();
+    }
+
     @Test
     void testFindSuccess() {
-        // given
-        mockStatic(SmeUnderwritingRequest.class);
         // when
         underwritingRequestRepository.find("underwritingId", UnderwritingTypeEnum.SME);
         // then
@@ -56,8 +72,7 @@ public class UnderwritingRequestRepositoryTest {
 
     @Test
     void testSaveSuccess() {
-        // given
-        mockStatic(SmeUnderwritingDO.class);
+
         doReturn(UnderwritingTypeEnum.SME).when(underwritingRequest).getUnderwritingType();
         // when
         underwritingRequestRepository.save(underwritingRequest);
