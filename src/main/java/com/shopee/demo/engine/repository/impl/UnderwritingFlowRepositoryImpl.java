@@ -12,9 +12,6 @@ import com.shopee.demo.infrastructure.dal.data.UnderwritingFlowDO;
 
 import org.springframework.stereotype.Repository;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 @Repository
 public class UnderwritingFlowRepositoryImpl implements UnderwritingFlowRepository {
 
@@ -26,8 +23,8 @@ public class UnderwritingFlowRepositoryImpl implements UnderwritingFlowRepositor
 
     @Override
     public long save(UnderwritingFlow flow) {
+        //TODO插入log
         UnderwritingFlowDO flowDO = UnderwritingFlowConverter.convert(flow);
-        log.info("保存授信Flow：当前状态[{}] 当前策略[{}]",flow.getFlowStatus(), flow.getCurrentStrategyName());
         underwritingFlowDAO.saveOrUpdateById(flowDO);
         return flowDO.getId();
     }
@@ -37,7 +34,6 @@ public class UnderwritingFlowRepositoryImpl implements UnderwritingFlowRepositor
         UnderwritingFlowDO flowDO = underwritingFlowDAO.selectByPrimaryKey(underwritingFlowId);
         UnderwritingRequest request = requestRepository.find(flowDO.getUnderwritingId(), flowDO.getUnderwritingType());
         UnderwritingFlow flow = UnderwritingFlowConverter.convert(flowDO, request);
-        log.info("加载授信Flow：当前策略[{}] 当前状态[{}]", flow.getCurrentStrategyName(), flow.getFlowStatus());
         return flow;
     }
 

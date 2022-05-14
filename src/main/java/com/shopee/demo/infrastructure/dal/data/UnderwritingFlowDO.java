@@ -8,8 +8,10 @@ import com.shopee.demo.engine.constant.UnderwritingTypeEnum;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 @Data
+@ToString(callSuper = true)
 @EqualsAndHashCode(callSuper=true)
 public class UnderwritingFlowDO extends BaseDO{
     private String underwritingId;
@@ -18,6 +20,7 @@ public class UnderwritingFlowDO extends BaseDO{
     private StrategyEnum currentStrategy;
     private StrategyStatusEnum strategyStatus;
     private DataSourceEnum suspendDataSource;
+    private StrategyEnum rejectedStrategy;
     private String errorMsg;
     private String strategyInput;
     private String strategyOutput;

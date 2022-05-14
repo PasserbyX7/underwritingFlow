@@ -4,10 +4,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.shopee.demo.engine.constant.StrategyEnum;
+import com.shopee.demo.infrastructure.utils.jackson.JsonUtils;
 
+import lombok.Data;
+
+@Data
 public class StrategyContainer<T> {
 
-    private final Map<StrategyEnum, T> strategyContainer = new HashMap<>();
+    private Map<StrategyEnum, T> strategyContainer = new HashMap<>();
 
     public T get(StrategyEnum strategyEnum) {
         return strategyContainer.get(strategyEnum);
@@ -18,12 +22,7 @@ public class StrategyContainer<T> {
     }
 
     public String toJson() {
-        // TODO
-        return null;
+        return JsonUtils.writeValueAsString(this);
     }
 
-    public static <T> StrategyContainer<T> fromJson(String str) {
-        // TODO
-        return new StrategyContainer<>();
-    }
 }
