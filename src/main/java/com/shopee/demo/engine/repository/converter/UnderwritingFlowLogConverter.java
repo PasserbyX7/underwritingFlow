@@ -13,8 +13,6 @@ import org.mapstruct.factory.Mappers;
 public interface UnderwritingFlowLogConverter {
     UnderwritingFlowLogConverter INSTANCE = Mappers.getMapper(UnderwritingFlowLogConverter.class);
 
-    UnderwritingFlowLog convert(UnderwritingFlowLogDO underwritingFlowLogDO);
-
     UnderwritingFlowLogDO convert(UnderwritingFlowLog underwritingFlowLog);
 
     @Mappings({

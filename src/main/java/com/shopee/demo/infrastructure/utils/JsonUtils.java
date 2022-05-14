@@ -1,4 +1,4 @@
-package com.shopee.demo.infrastructure.utils.jackson;
+package com.shopee.demo.infrastructure.utils;
 
 import java.io.IOException;
 import java.net.URL;

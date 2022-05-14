@@ -31,6 +31,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 
 @Slf4j
@@ -83,9 +84,10 @@ public class FlowMachineTest {
                 .selectByPrimaryKey(anyLong());
         // then
         long ctxId = underwritingFlowRepository.save(flow);
-        log.info("*************状态机测试开始*************");
+        log.info("*************授信异步调用开始*************");
         underwritingFlowService.executeUnderwritingFlowAsync(ctxId);
-        log.info("*************状态机测试结束*************");
+        log.info("*************授信异步调用结束*************");
+        TimeUnit.SECONDS.sleep(3);
     }
 
     private UnderwritingFlow mockUnderwritingFlow() {

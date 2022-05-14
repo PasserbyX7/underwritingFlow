@@ -211,13 +211,14 @@ public class FlowMachineBuilder {
                 if (!stateContext.getStateMachine().hasStateMachineError()
                         && stateContext.getStage() == Stage.STATE_ENTRY) {
                     try {
-                        UnderwritingFlow.from(stateContext.getExtendedState())
-                                .setFlowStatus(stateContext.getStateMachine().getState().getId());
+                        UnderwritingFlow flow = UnderwritingFlow.from(stateContext.getExtendedState());
+                        flow.setFlowStatus(stateContext.getStateMachine().getState().getId());
+                        log.info("Persist underwriting flow[{}]", flow);
                         flowStateMachinePersistService.persist(stateContext.getStateMachine());
                     } catch (Exception e) {
-                        stateContext.getStateMachine().setStateMachineError(new FlowException("flow persist error", e));
+                        stateContext.getStateMachine()
+                                .setStateMachineError(new FlowException("Persist underwriting flow error", e));
                     }
-
                 }
             }
         };
@@ -240,10 +241,11 @@ public class FlowMachineBuilder {
             @Override
             public void transition(StateMachine<FlowStatusEnum, FlowEventEnum> stateMachine,
                     Transition<FlowStatusEnum, FlowEventEnum> transition, long duration) {
-                log.info("machine[{}]:[{}]->[{}] cost[{}]ms", stateMachine.getId(), transition.getSource().getId(),
-                        transition.getTarget().getId(), duration);
+                UnderwritingFlow flow = UnderwritingFlow.from(stateMachine.getExtendedState());
+                log.info("Underwriting state machine transition:[{}]->[{}] cost[{}]ms with flow[{}]",
+                        transition.getSource().getId(),
+                        transition.getTarget().getId(), duration, flow);
             }
-
         };
     }
 

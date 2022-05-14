@@ -9,7 +9,7 @@ import com.shopee.demo.engine.type.request.UnderwritingRequest;
 import com.shopee.demo.engine.type.strategy.StrategyContainer;
 import com.shopee.demo.engine.type.strategy.StrategyResult;
 import com.shopee.demo.infrastructure.dal.data.UnderwritingFlowDO;
-import com.shopee.demo.infrastructure.utils.jackson.JsonUtils;
+import com.shopee.demo.infrastructure.utils.JsonUtils;
 
 public class UnderwritingFlowConverter {
 

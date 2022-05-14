@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.shopee.demo.engine.constant.StrategyEnum;
-import com.shopee.demo.infrastructure.utils.jackson.JsonUtils;
+import com.shopee.demo.infrastructure.utils.JsonUtils;
 
 import lombok.Data;
 

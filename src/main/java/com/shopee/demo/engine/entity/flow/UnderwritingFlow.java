@@ -15,18 +15,23 @@ import org.springframework.util.Assert;
 
 import lombok.Data;
 import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Data
-@ToString(doNotUseGetters = true)
+@ToString(onlyExplicitlyIncluded = true)
 public final class UnderwritingFlow {
 
     public static final String EXTENDED_STATE_KEY = "UnderwritingFlowExtendedStateKey";
 
+    @ToString.Include
     private final Long id;
     private final UnderwritingRequest underwritingRequest;
     private final StrategyContext<UnderwritingRequest> strategyContext;
+    @ToString.Include
     private FlowStatusEnum flowStatus;
-    private StrategyEnum currentStrategy;
+    @ToString.Include
+    private StrategyEnum currentStrategyName;
 
     public UnderwritingFlow(Long id, UnderwritingRequest underwritingRequest,
             StrategyContext<UnderwritingRequest> strategyContext,
@@ -35,7 +40,7 @@ public final class UnderwritingFlow {
         this.underwritingRequest = underwritingRequest;
         this.strategyContext = strategyContext;
         this.flowStatus = flowStatus;
-        this.currentStrategy = currentStrategy;
+        this.currentStrategyName = currentStrategy;
     }
 
     public static UnderwritingFlow of(UnderwritingRequest underwritingRequest) {
@@ -52,13 +57,15 @@ public final class UnderwritingFlow {
     }
 
     public void execute() {
+        currentStrategyName = getCurrentStrategy().getStrategyName();
         StrategyResult strategyResult = getCurrentStrategy().execute(strategyContext);
         strategyContext.setStrategyResult(strategyResult);
+        log.info("flow[{}] execute [{}] with result [{}]", id, currentStrategyName, strategyResult);
     }
 
     public void setNextStrategy() {
         if (hasNextStrategy()) {
-            this.currentStrategy = getCurrentStrategy().getNextStrategy().getStrategyName();
+            this.currentStrategyName = getCurrentStrategy().getNextStrategy().getStrategyName();
         }
     }
 
@@ -73,12 +80,8 @@ public final class UnderwritingFlow {
                 .orElse(null);
     }
 
-    public StrategyEnum getCurrentStrategyName() {
-        return currentStrategy;
-    }
-
     private Strategy<UnderwritingRequest> getCurrentStrategy() {
-        return currentStrategy != null ? underwritingRequest.getStrategyChain().getStrategy(currentStrategy)
+        return currentStrategyName != null ? underwritingRequest.getStrategyChain().getStrategy(currentStrategyName)
                 : underwritingRequest.getStrategyChain().getFirstStrategy();
     }
 
