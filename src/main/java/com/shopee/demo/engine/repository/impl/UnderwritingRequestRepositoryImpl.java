@@ -23,10 +23,8 @@ public class UnderwritingRequestRepositoryImpl implements UnderwritingRequestRep
             case SME:
                 smeUnderwritingDAO.insertSelective(SmeUnderwritingDO.of((SmeUnderwritingRequest) underwritingRequest));
                 break;
-            case RETAIL:
-                throw new IllegalArgumentException();
             default:
-                throw new IllegalArgumentException();
+                throw new IllegalArgumentException("undefined underwriting type");
         }
 
     }
@@ -36,10 +34,8 @@ public class UnderwritingRequestRepositoryImpl implements UnderwritingRequestRep
         switch (underwritingType) {
             case SME:
                 return SmeUnderwritingRequest.of(smeUnderwritingDAO.selectByUnderwritingId(underwritingId));
-            case RETAIL:
-                throw new IllegalArgumentException();
             default:
-                throw new IllegalArgumentException();
+                throw new IllegalArgumentException("undefined underwriting type");
         }
     }
 }

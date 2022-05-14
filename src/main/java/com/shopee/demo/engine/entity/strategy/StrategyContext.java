@@ -20,4 +20,10 @@ public class StrategyContext<T extends UnderwritingRequest> {
         StrategyContainer<EngineOutput> strategyOutput = new StrategyContainer<>();
         return new StrategyContext<T>(underwritingRequest, strategyInput, strategyOutput);
     }
+
+    public static <T extends UnderwritingRequest> StrategyContext<T> of(T underwritingRequest,
+            StrategyContainer<EngineInput> strategyInput, StrategyContainer<EngineOutput> strategyOutput) {
+        return new StrategyContext<T>(underwritingRequest, strategyInput, strategyOutput);
+    }
+
 }

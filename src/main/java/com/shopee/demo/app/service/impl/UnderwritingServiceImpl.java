@@ -29,6 +29,7 @@ public class UnderwritingServiceImpl implements UnderwritingService {
 
     @Override
     public void executeUnderwriting(UnderwritingRequest underwritingRequest) {
+        // TODO 查询授信请求是否存在，如果已存在则终止流程抛出异常
         long underwritingFlowId = transactionTemplate.execute(e -> {
             requestRepository.save(underwritingRequest);
             long flowId = flowRepository.save(UnderwritingFlow.of(underwritingRequest));
