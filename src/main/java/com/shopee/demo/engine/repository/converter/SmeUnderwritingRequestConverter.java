@@ -10,7 +10,7 @@ import org.mapstruct.factory.Mappers;
 public interface SmeUnderwritingRequestConverter {
     SmeUnderwritingRequestConverter INSTANCE = Mappers.getMapper(SmeUnderwritingRequestConverter.class);
 
-    SmeUnderwritingRequest convert(SmeUnderwritingDO SmeUnderwritingRequestDO);
+    SmeUnderwritingRequest convert(SmeUnderwritingDO smeUnderwritingRequestDO);
 
     SmeUnderwritingDO convert(SmeUnderwritingRequest smeUnderwritingRequest);
 }

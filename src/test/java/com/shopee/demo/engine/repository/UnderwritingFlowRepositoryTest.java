@@ -1,6 +1,5 @@
 package com.shopee.demo.engine.repository;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -14,10 +13,12 @@ import java.util.Optional;
 
 import com.shopee.demo.engine.constant.UnderwritingTypeEnum;
 import com.shopee.demo.engine.entity.flow.UnderwritingFlow;
+import com.shopee.demo.engine.entity.flow.UnderwritingFlowLog;
 import com.shopee.demo.engine.repository.converter.UnderwritingFlowConverter;
 import com.shopee.demo.engine.repository.impl.UnderwritingFlowRepositoryImpl;
 import com.shopee.demo.engine.type.request.UnderwritingRequest;
 import com.shopee.demo.infrastructure.dal.dao.UnderwritingFlowDAO;
+import com.shopee.demo.infrastructure.dal.dao.UnderwritingFlowLogDAO;
 import com.shopee.demo.infrastructure.dal.data.UnderwritingFlowDO;
 
 import org.junit.jupiter.api.AfterAll;
@@ -31,6 +32,9 @@ import org.mockito.MockedStatic;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
+import org.springframework.transaction.support.SimpleTransactionStatus;
+import org.springframework.transaction.support.TransactionCallback;
+import org.springframework.transaction.support.TransactionTemplate;
 
 @ExtendWith(MockitoExtension.class)
 @DisplayName("UnderwritingFlowRepositoryTest")
@@ -39,6 +43,9 @@ public class UnderwritingFlowRepositoryTest {
 
     @InjectMocks
     private UnderwritingFlowRepositoryImpl underwritingFlowRepository;
+
+    @Mock
+    private TransactionTemplate transactionTemplate;
 
     @Mock
     private UnderwritingFlow flow;
@@ -53,37 +60,46 @@ public class UnderwritingFlowRepositoryTest {
     private UnderwritingFlowDAO underwritingFlowDAO;
 
     @Mock
+    private UnderwritingFlowLogDAO underwritingFlowLogDAO;
+
+    @Mock
     private UnderwritingRequestRepository requestRepository;
 
+    @Mock
+    private UnderwritingFlowLog flowLog;
+
     private static MockedStatic<UnderwritingFlowConverter> underwritingFlowConverter;
+
+    private static MockedStatic<UnderwritingFlowLog> underwritingFlowLog;
 
     @BeforeAll
     static public void beforeAll() {
         underwritingFlowConverter = mockStatic(UnderwritingFlowConverter.class);
+        underwritingFlowLog = mockStatic(UnderwritingFlowLog.class);
     }
 
     @AfterAll
     public static void afterAll() {
         underwritingFlowConverter.close();
+        underwritingFlowLog.close();
     }
 
     @Test
     void testSave() {
         // given
-        long expectedFlowId = 1L;
-        UnderwritingFlowDO flowDO = new UnderwritingFlowDO();
+        doAnswer(inv -> inv.<TransactionCallback<Long>>getArgument(0).doInTransaction(new SimpleTransactionStatus()))
+                .when(transactionTemplate)
+                .execute(any());
         underwritingFlowConverter
                 .when(() -> UnderwritingFlowConverter.convert(any()))
                 .thenReturn(flowDO);
-        doAnswer(inv -> {
-            inv.<UnderwritingFlowDO>getArgument(0).setId(expectedFlowId);
-            return null;
-        }).when(underwritingFlowDAO)
-                .saveOrUpdateById(any());
+        underwritingFlowLog.when(() -> UnderwritingFlowLog.of(any()))
+                .thenReturn(flowLog);
         // when
-        long actualFlowId = underwritingFlowRepository.save(flow);
+        underwritingFlowRepository.save(flow);
         // then
-        assertEquals(expectedFlowId, actualFlowId);
+        verify(underwritingFlowDAO, times(1)).saveOrUpdateById(any());
+        verify(underwritingFlowLogDAO, times(1)).insertSelective(any());
     }
 
     @Test

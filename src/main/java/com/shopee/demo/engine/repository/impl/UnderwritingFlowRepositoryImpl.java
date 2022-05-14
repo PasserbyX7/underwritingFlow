@@ -3,15 +3,18 @@ package com.shopee.demo.engine.repository.impl;
 import javax.annotation.Resource;
 
 import com.shopee.demo.engine.entity.flow.UnderwritingFlow;
+import com.shopee.demo.engine.entity.flow.UnderwritingFlowLog;
 import com.shopee.demo.engine.exception.flow.FlowException;
 import com.shopee.demo.engine.repository.UnderwritingFlowRepository;
 import com.shopee.demo.engine.repository.UnderwritingRequestRepository;
 import com.shopee.demo.engine.repository.converter.UnderwritingFlowConverter;
 import com.shopee.demo.engine.type.request.UnderwritingRequest;
 import com.shopee.demo.infrastructure.dal.dao.UnderwritingFlowDAO;
+import com.shopee.demo.infrastructure.dal.dao.UnderwritingFlowLogDAO;
 import com.shopee.demo.infrastructure.dal.data.UnderwritingFlowDO;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.support.TransactionTemplate;
 
 @Repository
 public class UnderwritingFlowRepositoryImpl implements UnderwritingFlowRepository {
@@ -20,14 +23,23 @@ public class UnderwritingFlowRepositoryImpl implements UnderwritingFlowRepositor
     private UnderwritingFlowDAO underwritingFlowDAO;
 
     @Resource
+    private UnderwritingFlowLogDAO underwritingFlowLogDAO;
+
+    @Resource
     private UnderwritingRequestRepository requestRepository;
+
+    @Resource
+    private TransactionTemplate transactionTemplate;
 
     @Override
     public long save(UnderwritingFlow flow) {
-        // TODO插入log
-        UnderwritingFlowDO flowDO = UnderwritingFlowConverter.convert(flow);
-        underwritingFlowDAO.saveOrUpdateById(flowDO);
-        return flowDO.getId();
+        return transactionTemplate.execute(e -> {
+            UnderwritingFlowDO flowDO = UnderwritingFlowConverter.convert(flow);
+            underwritingFlowDAO.saveOrUpdateById(flowDO);
+            UnderwritingFlowLog flowLog = UnderwritingFlowLog.of(flow);
+            underwritingFlowLogDAO.insertSelective(flowLog.convertToDO());
+            return flowDO.getId();
+        });
     }
 
     @Override
