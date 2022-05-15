@@ -98,7 +98,7 @@ public class UnderwritingFlowRepositoryTest {
         // when
         underwritingFlowRepository.save(flow);
         // then
-        verify(underwritingFlowDAO, times(1)).saveOrUpdateById(any());
+        verify(underwritingFlowDAO, times(1)).updateByPrimaryKeySelective(any());
         verify(underwritingFlowLogDAO, times(1)).insertSelective(any());
     }
 

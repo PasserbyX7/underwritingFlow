@@ -49,8 +49,8 @@ public class UnderwritingFlowConverterTest {
                 actual.getUnderwritingRequest().getUnderwritingType());
         assertEquals(expected.getFlowStatus(), actual.getFlowStatus());
         assertEquals(expected.getCurrentStrategyName(), actual.getCurrentStrategyName());
-        assertEquals(expected.getStrategyContext().getStrategyResult(),
-                actual.getStrategyContext().getStrategyResult());
+        assertEquals(expected.getStrategyResult(),
+                actual.getStrategyResult());
         assertEquals(expected.getStrategyContext().getStrategyInput(),
                 actual.getStrategyContext().getStrategyInput());
         assertEquals(expected.getStrategyContext().getStrategyOutput(),
@@ -91,8 +91,8 @@ public class UnderwritingFlowConverterTest {
         StrategyContext<UnderwritingRequest> strategyContext = StrategyContext.of(underwritingRequest,
                 mockStrategyContainerInput(),
                 mockStrategyContainerOutput());
-        strategyContext.setStrategyResult(StrategyResult.suspend(DataSourceEnum.SELLER));
-        return new UnderwritingFlow(flowId, underwritingRequest, strategyContext, flowStatus, currentStrategy);
+        return new UnderwritingFlow(flowId, underwritingRequest, strategyContext,
+                StrategyResult.suspend(DataSourceEnum.SELLER), flowStatus, currentStrategy);
     }
 
     private UnderwritingRequest mockUnderwritingRequest() {

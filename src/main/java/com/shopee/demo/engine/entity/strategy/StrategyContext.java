@@ -4,14 +4,12 @@ import com.shopee.demo.engine.type.engine.EngineInput;
 import com.shopee.demo.engine.type.engine.EngineOutput;
 import com.shopee.demo.engine.type.request.UnderwritingRequest;
 import com.shopee.demo.engine.type.strategy.StrategyContainer;
-import com.shopee.demo.engine.type.strategy.StrategyResult;
 
 import lombok.Data;
 
 @Data
 public class StrategyContext<T extends UnderwritingRequest> {
     private final T underwritingRequest;
-    private StrategyResult strategyResult;
     private final StrategyContainer<EngineInput> strategyInput;
     private final StrategyContainer<EngineOutput> strategyOutput;
 

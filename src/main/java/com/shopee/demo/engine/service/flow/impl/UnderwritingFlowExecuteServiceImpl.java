@@ -39,6 +39,7 @@ public class UnderwritingFlowExecuteServiceImpl implements UnderwritingFlowExecu
                     .getUnderwritingId();
             executeFlowWithDistributedLock(underwritingFlowId, underwritingId);
         } catch (Exception e) {
+            e.printStackTrace();
             // TODO 异常监控上报
         }
     }

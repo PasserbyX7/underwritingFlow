@@ -4,7 +4,6 @@ import com.shopee.demo.engine.constant.DataSourceEnum;
 import com.shopee.demo.engine.constant.FlowStatusEnum;
 import com.shopee.demo.engine.constant.StrategyEnum;
 import com.shopee.demo.engine.constant.StrategyStatusEnum;
-import com.shopee.demo.engine.repository.converter.UnderwritingFlowConverter;
 import com.shopee.demo.engine.repository.converter.UnderwritingFlowLogConverter;
 import com.shopee.demo.infrastructure.dal.data.UnderwritingFlowDO;
 import com.shopee.demo.infrastructure.dal.data.UnderwritingFlowLogDO;
@@ -26,8 +25,7 @@ public class UnderwritingFlowLog {
         return UnderwritingFlowLogConverter.INSTANCE.convert(this);
     }
 
-    public static UnderwritingFlowLog of(UnderwritingFlow flow) {
-        UnderwritingFlowDO flowDO = UnderwritingFlowConverter.convert(flow);
+    public static UnderwritingFlowLog of(UnderwritingFlowDO flowDO) {
         return UnderwritingFlowLogConverter.INSTANCE.convert(flowDO);
     }
 

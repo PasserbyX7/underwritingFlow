@@ -7,7 +7,7 @@ import com.shopee.demo.infrastructure.dal.data.UnderwritingFlowDO;
 public interface UnderwritingFlowDAO {
     int insertSelective(UnderwritingFlowDO underwritingFlowDO);
 
-    Optional<UnderwritingFlowDO> selectByPrimaryKey(Long id);
+    int updateByPrimaryKeySelective(UnderwritingFlowDO underwritingFlowDO);
 
-    void saveOrUpdateById(UnderwritingFlowDO underwritingFlowDO);
+    Optional<UnderwritingFlowDO> selectByPrimaryKey(Long id);
 }

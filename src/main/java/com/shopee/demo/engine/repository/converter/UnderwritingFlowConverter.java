@@ -22,10 +22,10 @@ public class UnderwritingFlowConverter {
         flowDO.setCurrentStrategy(flow.getCurrentStrategyName());
         flowDO.setStrategyInput(flow.getStrategyContext().getStrategyInput().toJson());
         flowDO.setStrategyOutput(flow.getStrategyContext().getStrategyOutput().toJson());
-        if (flow.getStrategyContext().getStrategyResult() != null) {
-            flowDO.setStrategyStatus(flow.getStrategyContext().getStrategyResult().getStatus());
-            flowDO.setSuspendDataSource(flow.getStrategyContext().getStrategyResult().getSuspendDataSource());
-            flowDO.setErrorMsg(flow.getStrategyContext().getStrategyResult().getErrorMsg());
+        if (flow.getStrategyResult() != null) {
+            flowDO.setStrategyStatus(flow.getStrategyResult().getStatus());
+            flowDO.setSuspendDataSource(flow.getStrategyResult().getSuspendDataSource());
+            flowDO.setErrorMsg(flow.getStrategyResult().getErrorMsg());
         }
         return flowDO;
     }
@@ -36,10 +36,9 @@ public class UnderwritingFlowConverter {
                 }),
                 JsonUtils.readValue(flowDO.getStrategyInput(), new TypeReference<StrategyContainer<EngineOutput>>() {
                 }));
-        StrategyResult StrategyResult = new StrategyResult(flowDO.getStrategyStatus(), flowDO.getSuspendDataSource(),
+        StrategyResult strategyResult = new StrategyResult(flowDO.getStrategyStatus(), flowDO.getSuspendDataSource(),
                 flowDO.getErrorMsg(), flowDO.getRejectedStrategy());
-        strategyContext.setStrategyResult(StrategyResult);
-        UnderwritingFlow flow = new UnderwritingFlow(flowDO.getId(), request, strategyContext,
+        UnderwritingFlow flow = new UnderwritingFlow(flowDO.getId(), request, strategyContext, strategyResult,
                 flowDO.getFlowStatus(), flowDO.getCurrentStrategy());
         return flow;
     }

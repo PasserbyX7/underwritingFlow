@@ -1,9 +1,11 @@
 package com.shopee.demo.infrastructure.dal.data;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
-public class BaseUnderwritingDO {
+@EqualsAndHashCode(callSuper = true)
+public class BaseUnderwritingDO extends BaseDO {
     public String underwritingId;
     public Long requestTime;
     public Long requestExpireTime;

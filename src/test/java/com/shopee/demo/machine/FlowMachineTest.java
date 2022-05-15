@@ -69,16 +69,20 @@ public class FlowMachineTest {
         doReturn(Optional.ofNullable(mockSmeUnderwritingDO()))
                 .when(smeUnderwritingDAO)
                 .selectByUnderwritingId(any());
-        doAnswer(invocation -> {
-            UnderwritingFlowDO entity = invocation.getArgument(0);
-            if (entity.getId() == null) {
-                entity.setId(iter.next());
-            }
+        doAnswer(inv -> {
+            UnderwritingFlowDO entity = inv.getArgument(0);
+            entity.setId(iter.next());
             underwritingContextMap.put(entity.getId(), entity);
-            return entity;
-        })
-                .when(underwritingFlowDAO)
-                .saveOrUpdateById(any(UnderwritingFlowDO.class));
+            return 1;
+        }).when(underwritingFlowDAO)
+                .insertSelective(any());
+        doAnswer(inv -> {
+            UnderwritingFlowDO entity = inv.getArgument(0);
+            entity.setId(iter.next());
+            underwritingContextMap.put(entity.getId(), entity);
+            return 1;
+        }).when(underwritingFlowDAO)
+                .updateByPrimaryKeySelective(any());
         doAnswer(invocation -> Optional.ofNullable(underwritingContextMap.get(invocation.getArgument(0))))
                 .when(underwritingFlowDAO)
                 .selectByPrimaryKey(anyLong());

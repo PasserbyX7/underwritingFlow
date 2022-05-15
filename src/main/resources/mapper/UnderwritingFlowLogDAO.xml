@@ -8,7 +8,7 @@
     <result column="current_strategy" jdbcType="VARCHAR" property="currentStrategy" />
     <result column="strategy_status" jdbcType="VARCHAR" property="strategyStatus" />
     <result column="suspend_data_source" jdbcType="VARCHAR" property="suspendDataSource" />
-    <result column="terminal_reason" jdbcType="VARCHAR" property="terminalReason" />
+    <result column="error_msg" jdbcType="VARCHAR" property="errorMsg" />
     <result column="strategy_input" jdbcType="VARCHAR" property="strategyInput" />
     <result column="strategy_output" jdbcType="VARCHAR" property="strategyOutput" />
     <result column="creator" jdbcType="VARCHAR" property="creator" />
@@ -19,7 +19,7 @@
   </resultMap>
   <sql id="Base_Column_List">
     id, underwriting_flow_id, flow_status, current_strategy, strategy_status, suspend_data_source,
-    terminal_reason, strategy_input, strategy_output, creator, create_date, modifier,
+    error_msg, strategy_input, strategy_output, creator, create_date, modifier,
     modify_date, version
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
@@ -49,8 +49,8 @@
       <if test="suspendDataSource != null">
         suspend_data_source,
       </if>
-      <if test="terminalReason != null">
-        terminal_reason,
+      <if test="errorMsg != null">
+        error_msg,
       </if>
       <if test="strategyInput != null">
         strategy_input,
@@ -90,8 +90,8 @@
       <if test="suspendDataSource != null">
         #{suspendDataSource,jdbcType=VARCHAR},
       </if>
-      <if test="terminalReason != null">
-        #{terminalReason,jdbcType=VARCHAR},
+      <if test="errorMsg != null">
+        #{errorMsg,jdbcType=VARCHAR},
       </if>
       <if test="strategyInput != null">
         #{strategyInput,jdbcType=VARCHAR},

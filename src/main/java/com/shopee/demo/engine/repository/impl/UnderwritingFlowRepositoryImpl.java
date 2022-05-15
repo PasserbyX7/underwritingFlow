@@ -35,8 +35,8 @@ public class UnderwritingFlowRepositoryImpl implements UnderwritingFlowRepositor
     public long save(UnderwritingFlow flow) {
         return transactionTemplate.execute(e -> {
             UnderwritingFlowDO flowDO = UnderwritingFlowConverter.convert(flow);
-            underwritingFlowDAO.saveOrUpdateById(flowDO);
-            UnderwritingFlowLog flowLog = UnderwritingFlowLog.of(flow);
+            saveOrUpdateById(flowDO);
+            UnderwritingFlowLog flowLog = UnderwritingFlowLog.of(flowDO);
             underwritingFlowLogDAO.insertSelective(flowLog.convertToDO());
             return flowDO.getId();
         });
@@ -54,4 +54,11 @@ public class UnderwritingFlowRepositoryImpl implements UnderwritingFlowRepositor
         return flow;
     }
 
+    private void saveOrUpdateById(UnderwritingFlowDO flowDO) {
+        if (flowDO.getId() == null) {
+            underwritingFlowDAO.insertSelective(flowDO);
+        } else {
+            underwritingFlowDAO.updateByPrimaryKeySelective(flowDO);
+        }
+    }
 }

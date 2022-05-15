@@ -29,16 +29,19 @@ public final class UnderwritingFlow {
     private final UnderwritingRequest underwritingRequest;
     private final StrategyContext<UnderwritingRequest> strategyContext;
     @ToString.Include
+    private StrategyResult strategyResult;
+    @ToString.Include
     private FlowStatusEnum flowStatus;
     @ToString.Include
     private StrategyEnum currentStrategyName;
 
     public UnderwritingFlow(Long id, UnderwritingRequest underwritingRequest,
-            StrategyContext<UnderwritingRequest> strategyContext,
+            StrategyContext<UnderwritingRequest> strategyContext, StrategyResult strategyResult,
             FlowStatusEnum flowStatus, StrategyEnum currentStrategy) {
         this.id = id;
         this.underwritingRequest = underwritingRequest;
         this.strategyContext = strategyContext;
+        this.strategyResult = strategyResult;
         this.flowStatus = flowStatus;
         this.currentStrategyName = currentStrategy;
     }
@@ -48,7 +51,7 @@ public final class UnderwritingFlow {
         Long id = null;
         FlowStatusEnum flowStatus = FlowStatusEnum.INITIAL;
         StrategyContext<UnderwritingRequest> strategyContext = StrategyContext.of(underwritingRequest);
-        return new UnderwritingFlow(id, underwritingRequest, strategyContext, flowStatus, null);
+        return new UnderwritingFlow(id, underwritingRequest, strategyContext, null, flowStatus, null);
     }
 
     public static UnderwritingFlow from(ExtendedState extendedState) {
@@ -58,8 +61,7 @@ public final class UnderwritingFlow {
 
     public void execute() {
         currentStrategyName = getCurrentStrategy().getStrategyName();
-        StrategyResult strategyResult = getCurrentStrategy().execute(strategyContext);
-        strategyContext.setStrategyResult(strategyResult);
+        this.strategyResult = getCurrentStrategy().execute(strategyContext);
         log.info("flow[{}] execute [{}] with result [{}]", id, currentStrategyName, strategyResult);
     }
 
@@ -69,13 +71,16 @@ public final class UnderwritingFlow {
         }
     }
 
+    public void setFirstStrategy() {
+        this.currentStrategyName = getCurrentStrategy().getStrategyName();
+    }
+
     public boolean hasNextStrategy() {
         return getCurrentStrategy().hasNextStrategy();
     }
 
     public StrategyStatusEnum getStrategyResultStatus() {
-        return Optional.ofNullable(strategyContext)
-                .map(StrategyContext::getStrategyResult)
+        return Optional.ofNullable(strategyResult)
                 .map(StrategyResult::getStatus)
                 .orElse(null);
     }

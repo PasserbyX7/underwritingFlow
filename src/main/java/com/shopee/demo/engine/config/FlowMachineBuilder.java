@@ -73,7 +73,7 @@ public class FlowMachineBuilder {
             throws Exception {
         transitions
                 .withExternal()
-                .source(INITIAL).target(ONGOING).event(START)
+                .source(INITIAL).target(ONGOING).event(START).action(setFirstStrategyAction())
                 .and()
                 .withExternal()
                 .source(PENDING).target(ONGOING).event(START)
@@ -195,6 +195,22 @@ public class FlowMachineBuilder {
             public void execute(StateContext<FlowStatusEnum, FlowEventEnum> context) {
                 try {
                     UnderwritingFlow.from(context.getExtendedState()).setNextStrategy();
+                } catch (Exception e) {
+                    context.getStateMachine().setStateMachineError(new FlowException("flow set strategy error", e));
+                }
+            }
+
+        };
+    }
+
+    @Bean
+    public Action<FlowStatusEnum, FlowEventEnum> setFirstStrategyAction() {
+        return new Action<FlowStatusEnum, FlowEventEnum>() {
+
+            @Override
+            public void execute(StateContext<FlowStatusEnum, FlowEventEnum> context) {
+                try {
+                    UnderwritingFlow.from(context.getExtendedState()).setFirstStrategy();
                 } catch (Exception e) {
                     context.getStateMachine().setStateMachineError(new FlowException("flow set strategy error", e));
                 }
