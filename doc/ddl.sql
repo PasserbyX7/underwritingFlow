@@ -40,9 +40,9 @@ CREATE TABLE `underwriting_flow_log_tab` (
 CREATE TABLE `sme_underwriting_tab` (
     `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
     `underwriting_id` varchar(128) NOT NULL COMMENT '授信唯一id',
-    `request_date` bigint(20) unsigned NULL COMMENT '授信创建时间',
-    `request_expire_date` bigint(20) unsigned NULL COMMENT '授信超时时间',
-    `smeData` text NULL COMMENT 'sme数据',
+    `request_time` bigint(20) unsigned NULL COMMENT '授信创建时间',
+    `request_expire_time` bigint(20) unsigned NULL COMMENT '授信超时时间',
+    `sme_data` varchar(128) NULL COMMENT 'sme数据',
     `creator` varchar(64) NULL COMMENT '创建人',
     `create_date` bigint(20) unsigned NULL COMMENT '创建时间',
     `modifier` varchar(64) NULL COMMENT '修改人',
