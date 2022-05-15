@@ -2,6 +2,7 @@ package com.shopee.demo.engine.type.engine;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.shopee.demo.infrastructure.utils.JsonUtils;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,6 +26,10 @@ public class EngineOutput {
 
     public String convertToJson() {
         return root.toString();
+    }
+
+    public static EngineOutput of(String content) {
+        return EngineOutput.of(JsonUtils.readTree(content));
     }
 
 }

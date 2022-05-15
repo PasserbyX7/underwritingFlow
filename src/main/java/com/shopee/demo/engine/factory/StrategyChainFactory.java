@@ -21,7 +21,11 @@ public class StrategyChainFactory implements ApplicationContextAware {
     @SuppressWarnings("unchecked")
     public static <T extends UnderwritingRequest> StrategyChain<T> getStrategyChain(UnderwritingTypeEnum type) {
         String strategyChainName = type.toString().toLowerCase() + "StrategyChain";
-        return applicationContext.getBean(strategyChainName, StrategyChain.class);
+        try {
+            return applicationContext.getBean(strategyChainName, StrategyChain.class);
+        } catch (BeansException e) {
+            throw new IllegalArgumentException("undefined underwriting strategy chain " + strategyChainName);
+        }
     }
 
 }

@@ -7,7 +7,7 @@ import com.shopee.demo.infrastructure.utils.JsonUtils;
 
 public class EngineInputFactory {
 
-    public static EngineInput createSmeEngineInput(UnderwritingTypeEnum underwritingType) {
+    public static EngineInput createEngineInput(UnderwritingTypeEnum underwritingType) {
         if (underwritingType == UnderwritingTypeEnum.SME) {
             return getSmeEngineInputFactory().create();
         }
