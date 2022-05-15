@@ -1,0 +1,3272 @@
+{
+    "DAJSONDocument": {
+        "OCONTROL": {
+            "ALIAS": {
+                "data_type": "text",
+                "value": "MARIBANK"
+            },
+            "SIGNATURE": {
+                "data_type": "text",
+                "value": "EXPERIAN"
+            }
+        },
+        "INPUT": {
+            "ran": {
+                "random_number1": {
+                    "data_type": "numeric",
+                    "value": -9
+                },
+                "random_number2": {
+                    "data_type": "numeric",
+                    "value": -9
+                },
+                "random_number3": {
+                    "data_type": "numeric",
+                    "value": -9
+                },
+                "random_number4": {
+                    "data_type": "numeric",
+                    "value": -9
+                },
+                "random_number5": {
+                    "data_type": "numeric",
+                    "value": -9
+                }
+            },
+            "sys": {
+                "num_of_guarantors": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "call_type": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "application_number": {
+                    "data_type": "text",
+                    "value": "X"
+                }
+            },
+            "uw": {
+                "underwriting_request_id": {
+                    "data_type": "text",
+                    "value": "underwritingRequestId"
+                },
+                "platform": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "platform_unique_id": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "product_code": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "sme_preferred_limit": {
+                    "data_type": "numeric",
+                    "value": 0
+                }
+            },
+            "corp1": {
+                "sme_blacklist_flag": {
+                    "data_type": "numeric",
+                    "value": 1
+                },
+                "maribank_overdue_count": {
+                    "data_type": "numeric",
+                    "value": 1
+                },
+                "maribank_overdue_60_count": {
+                    "data_type": "numeric",
+                    "value": 2
+                },
+                "maribank_max_overdue_day": {
+                    "data_type": "numeric",
+                    "value": 3
+                },
+                "aggr_connected_borrower_limit": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "employment_sector_1": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "employment_sector_2": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "company_life": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "entity_type": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "business_constitution": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "entity_status": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "business_expiry_date": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "related_party_tag": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "corp_casa_balance_status": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "corp_casa_balance_value": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "position_change_count": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "position_count": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "financial_highlight_1_start_date": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "financial_highlight_1_end_date": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "financial_highlight_1_currency": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "financial_highlight_1_revenue": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "financial_highlight_1_profit_loss_after_tax": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "financial_highlight_2_start_date": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "financial_highlight_2_end_date": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "financial_highlight_2_currency": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "financial_highlight_2_revenue": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "financial_highlight_2_profit_loss_after_tax": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "corp_dpd_status": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "corp_dpd_value": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "corp_grading": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "connected_borrower_dpd": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "shopee_user_status": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "shopee_seller_type": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "shopee_penalty": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "shop_level1_kpi_category": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "shop_level1_kpi_category_id": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "shop_level2_kpi_category": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "shop_level2_kpi_category_id": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "shopee_m1": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "shopee_m1_order_count": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "shopee_m1_nmv": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "shopee_m1_unique_buyer": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "shopee_m2": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "shopee_m2_order_count": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "shopee_m2_nmv": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "shopee_m2_unique_buyer": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "shopee_m3": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "shopee_m3_order_count": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "shopee_m3_nmv": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "shopee_m3_unique_buyer": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "shopee_m4": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "shopee_m4_order_count": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "shopee_m4_nmv": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "shopee_m4_unique_buyer": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "shopee_m5": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "shopee_m5_order_count": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "shopee_m5_nmv": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "shopee_m5_unique_buyer": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "shopee_m6": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "shopee_m6_order_count": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "shopee_m6_nmv": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "shopee_m6_unique_buyer": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "avg_monthly_nmv": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "annual_nmv": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_string1": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "spare_string2": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "spare_string3": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "spare_string4": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "spare_string5": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "spare_string6": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "spare_string7": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "spare_string8": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "spare_string9": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "spare_string10": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "spare_integer1": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_integer2": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_integer3": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_integer4": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_integer5": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_integer6": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_integer7": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_integer8": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_integer9": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_integer10": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_decimal1": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_decimal2": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_decimal3": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_decimal4": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_decimal5": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_decimal6": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_decimal7": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_decimal8": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_decimal9": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_decimal10": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_float1": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_float2": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_float3": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_float4": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_float5": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_float6": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_float7": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_float8": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_float9": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_float10": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "shopee_unique_buyer_l6m": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "incorporation_country_code": {
+                    "data_type": "text",
+                    "value": "X"
+                }
+            },
+            "guar1": {
+                "value": [
+                    {
+                        "uid": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "keyman_flag": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "user_id_type": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "age": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "share_pct": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "casa_balance_status": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "casa_balance_value": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "myinfo_query_date": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "m1_month": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "m1_amount": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "m1_cpf_pct": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "m2_month": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "m2_amount": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "m2_cpf_pct": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "m3_month": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "m3_amount": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "m3_cpf_pct": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "m4_month": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "m4_amount": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "m4_cpf_pct": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "m5_month": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "m5_amount": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "m5_cpf_pct": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "m6_month": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "m6_amount": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "m6_cpf_pct": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "m7_month": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "m7_amount": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "m7_cpf_pct": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "m8_month": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "m8_amount": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "m8_cpf_pct": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "m9_month": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "m9_amount": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "m9_cpf_pct": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "m10_month": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "m10_amount": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "m10_cpf_pct": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "m11_month": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "m11_amount": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "m11_cpf_pct": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "m12_month": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "m12_amount": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "m12_cpf_pct": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "m13_month": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "m13_amount": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "m13_cpf_pct": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "m14_month": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "m14_amount": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "m14_cpf_pct": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "m15_month": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "m15_amount": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "m15_cpf_pct": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "latest_month_cpf_flag": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "latest_3m_cpf_flag": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "m3_continuous_cpf_count": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "m6_count": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "avg_monthly_cpf": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "noa": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "noa_year": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "noa_validity_flag": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "blacklist": {
+                            "data_type": "numeric",
+                            "value": 1
+                        },
+                        "grading": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "dpd_status": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "dpd_value": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_string1": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "spare_string2": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "spare_string3": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "spare_string4": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "spare_string5": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "spare_string6": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "spare_string7": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "spare_string8": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "spare_string9": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "spare_string10": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "spare_integer1": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_integer2": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_integer3": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_integer4": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_integer5": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_integer6": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_integer7": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_integer8": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_integer9": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_integer10": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_decimal1": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_decimal2": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_decimal3": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_decimal4": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_decimal5": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_decimal6": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_decimal7": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_decimal8": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_decimal9": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_decimal10": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_float1": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_float2": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_float3": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_float4": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_float5": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_float6": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_float7": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_float8": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_float9": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_float10": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "residence_country_code": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "nationality_country_code": {
+                            "data_type": "text",
+                            "value": "X"
+                        }
+                    },
+                    {
+                        "uid": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "keyman_flag": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "user_id_type": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "age": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "share_pct": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "casa_balance_status": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "casa_balance_value": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "myinfo_query_date": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "m1_month": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "m1_amount": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "m1_cpf_pct": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "m2_month": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "m2_amount": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "m2_cpf_pct": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "m3_month": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "m3_amount": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "m3_cpf_pct": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "m4_month": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "m4_amount": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "m4_cpf_pct": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "m5_month": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "m5_amount": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "m5_cpf_pct": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "m6_month": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "m6_amount": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "m6_cpf_pct": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "m7_month": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "m7_amount": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "m7_cpf_pct": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "m8_month": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "m8_amount": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "m8_cpf_pct": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "m9_month": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "m9_amount": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "m9_cpf_pct": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "m10_month": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "m10_amount": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "m10_cpf_pct": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "m11_month": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "m11_amount": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "m11_cpf_pct": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "m12_month": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "m12_amount": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "m12_cpf_pct": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "m13_month": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "m13_amount": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "m13_cpf_pct": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "m14_month": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "m14_amount": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "m14_cpf_pct": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "m15_month": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "m15_amount": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "m15_cpf_pct": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "latest_month_cpf_flag": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "latest_3m_cpf_flag": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "m3_continuous_cpf_count": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "m6_count": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "avg_monthly_cpf": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "noa": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "noa_year": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "noa_validity_flag": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "blacklist": {
+                            "data_type": "numeric",
+                            "value": 1
+                        },
+                        "grading": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "dpd_status": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "dpd_value": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_string1": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "spare_string2": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "spare_string3": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "spare_string4": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "spare_string5": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "spare_string6": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "spare_string7": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "spare_string8": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "spare_string9": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "spare_string10": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "spare_integer1": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_integer2": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_integer3": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_integer4": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_integer5": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_integer6": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_integer7": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_integer8": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_integer9": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_integer10": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_decimal1": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_decimal2": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_decimal3": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_decimal4": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_decimal5": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_decimal6": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_decimal7": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_decimal8": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_decimal9": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_decimal10": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_float1": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_float2": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_float3": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_float4": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_float5": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_float6": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_float7": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_float8": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_float9": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_float10": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "residence_country_code": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "nationality_country_code": {
+                            "data_type": "text",
+                            "value": "X"
+                        }
+                    }
+                ]
+            },
+            "corp2": {
+                "aggr_guarantors_overdue_a": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "aggr_guarantors_overdue_b": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "aggr_guarantors_overdue_c": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "aggr_guarantors_overdue_d": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "aggr_guarantors_overdue_e": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "aggr_guarantors_overdue_f": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "aggr_guarantors_overdue_g": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "aggr_guarantors_overdue_h": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "aggr_guarantors_overdue_r": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "aggr_guarantors_overdue_s": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "aggr_guarantors_overdue_w": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "guarantors_default_flag": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "aggr_guarantors_bad_debt_amount": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "guarantors_max_bad_debt": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "guarantors_latest_bad_debt_date": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "spare_string1": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "spare_string2": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "spare_string3": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "spare_string4": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "spare_string5": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "spare_string6": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "spare_string7": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "spare_string8": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "spare_string9": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "spare_string10": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "spare_integer1": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_integer2": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_integer3": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_integer4": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_integer5": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_integer6": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_integer7": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_integer8": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_integer9": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_integer10": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_decimal1": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_decimal2": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_decimal3": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_decimal4": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_decimal5": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_decimal6": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_decimal7": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_decimal8": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_decimal9": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_decimal10": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_float1": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_float2": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_float3": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_float4": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_float5": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_float6": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_float7": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_float8": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_float9": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_float10": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "previous_enquiry_count": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "aggr_guarantors_monthly_income": {
+                    "data_type": "numeric",
+                    "value": 0
+                }
+            },
+            "guar2": {
+                "value": [
+                    {
+                        "uid": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "keyman_flag": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "cbs_result": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "restructured_loan_flag": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "dcp_status": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "ibunsec_osb": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "litigation_flag": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "litigation_count": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "max_litigation_amount": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "latest_litigation_date": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "bankruptcy_flag": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "bankruptcy_count": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "max_bankruptcy_amount": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "latest_bankruptcy_date": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "spare_string1": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "spare_string2": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "spare_string3": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "spare_string4": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "spare_string5": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "spare_string6": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "spare_string7": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "spare_string8": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "spare_string9": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "spare_string10": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "spare_integer1": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_integer2": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_integer3": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_integer4": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_integer5": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_integer6": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_integer7": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_integer8": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_integer9": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_integer10": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_decimal1": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_decimal2": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_decimal3": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_decimal4": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_decimal5": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_decimal6": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_decimal7": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_decimal8": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_decimal9": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_decimal10": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_float1": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_float2": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_float3": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_float4": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_float5": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_float6": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_float7": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_float8": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_float9": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_float10": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "total_unsec_enq_l6m": {
+                            "data_type": "numeric",
+                            "value": 0
+                        }
+                    }
+                ]
+            },
+            "corp3": {
+                "aggr_connected_borrower_limit": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "core_seller_flag": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "aggr_guarantors_monthly_income": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "avg_monthly_nmv": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "pending_business_litigation": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "concluded_business_litigation": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "others_business_litigation": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "pending_statutory_demand": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "concluded_statutory_demand": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "others_statutory_demand": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "pending_wos": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "concluded_wos": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "others_wos": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "bankruptcy_case": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "winding_up_on_company": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "os_op_om_on_company": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "change_of_address_indicator": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "financial_search_count": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "commercial_search_count": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "legal_related_search_count": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_string1": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "spare_string2": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "spare_string3": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "spare_string4": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "spare_string5": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "spare_string6": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "spare_string7": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "spare_string8": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "spare_string9": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "spare_string10": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "spare_integer1": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_integer2": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_integer3": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_integer4": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_integer5": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_integer6": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_integer7": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_integer8": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_integer9": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_integer10": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_decimal1": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_decimal2": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_decimal3": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_decimal4": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_decimal5": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_decimal6": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_decimal7": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_decimal8": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_decimal9": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_decimal10": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_float1": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_float2": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_float3": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_float4": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_float5": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_float6": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_float7": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_float8": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_float9": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_float10": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "limit_12x": {
+                    "data_type": "numeric",
+                    "value": 0
+                }
+            }
+        },
+        "OUTPUT": {
+            "ran": {
+                "random_number1": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "random_number2": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "random_number3": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "random_number4": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "random_number5": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "testgroupname1": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "testgroupname2": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "testgroupname3": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "testgroupname4": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "testgroupname5": {
+                    "data_type": "text",
+                    "value": "X"
+                }
+            },
+            "sys": {
+                "systemdate": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "application_number": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "strategy_version": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "date_of_strategy_version": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "editor": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "strategy_layer": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "underwriting_request_id": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "platform": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "platform_unique_id": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "product_code": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "data_source_flag": {
+                    "data_type": "text",
+                    "value": "X"
+                }
+            },
+            "montrg": {
+                "field01": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "field02": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "field03": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "field04": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "field05": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "field06": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "field07": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "field08": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "field09": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "field10": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "field11": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "field12": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "field13": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "field14": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "field15": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "field16": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "field17": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "field18": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "field19": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "field20": {
+                    "data_type": "text",
+                    "value": "X"
+                }
+            },
+            "output1": {
+                "s1_result": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "rejection_code": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "aggr_guarantors_monthly_income": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "income_tag": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "shopee_seller_code": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "spare_string1": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "spare_string2": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "spare_string3": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "spare_string4": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "spare_string5": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "spare_string6": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "spare_string7": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "spare_string8": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "spare_string9": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "spare_string10": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "spare_integer1": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_integer2": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_integer3": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_integer4": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_integer5": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_integer6": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_integer7": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_integer8": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_integer9": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_integer10": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_decimal1": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_decimal2": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_decimal3": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_decimal4": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_decimal5": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_decimal6": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_decimal7": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_decimal8": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_decimal9": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_decimal10": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_float1": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_float2": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_float3": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_float4": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_float5": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_float6": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_float7": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_float8": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_float9": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_float10": {
+                    "data_type": "numeric",
+                    "value": 0
+                }
+            },
+            "guar_output1": {
+                "value": [
+                    {
+                        "uid": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "aqi_cpf": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "gmi_cpf": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "aqi_noa": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "gmi_noa": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "stability_factor": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "income_tag": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_string1": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "spare_string2": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "spare_string3": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "spare_string4": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "spare_string5": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "spare_string6": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "spare_string7": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "spare_string8": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "spare_string9": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "spare_string10": {
+                            "data_type": "text",
+                            "value": "X"
+                        },
+                        "spare_integer1": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_integer2": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_integer3": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_integer4": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_integer5": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_integer6": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_integer7": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_integer8": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_integer9": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_integer10": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_decimal1": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_decimal2": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_decimal3": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_decimal4": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_decimal5": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_decimal6": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_decimal7": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_decimal8": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_decimal9": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_decimal10": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_float1": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_float2": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_float3": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_float4": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_float5": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_float6": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_float7": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_float8": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_float9": {
+                            "data_type": "numeric",
+                            "value": 0
+                        },
+                        "spare_float10": {
+                            "data_type": "numeric",
+                            "value": 0
+                        }
+                    }
+                ]
+            },
+            "output2": {
+                "s2_result": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "rejection_code": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "consolidate_bti": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_string1": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "spare_string2": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "spare_string3": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "spare_string4": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "spare_string5": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "spare_string6": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "spare_string7": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "spare_string8": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "spare_string9": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "spare_string10": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "spare_integer1": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_integer2": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_integer3": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_integer4": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_integer5": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_integer6": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_integer7": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_integer8": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_integer9": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_integer10": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_decimal1": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_decimal2": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_decimal3": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_decimal4": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_decimal5": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_decimal6": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_decimal7": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_decimal8": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_decimal9": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_decimal10": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_float1": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_float2": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_float3": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_float4": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_float5": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_float6": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_float7": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_float8": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_float9": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_float10": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "limit_12x": {
+                    "data_type": "numeric",
+                    "value": 0
+                }
+            },
+            "output3": {
+                "s3_result": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "rejection_code": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "borrower_limit_status": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "borrower_limit": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "borrower_freeze_limit": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "p1_code": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "p1_limit_status": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "p1_limit": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "p1_freezed_limit": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_string1": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "spare_string2": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "spare_string3": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "spare_string4": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "spare_string5": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "spare_string6": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "spare_string7": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "spare_string8": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "spare_string9": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "spare_string10": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "spare_integer1": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_integer2": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_integer3": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_integer4": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_integer5": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_integer6": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_integer7": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_integer8": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_integer9": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_integer10": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_decimal1": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_decimal2": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_decimal3": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_decimal4": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_decimal5": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_decimal6": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_decimal7": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_decimal8": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_decimal9": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_decimal10": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_float1": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_float2": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_float3": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_float4": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_float5": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_float6": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_float7": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_float8": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_float9": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_float10": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "Mutiplier_nmv": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "Mutiplier_income": {
+                    "data_type": "numeric",
+                    "value": 0
+                }
+            },
+            "score": {
+                "score1": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "scorecard_id1": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "scorecard_name1": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "adverse_reason_code1": {
+                    "data_type": "text",
+                    "value": [
+                        "X"
+                    ]
+                },
+                "characteristics_score1": {
+                    "data_type": "numeric",
+                    "value": [
+                        0
+                    ]
+                },
+                "score2": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "scorecard_id2": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "scorecard_name2": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "adverse_reason_code2": {
+                    "data_type": "text",
+                    "value": [
+                        "X"
+                    ]
+                },
+                "characteristics_score2": {
+                    "data_type": "numeric",
+                    "value": [
+                        0
+                    ]
+                },
+                "score3": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "scorecard_id3": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "scorecard_name3": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "adverse_reason_code3": {
+                    "data_type": "text",
+                    "value": [
+                        "X"
+                    ]
+                },
+                "characteristics_score3": {
+                    "data_type": "numeric",
+                    "value": [
+                        0
+                    ]
+                },
+                "score4": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "scorecard_id4": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "scorecard_name4": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "adverse_reason_code4": {
+                    "data_type": "text",
+                    "value": [
+                        "X"
+                    ]
+                },
+                "characteristics_score4": {
+                    "data_type": "numeric",
+                    "value": [
+                        0
+                    ]
+                },
+                "risk_grade1": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "risk_grade2": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "pd_rate1": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "pd_rate2": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_string1": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "spare_string2": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "spare_string3": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "spare_string4": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "spare_string5": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "spare_string6": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "spare_string7": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "spare_string8": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "spare_string9": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "spare_string10": {
+                    "data_type": "text",
+                    "value": "X"
+                },
+                "spare_integer1": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_integer2": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_integer3": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_integer4": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_integer5": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_integer6": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_integer7": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_integer8": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_integer9": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_integer10": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_decimal1": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_decimal2": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_decimal3": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_decimal4": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_decimal5": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_decimal6": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_decimal7": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_decimal8": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_decimal9": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_decimal10": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_float1": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_float2": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_float3": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_float4": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_float5": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_float6": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_float7": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_float8": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_float9": {
+                    "data_type": "numeric",
+                    "value": 0
+                },
+                "spare_float10": {
+                    "data_type": "numeric",
+                    "value": 0
+                }
+            }
+        }
+    }
+}

@@ -47,6 +47,11 @@
             <version>2.13.2</version>
         </dependency>
         <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+            <version>2.13.1</version>
+        </dependency>
+        <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
             <version>2.2.2</version>
@@ -155,6 +160,8 @@
                     <dataFile>target/coverage-reports/jacoco-unit.exec</dataFile>
                     <excludes>
                         <exclude>**/infrastructure/**</exclude>
+                        <exclude>**/adapter/**</exclude>
+                        <exclude>**/exception/**</exclude>
                     </excludes>
                     <!-- rules里面指定覆盖规则 -->
                     <rules>
