@@ -14,7 +14,7 @@ public abstract class AbstractStrategyChain<T extends UnderwritingRequest> imple
     protected abstract void configStrategyChain();
 
     @Override
-    public Strategy<T> getStrategy(StrategyEnum strategyName) {
+    public final Strategy<T> getStrategy(StrategyEnum strategyName) {
         Strategy<T> head = getFirstStrategy();
         while (head != null) {
             if (head.getStrategyName() == strategyName) {

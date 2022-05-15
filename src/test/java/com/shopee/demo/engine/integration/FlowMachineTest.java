@@ -1,4 +1,4 @@
-package com.shopee.demo.machine;
+package com.shopee.demo.engine.integration;
 
 import javax.annotation.Resource;
 

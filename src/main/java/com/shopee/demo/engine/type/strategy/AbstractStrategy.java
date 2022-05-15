@@ -24,9 +24,6 @@ public abstract class AbstractStrategy<T extends UnderwritingRequest> implements
     @Resource
     private EngineService engineService;
 
-    @Resource
-    private EngineInputFactory engineInputFactory;
-
     @Setter
     @Getter
     protected Strategy<T> nextStrategy;
@@ -34,7 +31,7 @@ public abstract class AbstractStrategy<T extends UnderwritingRequest> implements
     @Override
     public final StrategyResult execute(StrategyContext<T> strategyContext) {
         UnderwritingTypeEnum underwritingType = strategyContext.getUnderwritingRequest().getUnderwritingType();
-        EngineInput engineInput = engineInputFactory.createSmeEngineInput(underwritingType);
+        EngineInput engineInput = EngineInputFactory.createSmeEngineInput(underwritingType);
         for (DataIntegration<T> dataIntegration : getDataIntegrations()) {
             dataIntegration.integration(strategyContext, engineInput);
         }

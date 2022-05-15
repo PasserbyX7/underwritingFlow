@@ -1,39 +1,29 @@
 package com.shopee.demo.engine.factory;
 
-import java.io.IOException;
-
-import javax.annotation.Resource;
-
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.shopee.demo.engine.constant.UnderwritingTypeEnum;
 import com.shopee.demo.engine.type.engine.EngineInput;
+import com.shopee.demo.infrastructure.utils.JsonUtils;
 
-import org.springframework.stereotype.Component;
-
-/**
- * @author li.cao
- * @since 2022-04-21
- */
-@Component
 public class EngineInputFactory {
 
-    @Resource
-    private SmeEngineInputFactory smeEngineInputFactory;
-
-    public EngineInput createSmeEngineInput(UnderwritingTypeEnum underwritingType) {
+    public static EngineInput createSmeEngineInput(UnderwritingTypeEnum underwritingType) {
         if (underwritingType == UnderwritingTypeEnum.SME) {
-            return smeEngineInputFactory.create();
+            return getSmeEngineInputFactory().create();
         }
-        throw new RuntimeException();
+        throw new IllegalArgumentException("undefined underwriting type");
     }
 
-    @Component
+    public static SmeEngineInputFactory getSmeEngineInputFactory() {
+        return SmeEngineInputFactory.instance;
+    }
+
     public static class SmeEngineInputFactory {
+        private static final SmeEngineInputFactory instance = new SmeEngineInputFactory();
         private final JsonNode root;
 
-        public SmeEngineInputFactory(ObjectMapper mapper) throws IOException {
-            root = mapper.readTree(getClass().getResource("/sme/StrategyInput.json"));
+        public SmeEngineInputFactory() {
+            root = JsonUtils.readTree(getClass().getResource("/sme/StrategyInput.json"));
         }
 
         public EngineInput create() {

@@ -120,7 +120,7 @@ public class FlowStateMachineTest {
         doAnswer(inv -> {
             new Thread(() -> {
                 try {
-                    TimeUnit.MILLISECONDS.sleep(timeout * 2);
+                    TimeUnit.MILLISECONDS.sleep(timeout * 3);
                 } catch (InterruptedException e) {
                 }
                 listenerRef.get().stateEntered(new StateMachineState<>(APPROVED, machine));
